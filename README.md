@@ -54,6 +54,12 @@ ln -s /path/to/local-data public/local-data
 
 ## 開発・検証
 
+CI と同じ検証をローカルで実行する場合:
+
+```sh
+make ci
+```
+
 ```sh
 pnpm dev
 pnpm lint
