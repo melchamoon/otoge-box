@@ -82,6 +82,15 @@ const nuxtConfig: NuxtConfig = {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    // Self-hosted copies of the assets that @nuxtjs/vuetify loads from a CDN by
+    // default (see `defaultAssets` in the Vuetify configuration below).
+    '@fontsource/roboto/100.css',
+    '@fontsource/roboto/300.css',
+    '@fontsource/roboto/400.css',
+    '@fontsource/roboto/500.css',
+    '@fontsource/roboto/700.css',
+    '@fontsource/roboto/900.css',
+    '@mdi/font/css/materialdesignicons.css',
     '~/assets/styles/global.scss',
   ],
 
@@ -195,6 +204,9 @@ const nuxtConfig: NuxtConfig = {
     customVariables: ['~/assets/styles/variables.scss'],
     optionsPath: '~/vuetify.options.ts',
     treeShake: true,
+    // The Roboto font and the MDI icon font are bundled through `css` above
+    // instead of being loaded from Google Fonts / jsDelivr.
+    defaultAssets: false,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
