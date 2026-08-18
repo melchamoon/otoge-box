@@ -1,0 +1,13 @@
+{
+  "i18n-ally.localesPaths": [
+    "locales"
+  ],
+  "i18n-ally.enabledParsers": [
+    "js",
+    "yaml"
+  ],
+  "i18n-ally.ignoreFiles": [
+    "index.*"
+  ],
+  "i18n-ally.keystyle": "nested"
+}
