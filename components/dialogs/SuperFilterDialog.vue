@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, watchEffect } from '@nuxtjs/composition-api';
+import { ref, watchEffect } from '@nuxtjs/composition-api';
 import useDarkMode from '~/composables/useDarkMode';
 import useGameInfo from '~/composables/useGameInfo';
-import sites from '~/data/sites.json';
 import { parseSuperFilter } from '~/utils';
 
 const props = defineProps<{
@@ -16,13 +15,9 @@ defineEmits<{
 }>();
 
 const { isDarkMode } = useDarkMode();
-const { gameCode } = useGameInfo();
+const { dataSourceUrl } = useGameInfo();
 
 const currentSuperFilterText = ref('');
-
-const dataSourceUrl = computed(
-  () => sites.find((site) => site.gameCode === gameCode.value)?.dataSourceUrl,
-);
 
 function validateSuperFilter(superFilterText: string): boolean | string {
   try {

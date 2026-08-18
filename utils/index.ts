@@ -1,4 +1,6 @@
 export * from './data';
+export * from './dataSource';
+export * from './url';
 export * from './gallery';
 export * from './sheet';
 export * from './filter';

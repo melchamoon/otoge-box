@@ -1,6 +1,7 @@
 import { computed, useRoute, useContext } from '@nuxtjs/composition-api';
 import useDarkMode from '~/composables/useDarkMode';
 import sites from '~/data/sites.json';
+import { resolveDataSourceUrl } from '~/utils';
 
 export default function useGameInfo() {
   const context = useContext();
@@ -24,7 +25,11 @@ export default function useGameInfo() {
   const coverImageSize = computed(() => (
     siteInfo.value?.coverImageSize ?? { width: 100, height: 100 }
   ));
-  const dataSourceUrl = computed(() => siteInfo.value?.dataSourceUrl ?? undefined);
+  const dataSourceUrl = computed(() => (
+    siteInfo.value !== undefined
+      ? resolveDataSourceUrl(siteInfo.value.gameCode, context.$config.localDataBaseUrl)
+      : undefined
+  ));
   const accessCounterUrl = computed(() => (
     siteInfo.value?.accessCounterUrl ?? context.$config.indexAccessCounterUrl
   ));
