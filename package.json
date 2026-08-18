@@ -12,6 +12,7 @@
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest"
   },
   "dependencies": {
@@ -50,6 +51,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.2.0",
+    "@vitest/coverage-v8": "4.1.10",
     "knip": "5.82.1",
     "postcss": "8.5.26",
     "prettier": "3.6.2",

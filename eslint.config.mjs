@@ -6,6 +6,7 @@ export default tseslint.config(
   {
     ignores: [
       ".next/**",
+      "coverage/**",
       "node_modules/**",
       "public/**",
       "pages/**",

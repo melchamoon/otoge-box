@@ -6,5 +6,5 @@ ci:
 	pnpm lint
 	pnpm format:check
 	pnpm typecheck
-	pnpm test
+	pnpm test:coverage
 	pnpm build
