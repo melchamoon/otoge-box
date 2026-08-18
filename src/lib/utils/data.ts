@@ -51,7 +51,6 @@ export function preprocessData(data: Data, dataSourceUrl: string, gameCode: stri
       sheet.notePercents = computeNotePercentages(sheet.noteCounts);
 
       if (!validateNoteCounts(sheet, gameCode)) {
-        // eslint-disable-next-line no-console
         console.warn('Invalid note counts:', sheet.sheetExpr, sheet.noteCounts);
       }
 
@@ -76,7 +75,6 @@ export function preprocessData(data: Data, dataSourceUrl: string, gameCode: stri
 
   data.songs.reverse();
 
-  // eslint-disable-next-line no-param-reassign
   data.sheets = data.songs.flatMap((song) => song.sheets);
 
   for (const category of data.categories) {
