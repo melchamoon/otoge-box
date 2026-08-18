@@ -6,7 +6,8 @@ ci:
 	pnpm check:duplicates
 	pnpm lint
 	pnpm format:check
-	pnpm next typegen
+	pnpm --filter @otoge-box/web exec next typegen
 	pnpm typecheck
+	pnpm test
 	pnpm test:coverage
 	pnpm build

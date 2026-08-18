@@ -1,4 +1,13 @@
 {
-  "$schema": "https://unpkg.com/knip@5/schema.json",
-  "entry": ["src/sw.ts"]
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    "apps/web": {
+      "entry": ["src/**/*.ts", "src/**/*.tsx"]
+    },
+    "apps/fetch": {
+      "entry": ["src/**/*.ts", "scripts/**/*.ts", "db/*/migrations/*.js"],
+      "ignoreBinaries": ["pg_restore"],
+      "ignoreDependencies": ["pg", "pg-hstore"]
+    }
+  }
 }

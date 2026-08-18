@@ -1,12 +1,13 @@
 # 音ゲーぼっくす (otoge-box)
 
-音ゲーの譜面情報検索ツールです。Next.js App Router、React、TypeScript、Tailwind CSS で動作します。
+音ゲーの譜面情報検索ツールと、そのデータ取得・公開 batch を管理する pnpm monorepo です。
 
-## 由来
+## 構成
 
-本プロジェクトは [zetaraku/arcade-songs](https://github.com/zetaraku/arcade-songs)
-(MIT License, Copyright (c) Raku Zeta) を Next.js へ移植した派生プロジェクトです。
-オリジナルの LICENSE を `LICENSE` に保持しています。譜面データはオリジナルと同じ配信元を参照しています。
+- `apps/web`: Next.js App Router の検索 UI
+- `apps/fetch`: Node.js batch。既存の game task 名と実行順を維持しています
+- `apps/fetch/data` と `apps/fetch/dist`: 固定 snapshot に含まれる tracked input
+- `apps/fetch/snapshot-manifest.json`: 取り込み元 commit と対象 path
 
 ## セットアップ
 
@@ -19,64 +20,57 @@ cp .env.example .env
 pnpm dev
 ```
 
-## Local development data
-
-While developing, the songs data is read from the local copy under `public/local-data/`
-instead of the remote data source, so that no request is made to the CDN.
-
-That directory is git-ignored and has to be filled in once. It mirrors the layout of
-the remote data source, whose URL is listed per game in `src/data/sites.json`:
-
-```
-public/local-data/<gameCode>/data.json
-public/local-data/<gameCode>/gallery.yaml       # only some games have one
-public/local-data/<gameCode>/img/cover/<imageName>
-public/local-data/<gameCode>/img/cover-m/<imageName>
-public/local-data/<gameCode>/img/<iconUrl>      # type / difficulty icons, locked.png
-```
-
-- `<imageName>` is listed in `data.json` for every song and sheet. Note that the
-  `any` game refers to the images of the other games by a relative path, so it has
-  no images of its own.
-- The remote data source is used instead whenever `data.json` is missing for any
-  of the games, so the site still works before the copy is made.
-- `LOCAL_DATA_BASE_URL` in `.env` overrides all of the above.
-
-For the large local data set, create a symlink rather than copying it:
+開発時に大きなデータ mirror を使う場合は、`apps/web/public/local-data` へ symlink
+を作成します。構成は `data.json`、`gallery.yaml`、`img/` を含む配信 layout と同じです。
 
 ```sh
-ln -s /path/to/local-data public/local-data
+ln -s /path/to/local-data apps/web/public/local-data
 ```
 
-## 環境変数
+mirror が全 visible game 分そろっていれば、Next.js は自動的に local data を使います。
+`LOCAL_DATA_BASE_URL` で明示的に切り替えることもできます。
 
-公開環境の URL と報告先は `NEXT_PUBLIC_*` 変数で設定します。
+## データ公開
 
-## 開発・検証
+`apps/fetch` は Supabase PostgreSQL の game 別 schema を使い、schema 作成と migration を
+取得処理の前段で実行します。
 
-CI と同じ検証をローカルで実行する場合:
+```sh
+pnpm --filter @otoge-box/fetch db:prepare
+pnpm --filter @otoge-box/fetch run:game -- maimai
+```
+
+生成物は game ごとの変更不能な release prefix に検証後 upload され、最後に
+`<game-code>/current.json` がその release を指します。`current.json` は JSON、gallery、
+image の一貫した release 境界です。大幅な件数減少を許可する場合だけ、manual workflow で
+`ALLOW_LARGE_DECREASE=true` を明示します。
+
+data 公開用の `R2_DATA_*` と PostgreSQL backup 用の `R2_BACKUP_*` credential は分けて設定
+してください。web 側は `NEXT_PUBLIC_DATA_BASE_URL` の各 game の current manifest を共通
+resolver で解決します。
+
+## 検証
 
 ```sh
 make ci
 ```
 
+個別に実行する場合:
+
 ```sh
-pnpm dev
 pnpm lint
+pnpm format:check
 pnpm typecheck
 pnpm test
 pnpm build
-pnpm start
 ```
 
-本番ビルドでは Serwist が service worker を生成します。`public/local-data` が外部ディレクトリを指す symlink の場合、Turbopack の制約によりビルド時だけ一時的に外して、未設定の `LOCAL_DATA_BASE_URL` でリモートデータへ切り替えてください。
+GitHub Actions は品質検査、web 検査、fetch の PostgreSQL smoke test、fetch の prepare / game
+matrix / aggregate、backup を責務ごとに分けます。
 
-## データソース
+## 由来とライセンス
 
-譜面データの取得元は [arcade-songs-fetch](https://github.com/zetaraku/arcade-songs-fetch) です。
-
-## ライセンス
-
-Copyright © 2022 Raku Zeta.
-
-Licensed under the MIT License. See [LICENSE](./LICENSE).
+本プロジェクトは [zetaraku/arcade-songs](https://github.com/zetaraku/arcade-songs) を
+Next.js へ移植した派生プロジェクトです。オリジナルの MIT License を `LICENSE` に保持
+しています。fetch snapshot の由来と commit は `apps/fetch/snapshot-manifest.json` を参照
+してください。

@@ -6,16 +6,80 @@ on:
 permissions:
   contents: read
 
+env:
+  NODE_VERSION: 22
+  PNPM_VERSION: 11.20.0
+
 jobs:
-  check:
+  quality:
+    name: Common quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 11.20.0
+          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
-      - run: make ci
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm knip
+      - run: pnpm check:duplicates
+      - run: pnpm format:check
+
+  web:
+    name: Web checks
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @otoge-box/web exec next typegen
+      - run: pnpm --filter @otoge-box/web lint
+      - run: pnpm --filter @otoge-box/web typecheck
+      - run: pnpm --filter @otoge-box/web test:coverage
+      - run: pnpm --filter @otoge-box/web build
+
+  fetch:
+    name: Fetch checks
+    needs: quality
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: otoge_box_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d otoge_box_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/otoge_box_test
+      DATABASE_SSL: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @otoge-box/fetch lint
+      - run: pnpm --filter @otoge-box/fetch typecheck
+      - run: pnpm --filter @otoge-box/fetch test
+      - run: pnpm --filter @otoge-box/fetch db:prepare
+      - run: pnpm --filter @otoge-box/fetch db:smoke

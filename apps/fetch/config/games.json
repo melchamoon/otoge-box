@@ -1,0 +1,36 @@
+[
+  { "code": "maimai", "title": "maimai", "task": "maimai:all" },
+  { "code": "chunithm", "title": "CHUNITHM", "task": "chunithm:all" },
+  { "code": "wacca", "title": "WACCA", "task": "wacca:all" },
+  { "code": "taiko", "title": "太鼓の達人", "task": "taiko:all" },
+  { "code": "jubeat", "title": "jubeat", "task": "jubeat:all" },
+  { "code": "sdvx", "title": "SOUND VOLTEX", "task": "sdvx:all" },
+  { "code": "ongeki", "title": "オンゲキ", "task": "ongeki:all" },
+  { "code": "gc", "title": "GROOVE COASTER", "task": "gc:all" },
+  {
+    "code": "diva",
+    "title": "Project DIVA Arcade",
+    "task": "diva:all"
+  },
+  { "code": "popn", "title": "pop'n music", "task": "popn:all" },
+  { "code": "drs", "title": "DANCERUSH STARDOM", "task": "drs:all" },
+  {
+    "code": "ddr",
+    "title": "DanceDanceRevolution",
+    "task": "ddr:all"
+  },
+  { "code": "nostalgia", "title": "ノスタルジア", "task": "nostalgia:all" },
+  {
+    "code": "crossbeats",
+    "title": "crossbeats REV.",
+    "task": "crossbeats:all"
+  },
+  { "code": "rb", "title": "REFLEC BEAT", "task": "rb:all" },
+  { "code": "gitadora", "title": "GITADORA", "task": "gitadora:all" },
+  {
+    "code": "polarischord",
+    "title": "ポラリスコード",
+    "task": "polarischord:all"
+  },
+  { "code": "museca", "title": "MÚSECA", "task": "museca:all" }
+]
