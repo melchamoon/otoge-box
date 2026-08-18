@@ -26,6 +26,7 @@ const localDataBaseUrl = (() => {
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  allowedDevOrigins: ["127.0.0.1"],
   env: {
     NEXT_PUBLIC_LOCAL_DATA_BASE_URL: localDataBaseUrl ?? "",
     NEXT_PUBLIC_SITE_TITLE:
