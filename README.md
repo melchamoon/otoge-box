@@ -1,140 +1,76 @@
-# arcade-songs
+# 音ゲーぼっくす (otoge-box)
 
-A utility site that provides a search interface for arcade games songs and sheets.
+音ゲーの譜面情報検索ツールです。Next.js App Router、React、TypeScript、Tailwind CSS で動作します。
 
-## Prerequisites
+## 由来
 
-- [Node.js](https://nodejs.org/) (LTS version or above)
-- [Yarn](https://yarnpkg.com/)
+本プロジェクトは [zetaraku/arcade-songs](https://github.com/zetaraku/arcade-songs)
+(MIT License, Copyright (c) Raku Zeta) を Next.js へ移植した派生プロジェクトです。
+オリジナルの LICENSE を `LICENSE` に保持しています。譜面データはオリジナルと同じ配信元を参照しています。
 
-## Setup
+## セットアップ
+
+- Node.js 22 以上
+- pnpm 11
 
 ```sh
-# install dependencies
-yarn install
+pnpm install
+cp .env.example .env
+pnpm dev
 ```
-
-- Make a copy of the `.env.example` file as `.env` and fill out the required fields.
 
 ## Local development data
 
-While developing, the songs data is read from the local copy under `static/local-data/`
+While developing, the songs data is read from the local copy under `public/local-data/`
 instead of the remote data source, so that no request is made to the CDN.
 
 That directory is git-ignored and has to be filled in once. It mirrors the layout of
-the remote data source, whose URL is listed per game in `data/sites.json`:
+the remote data source, whose URL is listed per game in `src/data/sites.json`:
 
 ```
-static/local-data/<gameCode>/data.json
-static/local-data/<gameCode>/gallery.yaml       # only some games have one
-static/local-data/<gameCode>/img/cover/<imageName>
-static/local-data/<gameCode>/img/cover-m/<imageName>
-static/local-data/<gameCode>/img/<iconUrl>      # type / difficulty icons, locked.png
+public/local-data/<gameCode>/data.json
+public/local-data/<gameCode>/gallery.yaml       # only some games have one
+public/local-data/<gameCode>/img/cover/<imageName>
+public/local-data/<gameCode>/img/cover-m/<imageName>
+public/local-data/<gameCode>/img/<iconUrl>      # type / difficulty icons, locked.png
 ```
 
 - `<imageName>` is listed in `data.json` for every song and sheet. Note that the
   `any` game refers to the images of the other games by a relative path, so it has
   no images of its own.
-- The remote data source is used instead whenever `data.json` is missing for any of
-  the games, so the site still works before the copy is made.
+- The remote data source is used instead whenever `data.json` is missing for any
+  of the games, so the site still works before the copy is made.
 - `LOCAL_DATA_BASE_URL` in `.env` overrides all of the above.
 
-## External services
-
-This fork makes no request to a third-party service: the analytics (Google
-Analytics), the error reporting (Sentry) and the access counter have been removed
-entirely, and the Roboto font and the MDI icon font are bundled from
-`node_modules` instead of being loaded from a CDN.
-
-The songs data source is the only remote origin left, and it is replaced by the
-local copy above while developing.
-
-## Development
+For the large local data set, create a symlink rather than copying it:
 
 ```sh
-# serve with hot reload at localhost
-yarn run dev
-
-# serve with hot reload on local network
-yarn run dev:host
+ln -s /path/to/local-data public/local-data
 ```
 
-- For a detailed explanation of each directory, check out the [Nuxt documentation](https://nuxtjs.org).
+## 環境変数
 
-## Build for production
+公開環境の URL と報告先は `NEXT_PUBLIC_*` 変数で設定します。
 
-### Static hosting with SSG (recommended)
+## 開発・検証
 
 ```sh
-# Build the application (if needed), generate every route as a HTML file and statically export to dist/ directory (used for static hosting).
-yarn run generate
-
-# serve the dist/ directory like your static hosting would do (Netlify, Vercel, Surge, etc), great for testing before deploying.
-yarn run serve
+pnpm dev
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm start
 ```
 
-### Server hosting with SSR
+本番ビルドでは Serwist が service worker を生成します。`public/local-data` が外部ディレクトリを指す symlink の場合、Turbopack の制約によりビルド時だけ一時的に外して、未設定の `LOCAL_DATA_BASE_URL` でリモートデータへ切り替えてください。
 
-```sh
-# Build and optimize your application with webpack for production.
-yarn run build
+## データソース
 
-# Start the production server (after running nuxt build). Use it for Node.js hosting like Heroku, Digital Ocean, etc.
-yarn run start
-```
+譜面データの取得元は [arcade-songs-fetch](https://github.com/zetaraku/arcade-songs-fetch) です。
 
-## Data Source
-
-See: <https://github.com/zetaraku/arcade-songs-fetch>
-
-## Contributing
-
-[![Translation status](https://hosted.weblate.org/widgets/arcade-songs/-/287x66-grey.png)](https://hosted.weblate.org/engage/arcade-songs/)
-
-**arcade-songs** is now being translated using [Weblate](https://weblate.org/), a web tool designed to ease translating for both developers and translators.
-
-If you found any problem in the translation, you can help improve it by any of:
-
-- [Editing on Weblate](https://hosted.weblate.org/projects/arcade-songs/arcade-songs/) directly.
-- [Opening an issue](https://github.com/zetaraku/arcade-songs/issues) to point out the problem.
-- [Creating a pull request](https://github.com/zetaraku/arcade-songs/pulls) to submit your edit.
-
-The translation files are located in `locales/`.
-
-If you have any ideas or suggestions, you can [open an issue](https://github.com/zetaraku/arcade-songs/issues) or [use the ask form](https://arcade-songs-report.zetaraku.dev/).
-
-## Contributors ✨
-
-- **Korean** translation
-  - [Sungsoo Han (lomotos10)](https://github.com/lomotos10)
-  - [DDinghoya (DDinghoya)](https://github.com/DDinghoya)
-- **Spanish** translation
-  - [gallegonovato (gallegonovato)](https://github.com/gallegonovato)
-  - [Onyx (VendettaCalls)](https://github.com/VendettaCalls)
-- **Indonesian** translation
-  - [Echo (echocentrical)](https://github.com/echocentrical)
-
-## Special Thanks ✨
-
-- Internal level information for **maimai**
-  - [maimai譜面定数ちほー🏖☀️ (@maiLv_Chihooooo)](https://twitter.com/maiLv_Chihooooo)
-- Internal level information for **CHUNITHM**
-  - [CHUNITHM譜面定数メインフレーム (@RCMF_chunithm)](https://twitter.com/RCMF_chunithm)
-  - [chunirec チュウニズム非公式スコア管理ツール (@chunirec)](https://twitter.com/chunirec)
-- Internal level information for **オンゲキ**
-  - [オンゲキ譜面定数部 (@ongeki_level)](https://twitter.com/ongeki_level)
-  - [OngekiScoreLog - オンゲキ非公式スコアツール (@ongeki_score)](https://twitter.com/ongeki_score)
-- Internal level information for **ノスタルジア**
-  - [EXP? (@exponent_iidx)](https://twitter.com/exponent_iidx)
-  - [Nosdata (@nosdata)](https://twitter.com/nosdata)
-- Sheet information for **maimai China ver. (舞萌DX)**
-  - [CrazyKid (@CrazyKidCN)](https://github.com/CrazyKidCN)
-- *... and all the players contributing sheet data and reporting issues!*
-
-## License
+## ライセンス
 
 Copyright © 2022 Raku Zeta.
 
-Licensed under the [MIT License](./LICENSE).
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fzetaraku%2Farcade-songs.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fzetaraku%2Farcade-songs?ref=badge_large)
+Licensed under the MIT License. See [LICENSE](./LICENSE).
