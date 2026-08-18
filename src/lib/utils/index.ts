@@ -7,5 +7,4 @@ export * from './filter';
 export * from './format';
 export * from './random';
 export * from './math';
-export * from './errors';
 export * from './misc';

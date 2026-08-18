@@ -1,11 +1,11 @@
-export type RawGallerySection = {
+type RawGallerySection = {
   title?: string;
   description?: string;
   sheets?: string[];
   sheetDescriptions?: string[];
 };
 
-export type RawGalleryList = {
+type RawGalleryList = {
   title: string;
   id?: string;
   description?: string;
