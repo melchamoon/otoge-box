@@ -24,7 +24,6 @@ export default tseslint.config(
       'plugins/**',
       'content/**',
       'amplify.yml',
-      'nuxt.config.ts',
       'vuetify.options.ts',
       'index.d.ts',
     ],

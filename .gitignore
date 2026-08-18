@@ -71,10 +71,7 @@ typings/
 /AGENTS.md
 /CLAUDE.md
 
-# nuxt.js build output
-.nuxt
-
-# Nuxt generate
+# Generated output
 dist
 
 # vuepress build output
