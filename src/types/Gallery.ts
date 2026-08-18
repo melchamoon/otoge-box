@@ -1,13 +1,13 @@
 import { Sheet } from './Sheet';
 
-export type GallerySection = {
+type GallerySection = {
   title?: string;
   description?: string;
   sheets?: Sheet[];
   sheetDescriptions?: string[];
 };
 
-export type GalleryList = {
+type GalleryList = {
   title: string;
   id?: string;
   description?: string;

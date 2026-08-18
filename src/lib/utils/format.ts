@@ -2,7 +2,7 @@ export function toLocalDateString(date: Date) {
   return new Intl.DateTimeFormat().format(date);
 }
 
-export function toLocalISOTimeString(date: Date) {
+function toLocalISOTimeString(date: Date) {
   const d = new Date(date.getTime());
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
   return d.toISOString().slice(0, -1);

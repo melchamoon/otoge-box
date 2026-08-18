@@ -59,7 +59,7 @@ export function buildEmptyFilters(): Filters {
   };
 }
 
-export function buildEmptyFilterOptions(): FilterOptions {
+function buildEmptyFilterOptions(): FilterOptions {
   return {
     categories: [],
     titles: [],

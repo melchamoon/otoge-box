@@ -1,4 +1,4 @@
-export function shuffled<T>(items: T[], maxCount = items.length) {
+function shuffled<T>(items: T[], maxCount = items.length) {
   const itemsCopy = items.slice();
 
   for (let i = 0; i < itemsCopy.length; i += 1) {

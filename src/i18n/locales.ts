@@ -1,4 +1,4 @@
-export type LocaleOption = { code: string; abbr: string; name: string };
+type LocaleOption = { code: string; abbr: string; name: string };
 
 export const locales: LocaleOption[] = [
   { code: 'en', abbr: 'en', name: 'English' },
