@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { computed, watch } from '@nuxtjs/composition-api';
 import useI18n from '~/composables/useI18n';
-import useGtag from '~/composables/useGtag';
 import useDarkMode from '~/composables/useDarkMode';
-import useGameInfo from '~/composables/useGameInfo';
 import useSheetDialog from '~/composables/useSheetDialog';
 import useSheetComboDialog from '~/composables/useSheetComboDialog';
 import SheetTile from '~/components/SheetTile.vue';
 import { clamp, VOID_SHEET } from '~/utils';
 
 const i18n = useI18n();
-const gtag = useGtag();
 const { isDarkMode } = useDarkMode();
-const { gameCode } = useGameInfo();
 const {
   viewSheet,
 } = useSheetDialog();
@@ -50,24 +46,11 @@ async function drawSheet() {
   }
 
   sheetDrawingPool.value = currentSheets.value;
-  await startDrawingSheet(() => {
-    gtag('event', 'RandomSheetDrawn', {
-      gameCode: gameCode.value,
-      eventSource: 'SheetComboDialog',
-    });
-  });
+  await startDrawingSheet();
 }
 
 async function drawSheets() {
-  await startDrawingSheetCombo(() => {
-    gtag('event', 'RandomSheetComboDrawn', {
-      gameCode: gameCode.value,
-      eventSource: 'SheetComboDialog',
-      drawSize: drawSize.value,
-      allowDuplicate: allowDuplicate.value,
-      isBlindfoldMode: isBlindfoldMode.value,
-    });
-  });
+  await startDrawingSheetCombo();
 }
 
 function configDrawSize() {
@@ -92,10 +75,8 @@ function handleSheetClick(index: number) {
     // reveal sheet
     blindfoldedIndexes.value.delete(index);
     blindfoldedIndexes.value = new Set(blindfoldedIndexes.value);
-    gtag('event', 'SheetRevealed', { gameCode: gameCode.value, eventSource: 'SheetComboDialog' });
   } else {
     viewSheet(currentSheets.value[index]);
-    gtag('event', 'SheetViewed', { gameCode: gameCode.value, eventSource: 'SheetComboDialog' });
   }
 }
 

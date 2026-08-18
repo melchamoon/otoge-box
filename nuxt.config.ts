@@ -13,7 +13,6 @@ declare module '@nuxt/types/config/runtime' {
     sourceCodeUrl?: string;
     siteDescriptionEn?: string;
     siteDescriptionJp?: string;
-    indexAccessCounterUrl?: string;
     localDataBaseUrl?: string;
   }
 }
@@ -72,7 +71,6 @@ const nuxtConfig: NuxtConfig = {
     sourceCodeUrl: process.env.SOURCE_CODE_URL,
     siteDescriptionEn: process.env.SITE_DESCRIPTION_EN,
     siteDescriptionJp: process.env.SITE_DESCRIPTION_JP,
-    indexAccessCounterUrl: process.env.INDEX_ACCESS_COUNTER_URL,
     localDataBaseUrl,
   },
 
@@ -82,6 +80,15 @@ const nuxtConfig: NuxtConfig = {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    // Self-hosted copies of the assets that @nuxtjs/vuetify loads from a CDN by
+    // default (see `defaultAssets` in the Vuetify configuration below).
+    '@fontsource/roboto/100.css',
+    '@fontsource/roboto/300.css',
+    '@fontsource/roboto/400.css',
+    '@fontsource/roboto/500.css',
+    '@fontsource/roboto/700.css',
+    '@fontsource/roboto/900.css',
+    '@mdi/font/css/materialdesignicons.css',
     '~/assets/styles/global.scss',
   ],
 
@@ -119,10 +126,6 @@ const nuxtConfig: NuxtConfig = {
     '@nuxtjs/i18n',
     // https://sitemap.nuxtjs.org/
     '@nuxtjs/sitemap',
-    // https://github.com/nuxt-community/google-gtag-module
-    '@nuxtjs/google-gtag',
-    // https://sentry.nuxtjs.org/
-    '@nuxtjs/sentry',
   ],
 
   i18n: {
@@ -157,23 +160,6 @@ const nuxtConfig: NuxtConfig = {
     })),
   },
 
-  'google-gtag': {
-    id: process.env.GTAG_TRACK_ID,
-    debug: process.env.NODE_ENV === 'development',
-  },
-
-  sentry: {
-    dsn: process.env.SENTRY_DSN,
-
-    // Additional Module Options go here
-    // https://sentry.nuxtjs.org/sentry/options
-
-    config: {
-      // Add native Sentry config here
-      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
-    },
-  },
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
@@ -195,6 +181,9 @@ const nuxtConfig: NuxtConfig = {
     customVariables: ['~/assets/styles/variables.scss'],
     optionsPath: '~/vuetify.options.ts',
     treeShake: true,
+    // The Roboto font and the MDI icon font are bundled through `css` above
+    // instead of being loaded from Google Fonts / jsDelivr.
+    defaultAssets: false,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

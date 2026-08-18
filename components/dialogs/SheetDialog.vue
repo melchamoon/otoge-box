@@ -2,19 +2,15 @@
 import { ref, computed, watch } from '@nuxtjs/composition-api';
 import copyToClipboard from 'copy-to-clipboard';
 import { useDataStore } from '~/stores/data';
-import useGtag from '~/composables/useGtag';
 import useDarkMode from '~/composables/useDarkMode';
-import useGameInfo from '~/composables/useGameInfo';
 import useGameData from '~/composables/useGameData';
 import useSelectedSheets from '~/composables/useSelectedSheets';
 import useSheetDialog from '~/composables/useSheetDialog';
 import { getCanonicalSheet } from '~/utils';
 import catImageUrl from '~/assets/images/cat.png';
 
-const gtag = useGtag();
 const dataStore = useDataStore();
 const { isDarkMode } = useDarkMode();
-const { gameCode } = useGameInfo();
 const {
   getTypeIconUrl,
   getDifficultyName,
@@ -61,9 +57,7 @@ function copyText(text: string | undefined) {
 }
 
 async function drawSheet() {
-  await startDrawingSheet(() => {
-    gtag('event', 'RandomSheetDrawn', { gameCode: gameCode.value, eventSource: 'SheetDialog' });
-  });
+  await startDrawingSheet();
 }
 
 watch(sheet, () => {
@@ -145,9 +139,6 @@ watch(isOpened, () => {
                 target="_blank"
                 class="white--text"
                 v-on="on"
-                @click="
-                  $gtag('event', 'SheetVideoSearched', { gameCode, eventSource: 'SheetDialog' });
-                "
               >
                 <v-icon :large="$vuetify.breakpoint.smAndUp">
                   {{ getSheetSearchLinkIcon(sheet) }}

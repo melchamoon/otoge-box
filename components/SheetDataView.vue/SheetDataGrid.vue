@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject, Ref } from '@nuxtjs/composition-api';
-import useGameInfo from '~/composables/useGameInfo';
 import useSheetDialog from '~/composables/useSheetDialog';
 import useSheetHeaders from '~/composables/useSheetHeaders';
 import SheetTile from '~/components/SheetTile.vue';
@@ -10,7 +9,6 @@ const currentSheets: Ref<Sheet[]> = inject('currentSheets')!;
 const sortBy: Ref<string> = inject('sortBy')!;
 const sortDesc: Ref<boolean> = inject('sortDesc')!;
 
-const { gameCode } = useGameInfo();
 const { viewSheet } = useSheetDialog();
 const headers = useSheetHeaders();
 </script>
@@ -55,10 +53,7 @@ const headers = useSheetHeaders();
         v-for="(sheet, i) in currentSheets"
         :key="i"
         :sheet="sheet"
-        @click.left="
-          viewSheet(sheet);
-          $gtag('event', 'SheetViewed', { gameCode, eventSource: 'SheetDataGrid' });
-        "
+        @click.left="viewSheet(sheet)"
       />
     </div>
   </div>

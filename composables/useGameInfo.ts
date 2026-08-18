@@ -30,9 +30,6 @@ export default function useGameInfo() {
       ? resolveDataSourceUrl(siteInfo.value.gameCode, context.$config.localDataBaseUrl)
       : undefined
   ));
-  const accessCounterUrl = computed(() => (
-    siteInfo.value?.accessCounterUrl ?? context.$config.indexAccessCounterUrl
-  ));
 
   return {
     gameCode,
@@ -40,6 +37,5 @@ export default function useGameInfo() {
     themeColor,
     coverImageSize,
     dataSourceUrl,
-    accessCounterUrl,
   };
 }

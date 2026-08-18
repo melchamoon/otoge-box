@@ -5,8 +5,6 @@ import * as echarts from 'echarts';
 import sleep from 'sleep-promise';
 import { useDataStore } from '~/stores/data';
 import useI18n from '~/composables/useI18n';
-import useGtag from '~/composables/useGtag';
-import useGameInfo from '~/composables/useGameInfo';
 import useGameData from '~/composables/useGameData';
 import useSheetComboDialog from '~/composables/useSheetComboDialog';
 import type { Sheet, Filters, FilterOptions } from '~/types';
@@ -18,9 +16,7 @@ const filterOptions: Ref<FilterOptions> = inject('filterOptions')!;
 
 const context = useContext();
 const i18n = useI18n();
-const gtag = useGtag();
 const dataStore = useDataStore();
-const { gameCode } = useGameInfo();
 const { getTypeIndex, getDifficultyIndex } = useGameData();
 const { viewSheetCombo } = useSheetComboDialog();
 
@@ -175,7 +171,6 @@ const option = computed<echarts.EChartsOption>(() => ({
         sleep(0).then(() => {
           viewSheetCombo($event.data._getSheets(), { title: $event.data._headerTitle, asDrawPool: true })
         });
-        gtag('event', 'SheetComboViewed', { gameCode, eventSource: 'SheetDataChart' });
       "
     />
   </div>

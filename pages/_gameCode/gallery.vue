@@ -5,8 +5,6 @@ import { until } from '@vueuse/core';
 import YAML from 'yaml';
 import { useDataStore } from '~/stores/data';
 import useI18n from '~/composables/useI18n';
-import useGtag from '~/composables/useGtag';
-import useSentry from '~/composables/useSentry';
 import useDarkMode from '~/composables/useDarkMode';
 import useGameInfo from '~/composables/useGameInfo';
 import useSheetDialog from '~/composables/useSheetDialog';
@@ -18,13 +16,11 @@ import { buildGallery, isValidUrl, selectFiles } from '~/utils';
 import type { Gallery, GalleryList } from '~/types';
 
 const i18n = useI18n();
-const gtag = useGtag();
-const sentry = useSentry();
 const route = useRoute();
 const router = useRouter();
 const dataStore = useDataStore();
 const { isDarkMode } = useDarkMode();
-const { gameCode, dataSourceUrl } = useGameInfo();
+const { dataSourceUrl } = useGameInfo();
 const { viewSheet } = useSheetDialog();
 // re-export the shadowed <i18n /> component as <i18n-t />
 const { i18n: I18nT } = useGlobalComponents();
@@ -57,8 +53,6 @@ async function loadDefaultGallery() {
     currentGalleryProvider.value = 'default';
     currentGallery.value = buildGallery(data, dataStore.currentData.sheets);
   } catch (err) {
-    // sentry.captureException(err);
-
     currentLoadingStatus.value = LoadingStatus.ERROR;
 
     // eslint-disable-next-line no-console
@@ -100,8 +94,6 @@ async function loadExternalGalleryFromUrl(galleryUrl: string) {
     currentGalleryProvider.value = 'url';
     currentGallery.value = buildGallery(data, dataStore.currentData.sheets);
   } catch (err) {
-    sentry.captureException(err);
-
     currentLoadingStatus.value = LoadingStatus.ERROR;
 
     // eslint-disable-next-line no-alert
@@ -115,8 +107,6 @@ async function loadExternalGalleryFromUrl(galleryUrl: string) {
     return false;
   }
   currentLoadingStatus.value = LoadingStatus.LOADED;
-
-  gtag('event', 'ExternalGalleryLoaded', { gameCode: gameCode.value, eventSource: 'GalleryPage', url: galleryUrl });
 
   return true;
 }
@@ -141,8 +131,6 @@ async function loadExternalGalleryFromFile(galleryFile: File) {
     currentGalleryProvider.value = 'file';
     currentGallery.value = buildGallery(data, dataStore.currentData.sheets);
   } catch (err) {
-    sentry.captureException(err);
-
     currentLoadingStatus.value = LoadingStatus.ERROR;
 
     // eslint-disable-next-line no-alert
@@ -369,10 +357,7 @@ export default defineComponent({
             v-for="(sheet, j) in section.sheets"
             :key="j"
             :sheet="sheet"
-            @click="
-              viewSheet(sheet);
-              $gtag('event', 'SheetViewed', { gameCode, eventSource: 'GalleryPage' });
-            "
+            @click="viewSheet(sheet)"
           >
             <!-- Sheet description -->
             <template #description>

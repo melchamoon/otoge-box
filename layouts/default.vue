@@ -21,7 +21,6 @@ const {
   gameCode,
   gameTitle,
   themeColor,
-  accessCounterUrl,
 } = useGameInfo();
 
 const menu = computed(() => [
@@ -281,13 +280,6 @@ export default defineComponent({
       app
     >
       <v-spacer />
-      <a
-        v-if="accessCounterUrl != null"
-        href="https://www.free-counter.jp/"
-        class="mr-2"
-      >
-        <img :src="accessCounterUrl" alt="アクセスカウンター" width="70" height="12">
-      </a>
       <span>
         &copy; {{ new Date().getFullYear() }} / made by @zetaraku with &lt;3
       </span>

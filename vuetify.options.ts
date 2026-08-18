@@ -2,7 +2,9 @@ import { en, es, ru, id, ja, ko, zhHant, zhHans } from 'vuetify/src/locale';
 
 export default {
   breakpoint: {},
-  icons: {},
+  icons: {
+    iconfont: 'mdi',
+  },
   lang: {
     locales: {
       en,
