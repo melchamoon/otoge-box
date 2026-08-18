@@ -11,7 +11,7 @@ async function loadSiteData(site: (typeof sites)[number]) {
   const local = localPath(site.gameCode);
   const localDataEnabled = Boolean(
     process.env.LOCAL_DATA_BASE_URL ||
-      process.env.NEXT_PUBLIC_LOCAL_DATA_BASE_URL,
+    process.env.NEXT_PUBLIC_LOCAL_DATA_BASE_URL,
   );
   if (localDataEnabled && fs.existsSync(local))
     return JSON.parse(fs.readFileSync(local, "utf8")) as Data;
