@@ -1,7 +1,7 @@
-import { $canonicalSheet } from '@/lib/utils';
-import type { Song } from './Song';
+import { $canonicalSheet } from "@/lib/utils";
+import type { Song } from "./Song";
 
-export type Sheet = (Omit<Song, 'sheets'> & {
+export type Sheet = Omit<Song, "sheets"> & {
   type?: string;
   difficulty?: string;
 
@@ -26,4 +26,4 @@ export type Sheet = (Omit<Song, 'sheets'> & {
 
   // used by sheet placeholders
   searchUrl?: string | null;
-});
+};

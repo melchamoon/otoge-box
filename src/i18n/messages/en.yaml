@@ -60,7 +60,7 @@ description:
   loading: Loading data…
   newSong: New song!
   unlockNeeded: This song needs to be unlocked
-  unavailableInRegion: 'Currently Unavailable in {region}'
+  unavailableInRegion: "Currently Unavailable in {region}"
   copied: Copied to clipboard!
   invalidNoteCounts: Invalid NOTE counts
   filterResultEmpty: Cannot find any sheet that satisfies the filter.
@@ -94,7 +94,7 @@ page:
     dataSource: Data Source
     songInfo: Song Info
     sheetInfo: Sheet Info
-    sheetInfoOf: 'Sheet Info of {region}'
+    sheetInfoOf: "Sheet Info of {region}"
     sheetInfoDescription: Much thanks to all the players contributing the sheet data!
     openSource: Project Source Code
     openSourceDescription: |
@@ -114,7 +114,7 @@ page:
 # Components
 sfc:
   DataInfoBar:
-    updateTime: 'Data Update Time: {time}'
+    updateTime: "Data Update Time: {time}"
     loadFailed: Failed while loading data.
   SheetFilter:
     exactMatch: Exact Match
@@ -131,13 +131,13 @@ sfc:
     exportMyList: Export MY LIST to file
     myListEmptyWarn: "MY LIST is empty!\nNothing to export."
     importMyList: Import MY LIST from file
-    sheetsLoaded: 'Imported {n} sheets successfully.'
+    sheetsLoaded: "Imported {n} sheets successfully."
   SheetDrawerPanel:
     drawRandomSheet: DRAW RANDOM SHEET!
     drawRandomSheetCombo: DRAW RANDOM SET!
   FilterInfoBar:
-    sheetsCount: '{n} sheets'
-    songsCount: '{n} songs'
+    sheetsCount: "{n} sheets"
+    songsCount: "{n} songs"
   SheetDialog:
     searchOnYouTube: Search on YouTube
     tryAgain: TRY AGAIN

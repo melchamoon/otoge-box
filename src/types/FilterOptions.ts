@@ -1,4 +1,4 @@
-import type { FilterOption } from './FilterOption';
+import type { FilterOption } from "./FilterOption";
 
 export type FilterOptions = {
   categories: FilterOption<string>[] | null;

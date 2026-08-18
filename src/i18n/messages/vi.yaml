@@ -58,7 +58,7 @@ description:
   loading: Đang tải dữ liệu…
   newSong: Bài hát mới!
   unlockNeeded: Bài hát này cần phải được mở khoá
-  unavailableInRegion: 'Hiện không khả dụng ở {region}'
+  unavailableInRegion: "Hiện không khả dụng ở {region}"
   copied: Đã sao chép vào bộ nhớ tạm!
   invalidNoteCounts: Số lượng NOTE không hợp lệ
   filterResultEmpty: Không thể tìm thấy bản nhạc nào thỏa mãn với bộ lọc.
@@ -92,7 +92,7 @@ page:
     dataSource: Dữ liệu nguồn
     songInfo: Thông tin bài hát
     sheetInfo: Dữ Liệu Bản Nhạc
-    sheetInfoOf: 'Dữ Liệu Bản Nhạc của {region}'
+    sheetInfoOf: "Dữ Liệu Bản Nhạc của {region}"
     sheetInfoDescription: Xin chân thành cảm ơn tất cả người chơi đã đóng góp dữ liệu!
     openSource: Mã nguồn dự án
     openSourceDescription: |
@@ -112,7 +112,7 @@ page:
 # Components
 sfc:
   DataInfoBar:
-    updateTime: 'Ngày Cập Nhật Dữ Liệu: {time}'
+    updateTime: "Ngày Cập Nhật Dữ Liệu: {time}"
     loadFailed: Thất bại trong việc tải dữ liệu.
   SheetFilter:
     exactMatch: Khớp chính xác
@@ -129,13 +129,13 @@ sfc:
     exportMyList: Xuất DANH SÁCH CỦA TÔI ra tệp
     myListEmptyWarn: "DANH SÁCH CỦA TÔI trống!\nKhông có gì để xuất."
     importMyList: Nhập DANH SÁCH CỦA TÔI từ tệp
-    sheetsLoaded: 'Nhập {n} bản nhạc thành công.'
+    sheetsLoaded: "Nhập {n} bản nhạc thành công."
   SheetDrawerPanel:
     drawRandomSheet: CHỌN BẢN NHẠC NGẪU NHIÊN!
     drawRandomSheetCombo: CHỌN SET CHƠI NGẪU NHIÊN!
   FilterInfoBar:
-    sheetsCount: '{n} bản nhạc'
-    songsCount: '{n} bài hát'
+    sheetsCount: "{n} bản nhạc"
+    songsCount: "{n} bài hát"
   SheetDialog:
     searchOnYouTube: Tìm kiếm trên YouTube
     tryAgain: THỬ LẠI

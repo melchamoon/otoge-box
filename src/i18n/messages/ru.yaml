@@ -58,7 +58,7 @@ description:
   loading: Загрузка данных…
   newSong: Новая песня!
   unlockNeeded: Эта песня должна быть разблокирована
-  unavailableInRegion: 'В настоящее время недоступно в {region}'
+  unavailableInRegion: "В настоящее время недоступно в {region}"
   copied: Скопировано в буфер обмена!
   invalidNoteCounts: Неверный счёт ЗАМЕТОК
   filterResultEmpty: Не удалось найти лист, который удовлетворяет фильтр.
@@ -92,7 +92,7 @@ page:
     dataSource: Источник Данных
     songInfo: Информация о Песне
     sheetInfo: Информация о Листе
-    sheetInfoOf: 'Информация о Листе {region}'
+    sheetInfoOf: "Информация о Листе {region}"
     sheetInfoDescription: Большое спасибо всем игрокам, вкладывающие данные листов!
     openSource: Исходный код проекта
     openSourceDescription: |
@@ -112,7 +112,7 @@ page:
 # Components
 sfc:
   DataInfoBar:
-    updateTime: 'Время Обновления Данных: {time}'
+    updateTime: "Время Обновления Данных: {time}"
     loadFailed: Не удалось загрузить данные.
   SheetFilter:
     exactMatch: Точное совпадение
@@ -129,13 +129,13 @@ sfc:
     exportMyList: Экспортировать МОЙ ЛИСТ в файл
     myListEmptyWarn: "МОЙ ЛИСТ пуст!\nНечего экспортировать."
     importMyList: Импортировать МОЙ ЛИСТ из файла
-    sheetsLoaded: 'Успешно импортировано {n} лист(-ов).'
+    sheetsLoaded: "Успешно импортировано {n} лист(-ов)."
   SheetDrawerPanel:
     drawRandomSheet: НАРИСОВАТЬ СЛУЧАЙНЫЙ ЛИСТ!
     drawRandomSheetCombo: НАРИСОВАТЬ СЛУЧАЙНЫЙ НАБОР!
   FilterInfoBar:
-    sheetsCount: '{n} лист(-ов)'
-    songsCount: '{n} песен(-ня)'
+    sheetsCount: "{n} лист(-ов)"
+    songsCount: "{n} песен(-ня)"
   SheetDialog:
     searchOnYouTube: Поиск на YouTube
     tryAgain: ПОВТОРИТЬ ПОПЫТКУ

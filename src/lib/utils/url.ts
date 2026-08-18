@@ -8,9 +8,12 @@
 export function resolveUrl(filePath: string | undefined, baseUrl: string) {
   if (filePath == null) return filePath;
 
-  if (baseUrl.startsWith('/')) {
+  if (baseUrl.startsWith("/")) {
     // normalize with a dummy origin, then keep the path only
-    const { pathname, search, hash } = new URL(filePath, `http://local-data.invalid${baseUrl}`);
+    const { pathname, search, hash } = new URL(
+      filePath,
+      `http://local-data.invalid${baseUrl}`,
+    );
     return `${pathname}${search}${hash}`;
   }
 

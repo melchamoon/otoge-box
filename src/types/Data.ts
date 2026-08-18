@@ -1,5 +1,5 @@
-import type { Song } from './Song';
-import type { Sheet } from './Sheet';
+import type { Song } from "./Song";
+import type { Sheet } from "./Sheet";
 
 export type Data = {
   songs: Song[];

@@ -1,77 +1,77 @@
-import catImageUrl from '@/assets/images/cat.png';
-import darkCatImageUrl from '@/assets/images/dark-cat.png';
-import hybridCatImageUrl from '@/assets/images/hybrid-cat.png';
-import rickImageUrl from '@/assets/images/rick.jpg';
-import indiImageUrl from '@/assets/images/indi.jpg';
-import type { Sheet } from '@/types';
+import catImageUrl from "@/assets/images/cat.png";
+import darkCatImageUrl from "@/assets/images/dark-cat.png";
+import hybridCatImageUrl from "@/assets/images/hybrid-cat.png";
+import rickImageUrl from "@/assets/images/rick.jpg";
+import indiImageUrl from "@/assets/images/indi.jpg";
+import type { Sheet } from "@/types";
 
-export const $canonicalSheet = Symbol('$canonicalSheet');
+export const $canonicalSheet = Symbol("$canonicalSheet");
 
 export const NULL_SHEET: Sheet = {
   songId: null,
   songNo: 0,
 
-  category: '???',
-  title: 'ฅ•ω•ฅ',
-  artist: ':3',
+  category: "???",
+  title: "ฅ•ω•ฅ",
+  artist: ":3",
   imageUrl: catImageUrl.src,
 
   version: undefined,
   bpm: undefined,
 
-  type: '??',
-  difficulty: '?',
-  level: '',
+  type: "??",
+  difficulty: "?",
+  level: "",
   levelValue: 0,
 
   noteDesigner: undefined,
-  comment: 'Oops! Nothing here :3',
+  comment: "Oops! Nothing here :3",
 
-  searchUrl: 'https://www.youtube.com/watch?v=W1nifh1OhI8',
+  searchUrl: "https://www.youtube.com/watch?v=W1nifh1OhI8",
 };
 
 export const VOID_SHEET: Sheet = {
   songId: null,
   songNo: -1,
 
-  category: '???',
-  title: 'ฅ-ω-ฅ',
-  artist: ';3',
+  category: "???",
+  title: "ฅ-ω-ฅ",
+  artist: ";3",
   imageUrl: darkCatImageUrl.src,
 
   version: undefined,
   bpm: undefined,
 
-  type: '??',
-  difficulty: '?',
-  level: '',
+  type: "??",
+  difficulty: "?",
+  level: "",
   levelValue: 0,
 
   noteDesigner: undefined,
-  comment: 'Oops! Nothing here ;3',
+  comment: "Oops! Nothing here ;3",
 
-  searchUrl: 'https://www.youtube.com/watch?v=C9PFVo1FEwU',
+  searchUrl: "https://www.youtube.com/watch?v=C9PFVo1FEwU",
 };
 
 export const HYBRID_SHEET: Sheet = {
   songId: null,
   songNo: -2,
 
-  category: '!!!',
-  title: 'ฅ•ω-ฅ',
-  artist: ':O',
+  category: "!!!",
+  title: "ฅ•ω-ฅ",
+  artist: ":O",
   imageUrl: hybridCatImageUrl.src,
 
   version: undefined,
   bpm: undefined,
 
-  type: '!!',
-  difficulty: '!',
-  level: '',
+  type: "!!",
+  difficulty: "!",
+  level: "",
   levelValue: 0,
 
   noteDesigner: undefined,
-  comment: 'A miracle cat born from pure light and darkness.',
+  comment: "A miracle cat born from pure light and darkness.",
 
   searchUrl: null,
 };
@@ -80,48 +80,48 @@ export const RICK_SHEET: Sheet = {
   songId: null,
   songNo: -42,
 
-  category: 'Whenever You Need Somebody',
-  title: 'Never Gonna Give You Up',
-  artist: 'Rick Astley',
+  category: "Whenever You Need Somebody",
+  title: "Never Gonna Give You Up",
+  artist: "Rick Astley",
   imageUrl: rickImageUrl.src,
 
   version: undefined,
-  releaseDate: '1987-11-16',
+  releaseDate: "1987-11-16",
   bpm: 113,
 
-  type: '??',
-  difficulty: '<:D',
-  level: '',
+  type: "??",
+  difficulty: "<:D",
+  level: "",
   levelValue: 0,
 
   noteDesigner: undefined,
-  comment: 'Never gonna give you up. Never gonna let you down.',
+  comment: "Never gonna give you up. Never gonna let you down.",
 
-  searchUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  searchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
 };
 
 export const INDI_SHEET: Sheet = {
   songId: null,
   songNo: -43,
 
-  category: 'IndiHome Packet Phoenix',
-  title: 'Goyang Ubur Ubur (Remixed)',
-  artist: 'Hendro Engkeng',
+  category: "IndiHome Packet Phoenix",
+  title: "Goyang Ubur Ubur (Remixed)",
+  artist: "Hendro Engkeng",
   imageUrl: indiImageUrl.src,
 
   version: undefined,
-  releaseDate: '2020-04-??',
+  releaseDate: "2020-04-??",
   bpm: 130,
 
-  type: '??',
-  difficulty: '<:D',
-  level: '',
+  type: "??",
+  difficulty: "<:D",
+  level: "",
   levelValue: 0,
 
   noteDesigner: undefined,
-  comment: 'IndiHome Paket Phoenix 100Mbps - Rp 935.000 / bulan',
+  comment: "IndiHome Paket Phoenix 100Mbps - Rp 935.000 / bulan",
 
-  searchUrl: 'https://www.youtube.com/watch?v=_IneeB-UDFA',
+  searchUrl: "https://www.youtube.com/watch?v=_IneeB-UDFA",
 };
 
 export function getRegionOverrideSheet(sheet: Sheet, region: string): Sheet {
@@ -141,13 +141,13 @@ export function computeSheetExpr(sheet: Sheet) {
 }
 
 function makeInvalidDummySheet(sheetExprMatches: string[]): Sheet {
-  const sheetExpr = sheetExprMatches.join('|');
+  const sheetExpr = sheetExprMatches.join("|");
 
   return {
     songId: null,
     songNo: 0,
 
-    category: 'INVALID SHEET EXPR',
+    category: "INVALID SHEET EXPR",
     title: sheetExpr,
     artist: undefined,
     bpm: undefined,
@@ -158,14 +158,14 @@ function makeInvalidDummySheet(sheetExprMatches: string[]): Sheet {
     version: undefined,
     releaseDate: undefined,
 
-    type: '??',
-    difficulty: 'invalid',
+    type: "??",
+    difficulty: "invalid",
 
     level: undefined,
     levelValue: undefined,
 
     noteDesigner: undefined,
-    comment: 'This sheet expr is not in a valid format.',
+    comment: "This sheet expr is not in a valid format.",
 
     searchUrl: null,
   };
@@ -178,7 +178,7 @@ function makeUnmatchedDummySheet(sheetExprMatches: string[]): Sheet {
     songId,
     songNo: 0,
 
-    category: 'UNMATCHED SHEET',
+    category: "UNMATCHED SHEET",
     title: songId,
     artist: undefined,
     bpm: undefined,
@@ -196,7 +196,7 @@ function makeUnmatchedDummySheet(sheetExprMatches: string[]): Sheet {
     levelValue: undefined,
 
     noteDesigner: undefined,
-    comment: 'This sheet expr doesn\'t match with any sheets.',
+    comment: "This sheet expr doesn't match with any sheets.",
 
     searchUrl: null,
   };
@@ -205,34 +205,40 @@ function makeUnmatchedDummySheet(sheetExprMatches: string[]): Sheet {
 export function makeDummySheet(sheetExpr: string): Sheet {
   console.warn(`Sheet for expr '${sheetExpr}' is not found.`);
 
-  const sheetExprMatches = sheetExpr.split('|');
+  const sheetExprMatches = sheetExpr.split("|");
 
-  if (sheetExprMatches.length < 3) return makeInvalidDummySheet(sheetExprMatches);
+  if (sheetExprMatches.length < 3)
+    return makeInvalidDummySheet(sheetExprMatches);
   return makeUnmatchedDummySheet(sheetExprMatches);
 }
 
-export function validateNoteCounts(sheet: Sheet, gameCode: string | null | undefined) {
+export function validateNoteCounts(
+  sheet: Sheet,
+  gameCode: string | null | undefined,
+) {
   if (sheet.noteCounts == null) return true;
 
-  if (gameCode === 'maimai') {
+  if (gameCode === "maimai") {
     return (
-      sheet.noteCounts.total!
-      - sheet.noteCounts.tap!
-      - sheet.noteCounts.hold!
-      - sheet.noteCounts.slide!
-      - sheet.noteCounts.touch!
-      - sheet.noteCounts.break!
-    ) === 0;
+      sheet.noteCounts.total! -
+        sheet.noteCounts.tap! -
+        sheet.noteCounts.hold! -
+        sheet.noteCounts.slide! -
+        sheet.noteCounts.touch! -
+        sheet.noteCounts.break! ===
+      0
+    );
   }
-  if (gameCode === 'chunithm') {
+  if (gameCode === "chunithm") {
     return (
-      sheet.noteCounts.total!
-      - sheet.noteCounts.tap!
-      - sheet.noteCounts.hold!
-      - sheet.noteCounts.slide!
-      - sheet.noteCounts.air!
-      - sheet.noteCounts.flick!
-    ) === 0;
+      sheet.noteCounts.total! -
+        sheet.noteCounts.tap! -
+        sheet.noteCounts.hold! -
+        sheet.noteCounts.slide! -
+        sheet.noteCounts.air! -
+        sheet.noteCounts.flick! ===
+      0
+    );
   }
 
   return true;

@@ -19,7 +19,14 @@
           "internalLevelValue": 4,
           "noteDesigner": "Designer A",
           "regions": { "jp": true, "usa": false },
-          "noteCounts": { "tap": 5, "hold": 2, "slide": 1, "touch": 1, "break": 1, "total": 10 }
+          "noteCounts": {
+            "tap": 5,
+            "hold": 2,
+            "slide": 1,
+            "touch": 1,
+            "break": 1,
+            "total": 10
+          }
         },
         {
           "type": "advanced",
@@ -29,7 +36,14 @@
           "internalLevelValue": 8.5,
           "noteDesigner": "Designer B",
           "regions": { "jp": true },
-          "noteCounts": { "tap": 4, "hold": 3, "slide": 2, "touch": 1, "break": 0, "total": 10 },
+          "noteCounts": {
+            "tap": 4,
+            "hold": 3,
+            "slide": 2,
+            "touch": 1,
+            "break": 0,
+            "total": 10
+          },
           "regionOverrides": { "usa": { "level": "7", "levelValue": 7 } }
         }
       ]
@@ -43,8 +57,32 @@
       "imageName": "beta.png",
       "version": "v2",
       "sheets": [
-        { "type": "basic", "difficulty": "easy", "level": "5", "levelValue": 5, "internalLevelValue": 5, "regions": { "jp": true }, "noteCounts": { "tap": 1, "hold": 1, "slide": 1, "touch": 1, "break": 1, "total": 5 } },
-        { "type": "expert", "difficulty": "expert", "level": "12?", "levelValue": 12, "internalLevelValue": null, "noteDesigner": "Designer A", "regions": { "jp": false }, "noteCounts": { "total": null } }
+        {
+          "type": "basic",
+          "difficulty": "easy",
+          "level": "5",
+          "levelValue": 5,
+          "internalLevelValue": 5,
+          "regions": { "jp": true },
+          "noteCounts": {
+            "tap": 1,
+            "hold": 1,
+            "slide": 1,
+            "touch": 1,
+            "break": 1,
+            "total": 5
+          }
+        },
+        {
+          "type": "expert",
+          "difficulty": "expert",
+          "level": "12?",
+          "levelValue": 12,
+          "internalLevelValue": null,
+          "noteDesigner": "Designer A",
+          "regions": { "jp": false },
+          "noteCounts": { "total": null }
+        }
       ]
     },
     {
@@ -57,15 +95,58 @@
       "version": "v1",
       "releaseDate": "2024-02-01",
       "sheets": [
-        { "type": "basic", "difficulty": "easy", "level": "6", "levelValue": 6, "internalLevelValue": 6, "regions": { "jp": true }, "noteCounts": { "tap": 2, "hold": 2, "slide": 2, "touch": 2, "break": 2, "total": 10 } },
-        { "type": "advanced", "difficulty": "hard", "level": "9", "levelValue": 9, "internalLevelValue": 9, "regions": { "jp": true }, "noteCounts": { "tap": 3, "hold": 2, "slide": 2, "touch": 2, "break": 1, "total": 10 } }
+        {
+          "type": "basic",
+          "difficulty": "easy",
+          "level": "6",
+          "levelValue": 6,
+          "internalLevelValue": 6,
+          "regions": { "jp": true },
+          "noteCounts": {
+            "tap": 2,
+            "hold": 2,
+            "slide": 2,
+            "touch": 2,
+            "break": 2,
+            "total": 10
+          }
+        },
+        {
+          "type": "advanced",
+          "difficulty": "hard",
+          "level": "9",
+          "levelValue": 9,
+          "internalLevelValue": 9,
+          "regions": { "jp": true },
+          "noteCounts": {
+            "tap": 3,
+            "hold": 2,
+            "slide": 2,
+            "touch": 2,
+            "break": 1,
+            "total": 10
+          }
+        }
       ]
     }
   ],
   "categories": [{ "category": "A|B" }, { "category": "C" }],
-  "versions": [{ "version": "v1", "abbr": "V1", "releaseDate": "2024-01-01" }, { "version": "v2", "abbr": "V2", "releaseDate": "2024-02-01" }],
-  "types": [{ "type": "basic", "name": "Basic" }, { "type": "advanced", "name": "Advanced" }, { "type": "expert", "name": "Expert" }],
-  "difficulties": [{ "difficulty": "easy", "name": "Easy", "color": "green" }, { "difficulty": "hard", "name": "Hard", "color": "red" }],
-  "regions": [{ "region": "jp", "name": "Japan" }, { "region": "usa", "name": "USA" }],
+  "versions": [
+    { "version": "v1", "abbr": "V1", "releaseDate": "2024-01-01" },
+    { "version": "v2", "abbr": "V2", "releaseDate": "2024-02-01" }
+  ],
+  "types": [
+    { "type": "basic", "name": "Basic" },
+    { "type": "advanced", "name": "Advanced" },
+    { "type": "expert", "name": "Expert" }
+  ],
+  "difficulties": [
+    { "difficulty": "easy", "name": "Easy", "color": "green" },
+    { "difficulty": "hard", "name": "Hard", "color": "red" }
+  ],
+  "regions": [
+    { "region": "jp", "name": "Japan" },
+    { "region": "usa", "name": "USA" }
+  ],
   "updateTime": "2024-02-02"
 }

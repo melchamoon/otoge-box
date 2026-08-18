@@ -1,5 +1,5 @@
-import { defaultCache } from '@serwist/next/worker';
-import { Serwist, type PrecacheEntry } from 'serwist';
+import { defaultCache } from "@serwist/next/worker";
+import { Serwist, type PrecacheEntry } from "serwist";
 
 declare const self: {
   __SW_MANIFEST: (PrecacheEntry | string)[];
