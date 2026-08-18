@@ -58,7 +58,7 @@ export function SheetDrawerPanel() {
       window.alert(t('description.drawPoolEmpty'));
       return;
     }
-    openCombo(pool, { isDrawPool: true, headerTitle: t('sfc.SheetComboDialog.drawResults') });
+    openCombo(pool, { isDrawPool: true, isDrawMode: true, headerTitle: t('sfc.SheetComboDialog.drawResults') });
   };
 
   const toggleLights = async (index: number) => {

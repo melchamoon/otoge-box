@@ -9,17 +9,22 @@ import './globals.css';
 
 const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE ?? '音ゲーぼっくす';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-const logoUrl = new URL('/logo.png?v=1', siteUrl).toString();
+const siteOrigin = new URL(siteUrl);
+const logoUrl = new URL('/logo.png?v=1', siteOrigin).toString();
 
-export const viewport: Viewport = { themeColor: '#424242', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#424242', width: 'device-width', initialScale: 1, maximumScale: 1, userScalable: false };
 
 export const metadata: Metadata = {
-  title: { default: 'N/A', template: `%s | ${siteTitle}` },
+  metadataBase: siteOrigin,
+  title: { default: siteTitle, template: `%s | ${siteTitle}` },
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN,
-  icons: { icon: [{ url: '/favicon-32x32.png?v=1', sizes: '32x32' }, { url: '/favicon-16x16.png?v=1', sizes: '16x16' }], apple: '/apple-touch-icon.png?v=1' },
-  manifest: '/manifest.webmanifest',
-  openGraph: { type: 'website', siteName: siteTitle, images: [logoUrl], url: siteUrl },
-  twitter: { card: 'summary', images: [logoUrl] },
+  formatDetection: { telephone: false },
+  icons: { icon: [{ url: '/favicon-32x32.png?v=1', type: 'image/png', sizes: '32x32' }, { url: '/favicon-16x16.png?v=1', type: 'image/png', sizes: '16x16' }, { url: '/favicon.ico?v=1', type: 'image/x-icon' }], shortcut: '/favicon.ico?v=1', apple: [{ url: '/apple-touch-icon.png?v=1', sizes: '180x180' }], other: [{ rel: 'mask-icon', url: '/safari-pinned-tab.svg?v=1' }] },
+  manifest: '/manifest.webmanifest?v=1',
+  openGraph: { type: 'website', title: siteTitle, siteName: siteTitle, images: [logoUrl], url: siteOrigin, description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN },
+  twitter: { card: 'summary', title: siteTitle, description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_JP, images: [logoUrl] },
+  appleWebApp: { title: siteTitle },
+  other: { 'msapplication-TileColor': '#424242' },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

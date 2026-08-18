@@ -16,6 +16,10 @@ export function useItemDrawer<T>({ drawingPool = [], drawSize = 1, allowDuplicat
     currentItemsRef.current = items;
     setCurrentItems(items);
   }, []);
+  useEffect(() => () => {
+    stopping.current = true;
+    restarting.current = false;
+  }, []);
   useEffect(() => { drawRef.current = { drawingPool, drawSize, allowDuplicate }; }, [allowDuplicate, drawSize, drawingPool]);
   const stopDrawing = useCallback(async () => {
     stopping.current = true;

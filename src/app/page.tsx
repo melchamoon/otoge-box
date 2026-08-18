@@ -10,7 +10,6 @@ import sites from '@/data/sites.json';
 import { Icon } from '@/components/Icon';
 import { RICK_SHEET } from '@/lib/utils/sheet';
 import { useGtagEvent } from '@/hooks/useGtagEvent';
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 export default function HomePage() {
@@ -48,6 +47,7 @@ export default function HomePage() {
 
   return (
     <>
+      {(logoActive || dark) && <link rel="preload" href={RICK_SHEET.imageUrl} as="image" />}
       <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,2fr)] lg:items-start">
           <section className="text-center lg:sticky lg:top-24">
@@ -61,7 +61,6 @@ export default function HomePage() {
             <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
               {sites.filter((site) => !site.isHidden || dark).map((site) => <Link key={site.gameCode} href={`/${site.gameCode}/`} className="group flex items-center gap-4 rounded-lg border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"><Icon path={mdiMusicBoxMultiple} size={38} style={{ color: site.themeColor }} /><span className="flex-1 text-lg font-medium">{site.gameTitle}</span><Icon path={mdiArrowRight} className="opacity-0 transition group-hover:opacity-100" /></Link>)}
             </div>
-            <Button variant="link" className="mt-6" asChild><Link href="/maimai/">{t('page-title.home')}</Link></Button>
           </section>
         </div>
       </div>

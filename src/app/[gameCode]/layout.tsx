@@ -15,8 +15,11 @@ export async function generateMetadata({ params }: { params: Promise<{ gameCode:
   const title = site.gameTitle ?? gameCode;
   const siteTitle = process.env.NEXT_PUBLIC_SITE_TITLE ?? '音ゲーぼっくす';
   const description = (process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN ?? '').replace('______', title);
+  const descriptionJp = (process.env.NEXT_PUBLIC_SITE_DESCRIPTION_JP ?? '').replace('______', title);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-  return { title, description, openGraph: { title: `${title} | ${siteTitle}`, description, url: new URL(`/${gameCode}/`, siteUrl), images: [`${site.dataSourceUrl}/img/cover/default-cover.png`] } };
+  const pageTitle = `${title} | ${siteTitle}`;
+  const logoUrl = new URL('/logo.png?v=1', siteUrl).toString();
+  return { title, description, openGraph: { title: pageTitle, siteName: pageTitle, description, url: new URL(`/${gameCode}/`, siteUrl), images: [logoUrl] }, twitter: { card: 'summary', title: pageTitle, description: descriptionJp, images: [logoUrl] }, other: { 'theme-color': site.themeColor, 'msapplication-TileColor': site.themeColor } };
 }
 
 export async function generateViewport({ params }: { params: Promise<{ gameCode: string }> }): Promise<Viewport> {
