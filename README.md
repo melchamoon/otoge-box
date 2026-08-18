@@ -39,6 +39,16 @@ static/local-data/<gameCode>/img/<iconUrl>      # type / difficulty icons, locke
   the games, so the site still works before the copy is made.
 - `LOCAL_DATA_BASE_URL` in `.env` overrides all of the above.
 
+## External services
+
+This fork makes no request to a third-party service: the analytics (Google
+Analytics), the error reporting (Sentry) and the access counter have been removed
+entirely, and the Roboto font and the MDI icon font are bundled from
+`node_modules` instead of being loaded from a CDN.
+
+The songs data source is the only remote origin left, and it is replaced by the
+local copy above while developing.
+
 ## Development
 
 ```sh
