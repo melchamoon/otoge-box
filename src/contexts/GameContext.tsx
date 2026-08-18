@@ -4,7 +4,7 @@ import { createContext, useContext, useMemo } from "react";
 import { resolveDataSourceUrl } from "@/lib/utils/dataSource";
 import sites from "@/data/sites.json";
 
-export type SiteInfo = (typeof sites)[number];
+type SiteInfo = (typeof sites)[number];
 export type GameContextValue = {
   gameCode: string;
   siteInfo: SiteInfo;
