@@ -1,5 +1,0 @@
-# The rules for the Pull Request Labeler workflow
-# For more information, see: https://github.com/actions/labeler
-
-i18n:
-  - src/i18n/messages/*
