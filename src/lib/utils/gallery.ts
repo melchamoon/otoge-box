@@ -1,5 +1,5 @@
-import { makeDummySheet } from '@/lib/utils/sheet';
-import type { RawGallery, Gallery, Sheet } from '@/types';
+import { makeDummySheet } from "@/lib/utils/sheet";
+import type { RawGallery, Gallery, Sheet } from "@/types";
 
 export function buildGallery(data: RawGallery, sheets: Sheet[]): Gallery {
   const lists = data;

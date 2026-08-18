@@ -58,7 +58,7 @@ description:
   loading: データを読み込んでいます…
   newSong: 新曲！
   unlockNeeded: 解禁が必要な楽曲です
-  unavailableInRegion: '{region} 未追加'
+  unavailableInRegion: "{region} 未追加"
   copied: コピーしました！
   invalidNoteCounts: 無効なノーツ数量
   filterResultEmpty: フィルター条件を満たす譜面が見つかりません。
@@ -92,7 +92,7 @@ page:
     dataSource: 情報源
     songInfo: 曲情報
     sheetInfo: 譜面情報
-    sheetInfoOf: '{region} 譜面情報'
+    sheetInfoOf: "{region} 譜面情報"
     sheetInfoDescription: 譜面情報を提供してくれたプレイヤーの皆さん、本当にありがとうございます！
     openSource: プロジェクトソースコード
     openSourceDescription: |
@@ -112,7 +112,7 @@ page:
 # Components
 sfc:
   DataInfoBar:
-    updateTime: 'データ更新日：{time}'
+    updateTime: "データ更新日：{time}"
     loadFailed: データの読み込みに失敗しました。
   SheetFilter:
     exactMatch: 完全一致
@@ -129,13 +129,13 @@ sfc:
     exportMyList: マイリストをエクスポートする
     myListEmptyWarn: "「マイリスト」は空です。\nエクスポートするものがありません。"
     importMyList: マイリストをインポートする
-    sheetsLoaded: '{n} 譜面をインポートしました。'
+    sheetsLoaded: "{n} 譜面をインポートしました。"
   SheetDrawerPanel:
     drawRandomSheet: 譜面を抽選する！
     drawRandomSheetCombo: セットを抽選する！
   FilterInfoBar:
-    sheetsCount: '{n} 譜面'
-    songsCount: '{n} 歌曲'
+    sheetsCount: "{n} 譜面"
+    songsCount: "{n} 歌曲"
   SheetDialog:
     searchOnYouTube: YouTube で検索
     tryAgain: もう一回

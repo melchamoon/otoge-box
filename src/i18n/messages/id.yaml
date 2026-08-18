@@ -58,7 +58,7 @@ description:
   loading: Memuat data…
   newSong: Lagu baru!
   unlockNeeded: Lagu ini harus dibuka
-  unavailableInRegion: 'Sedang tidak tersedia di {region}'
+  unavailableInRegion: "Sedang tidak tersedia di {region}"
   copied: Disalin ke papan klip!
   invalidNoteCounts: Jumlah NOTE tidak valid
   filterResultEmpty: Tidak dapat menemukan lembar yang memenuhi filter.
@@ -92,7 +92,7 @@ page:
     dataSource: Sumber Data
     songInfo: Info Lagu
     sheetInfo: Info Lembar
-    sheetInfoOf: 'Info Lembar {region}'
+    sheetInfoOf: "Info Lembar {region}"
     sheetInfoDescription: Terima kasih untuk semua pemain yang berkontribusi ke dalam lembaran data ini!
     openSource: Kode Sumber Proyek
     openSourceDescription: |
@@ -112,7 +112,7 @@ page:
 # Components
 sfc:
   DataInfoBar:
-    updateTime: 'Waktu Pembaruan Data: {time}'
+    updateTime: "Waktu Pembaruan Data: {time}"
     loadFailed: Gagal ketika memuat data.
   # SheetFilter:
   #   exactMatch: Exact Match
@@ -129,13 +129,13 @@ sfc:
     exportMyList: Ekspor MY LIST ke file
     myListEmptyWarn: "MY LIST sedang kosong!\nTidak ada apa-apa untuk diekspor."
     importMyList: Impor MY LIST dari file
-    sheetsLoaded: '{n} lembar berhasil diimpor.'
+    sheetsLoaded: "{n} lembar berhasil diimpor."
   SheetDrawerPanel:
     drawRandomSheet: TARIK LEMBAR ACAK!
     drawRandomSheetCombo: TARIK SET ACAK!
   FilterInfoBar:
-    sheetsCount: '{n} lembar'
-    songsCount: '{n} lagu'
+    sheetsCount: "{n} lembar"
+    songsCount: "{n} lagu"
   SheetDialog:
     searchOnYouTube: Cari di YouTube
     tryAgain: TARIK LAGI

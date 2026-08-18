@@ -1,31 +1,34 @@
-import { getRegionOverrideSheet, getCanonicalSheet } from '@/lib/utils/sheet';
-import { parseBoolean, isEmptyArray } from '@/lib/utils/misc';
-import type { Data, Sheet, Filters, FilterOptions } from '@/types';
+import { getRegionOverrideSheet, getCanonicalSheet } from "@/lib/utils/sheet";
+import { parseBoolean, isEmptyArray } from "@/lib/utils/misc";
+import type { Data, Sheet, Filters, FilterOptions } from "@/types";
 
-export type Translate = (key: string, values?: Record<string, string | number>) => string;
+export type Translate = (
+  key: string,
+  values?: Record<string, string | number>,
+) => string;
 
 const filterTypes = {
-  categories: 'string[]',
-  title: 'string',
-  matchExactTitle: 'boolean',
-  artist: 'string',
-  matchExactArtist: 'boolean',
+  categories: "string[]",
+  title: "string",
+  matchExactTitle: "boolean",
+  artist: "string",
+  matchExactArtist: "boolean",
 
-  versions: 'string[]',
-  minBPM: 'number',
-  maxBPM: 'number',
+  versions: "string[]",
+  minBPM: "number",
+  maxBPM: "number",
   // syncBPM: 'boolean',
 
-  types: 'string[]',
-  difficulties: 'string[]',
-  minLevelValue: 'number',
-  maxLevelValue: 'number',
+  types: "string[]",
+  difficulties: "string[]",
+  minLevelValue: "number",
+  maxLevelValue: "number",
   // syncLevelValue: 'boolean',
-  useInternalLevel: 'boolean',
+  useInternalLevel: "boolean",
 
-  noteDesigners: 'string[]',
-  region: 'string',
-  useRegionOverride: 'boolean',
+  noteDesigners: "string[]",
+  region: "string",
+  useRegionOverride: "boolean",
 
   // Super Filter is not saved or loaded due to security concerns
   // superFilter: 'string',
@@ -79,41 +82,46 @@ function buildEmptyFilterOptions(): FilterOptions {
   };
 }
 
-export function buildFilterOptions(data: Data, translate: Translate): FilterOptions {
-  if (data.updateTime === '0000-00-00') {
+export function buildFilterOptions(
+  data: Data,
+  translate: Translate,
+): FilterOptions {
+  if (data.updateTime === "0000-00-00") {
     // return empty array instead of null to preserve all filters ui before the data is loaded
     return buildEmptyFilterOptions();
   }
 
   const nonEmptyOrNull = <T>(arr: T[]) => (arr.length !== 0 ? arr : null);
 
-  const difficultiesSet = new Set(data.difficulties.map(({ difficulty }) => difficulty));
+  const difficultiesSet = new Set(
+    data.difficulties.map(({ difficulty }) => difficulty),
+  );
 
   return {
     categories: nonEmptyOrNull(
-      data.categories
-        .map(({ category }) => ({
-          $type: 'option',
-          text: category ?? 'N/A',
-          value: category,
-        })),
+      data.categories.map(({ category }) => ({
+        $type: "option",
+        text: category ?? "N/A",
+        value: category,
+      })),
     ),
     titles: nonEmptyOrNull(
-      [...new Set(data.songs.map((song) => song.title!))]
-        .filter((title) => title != null),
+      [...new Set(data.songs.map((song) => song.title!))].filter(
+        (title) => title != null,
+      ),
     ),
     artists: nonEmptyOrNull(
-      [...new Set(data.songs.map((song) => song.artist!))]
-        .filter((artist) => artist != null),
+      [...new Set(data.songs.map((song) => song.artist!))].filter(
+        (artist) => artist != null,
+      ),
     ),
 
     versions: nonEmptyOrNull(
-      data.versions.toReversed()
-        .map(({ version, abbr }) => ({
-          $type: 'option',
-          text: abbr ?? version ?? 'N/A',
-          value: version,
-        })),
+      data.versions.toReversed().map(({ version, abbr }) => ({
+        $type: "option",
+        text: abbr ?? version ?? "N/A",
+        value: version,
+      })),
     ),
     bpms: nonEmptyOrNull(
       [...new Set(data.songs.map((song) => song.bpm!))]
@@ -122,73 +130,97 @@ export function buildFilterOptions(data: Data, translate: Translate): FilterOpti
     ),
 
     types: nonEmptyOrNull(
-      data.types
-        .map(({ type, name }) => ({
-          $type: 'option',
-          text: name,
-          value: type,
-        })),
+      data.types.map(({ type, name }) => ({
+        $type: "option",
+        text: name,
+        value: type,
+      })),
     ),
     difficulties: nonEmptyOrNull(
-      data.difficulties
-        .map(({ difficulty, name }) => ({
-          $type: 'option',
-          text: name,
-          value: difficulty,
-        })),
+      data.difficulties.map(({ difficulty, name }) => ({
+        $type: "option",
+        text: name,
+        value: difficulty,
+      })),
     ),
     extraDifficulties: nonEmptyOrNull(
-      [...Map.groupBy(
-        data.songs.toReversed().flatMap((song) => song.sheets)
-          .filter((sheet) => sheet.difficulty != null),
-        (sheet) => sheet.difficulty!,
-      ).entries()]
-        .map(([difficulty, sheets]) => ({ difficulty, sheetCount: sheets.length }))
+      [
+        ...Map.groupBy(
+          data.songs
+            .toReversed()
+            .flatMap((song) => song.sheets)
+            .filter((sheet) => sheet.difficulty != null),
+          (sheet) => sheet.difficulty!,
+        ).entries(),
+      ]
+        .map(([difficulty, sheets]) => ({
+          difficulty,
+          sheetCount: sheets.length,
+        }))
         .filter(({ difficulty }) => !difficultiesSet.has(difficulty))
         .sort((a, b) => b.sheetCount - a.sheetCount)
         .map(({ difficulty, sheetCount }) => ({
-          $type: 'option',
+          $type: "option",
           text: `${difficulty} (${sheetCount})`,
           value: difficulty,
         })),
     ),
     levels: nonEmptyOrNull(
-      [...new Map(
-        data.sheets
-          .filter((sheet) => sheet.levelValue != null && sheet.level != null && !sheet.level.endsWith('?'))
-          .map((sheet) => [sheet.levelValue!, sheet.level!]),
-      ).entries()]
+      [
+        ...new Map(
+          data.sheets
+            .filter(
+              (sheet) =>
+                sheet.levelValue != null &&
+                sheet.level != null &&
+                !sheet.level.endsWith("?"),
+            )
+            .map((sheet) => [sheet.levelValue!, sheet.level!]),
+        ).entries(),
+      ]
         .sort(([aLevelValue], [bLevelValue]) => aLevelValue - bLevelValue)
         .map(([levelValue, level]) => ({
-          $type: 'option',
+          $type: "option",
           text: level,
           value: levelValue,
         })),
     ),
     internalLevels: nonEmptyOrNull(
-      [...new Map(
-        data.sheets
-          .filter((sheet) => sheet.internalLevelValue != null)
-          .map((sheet) => [sheet.internalLevelValue!, sheet.internalLevelValue!.toFixed(1)]),
-      ).entries()]
+      [
+        ...new Map(
+          data.sheets
+            .filter((sheet) => sheet.internalLevelValue != null)
+            .map((sheet) => [
+              sheet.internalLevelValue!,
+              sheet.internalLevelValue!.toFixed(1),
+            ]),
+        ).entries(),
+      ]
         .sort(([aLevelValue], [bLevelValue]) => aLevelValue - bLevelValue)
         .map(([levelValue, level]) => ({
-          $type: 'option',
+          $type: "option",
           text: level,
           value: levelValue,
         })),
     ),
 
     noteDesigners: nonEmptyOrNull(
-      [...Map.groupBy(
-        data.songs.toReversed().flatMap((song) => song.sheets)
-          .filter((sheet) => sheet.noteDesigner != null),
-        (sheet) => sheet.noteDesigner!,
-      ).entries()]
-        .map(([noteDesigner, sheets]) => ({ noteDesigner, sheetCount: sheets.length }))
+      [
+        ...Map.groupBy(
+          data.songs
+            .toReversed()
+            .flatMap((song) => song.sheets)
+            .filter((sheet) => sheet.noteDesigner != null),
+          (sheet) => sheet.noteDesigner!,
+        ).entries(),
+      ]
+        .map(([noteDesigner, sheets]) => ({
+          noteDesigner,
+          sheetCount: sheets.length,
+        }))
         .sort((a, b) => b.sheetCount - a.sheetCount)
         .map(({ noteDesigner, sheetCount }) => ({
-          $type: 'option',
+          $type: "option",
           text: `${noteDesigner} (${sheetCount})`,
           value: noteDesigner,
         })),
@@ -196,13 +228,13 @@ export function buildFilterOptions(data: Data, translate: Translate): FilterOpti
     regions: nonEmptyOrNull(
       data.regions.flatMap(({ region, name }) => [
         {
-          $type: 'option',
+          $type: "option",
           text: name,
           value: `${region}`,
         },
         {
-          $type: 'option',
-          text: translate('description.unavailableInRegion', { region: name }),
+          $type: "option",
+          text: translate("description.unavailableInRegion", { region: name }),
           value: `!${region}`,
         },
       ]),
@@ -211,162 +243,135 @@ export function buildFilterOptions(data: Data, translate: Translate): FilterOpti
 }
 
 export function parseSuperFilter(superFilterText: string) {
-  return (new Function(superFilterText))();
+  return new Function(superFilterText)();
 }
 
 export function filterSheets(sheets: Sheet[], filters: Filters) {
   let result = sheets.slice();
 
   if (filters.useRegionOverride) {
-    const currentRegion = filters.region != null && !filters.region.startsWith('!') ? filters.region : null;
+    const currentRegion =
+      filters.region != null && !filters.region.startsWith("!")
+        ? filters.region
+        : null;
 
     if (currentRegion != null) {
-      result = result.map((sheet) => getRegionOverrideSheet(sheet, currentRegion));
+      result = result.map((sheet) =>
+        getRegionOverrideSheet(sheet, currentRegion),
+      );
     }
   }
 
   if (filters.region != null) {
-    if (filters.region.startsWith('!')) {
-      const excludedRegion = filters.region.replace(/^!/, '');
+    if (filters.region.startsWith("!")) {
+      const excludedRegion = filters.region.replace(/^!/, "");
       result = result.filter(
-        (sheet) => (
-          sheet.regions == null
-          || !sheet.regions[excludedRegion]
-        ),
+        (sheet) => sheet.regions == null || !sheet.regions[excludedRegion],
       );
     } else {
       const includedRegion = filters.region;
       result = result.filter(
-        (sheet) => (
-          sheet.regions != null
-          && sheet.regions[includedRegion]
-        ),
+        (sheet) => sheet.regions != null && sheet.regions[includedRegion],
       );
     }
   }
   if (filters.categories.length !== 0) {
     const categorySet = new Set(filters.categories);
     result = result.filter(
-      (sheet) => (
-        categorySet.has(sheet.category!)
-        || (
-          sheet.category != null
-          && sheet.category.split('|').some((category) => categorySet.has(category))
-        )
-      ),
+      (sheet) =>
+        categorySet.has(sheet.category!) ||
+        (sheet.category != null &&
+          sheet.category
+            .split("|")
+            .some((category) => categorySet.has(category))),
     );
   }
   if (filters.title != null) {
     if (filters.matchExactTitle) {
-      result = result.filter(
-        (sheet) => (sheet.title === filters.title),
-      );
+      result = result.filter((sheet) => sheet.title === filters.title);
     } else {
       const normalizedTitle = filters.title.toLowerCase();
       result = result.filter(
-        (sheet) => (
-          sheet.title != null
-          && sheet.title.toLowerCase().includes(normalizedTitle)
-        ),
+        (sheet) =>
+          sheet.title != null &&
+          sheet.title.toLowerCase().includes(normalizedTitle),
       );
     }
   }
   if (filters.versions.length !== 0) {
     const versionSet = new Set(filters.versions);
-    result = result.filter(
-      (sheet) => versionSet.has(sheet.version!),
-    );
+    result = result.filter((sheet) => versionSet.has(sheet.version!));
   }
   if (filters.types.length !== 0) {
     const typeSet = new Set(filters.types);
-    result = result.filter(
-      (sheet) => typeSet.has(sheet.type!),
-    );
+    result = result.filter((sheet) => typeSet.has(sheet.type!));
   }
   if (filters.difficulties.length !== 0) {
     const difficultySet = new Set(filters.difficulties);
-    result = result.filter(
-      (sheet) => difficultySet.has(sheet.difficulty!),
-    );
+    result = result.filter((sheet) => difficultySet.has(sheet.difficulty!));
   }
-  if (typeof filters.minLevelValue === 'number') {
+  if (typeof filters.minLevelValue === "number") {
     if (filters.useInternalLevel) {
       result = result.filter(
-        (sheet) => (
-          sheet.internalLevelValue != null
-          && sheet.internalLevelValue >= filters.minLevelValue!
-        ),
+        (sheet) =>
+          sheet.internalLevelValue != null &&
+          sheet.internalLevelValue >= filters.minLevelValue!,
       );
     } else {
       result = result.filter(
-        (sheet) => (
-          sheet.levelValue != null
-          && sheet.levelValue >= filters.minLevelValue!
-        ),
+        (sheet) =>
+          sheet.levelValue != null &&
+          sheet.levelValue >= filters.minLevelValue!,
       );
     }
   }
-  if (typeof filters.maxLevelValue === 'number') {
+  if (typeof filters.maxLevelValue === "number") {
     if (filters.useInternalLevel) {
       result = result.filter(
-        (sheet) => (
-          sheet.internalLevelValue != null
-          && sheet.internalLevelValue <= filters.maxLevelValue!
-        ),
+        (sheet) =>
+          sheet.internalLevelValue != null &&
+          sheet.internalLevelValue <= filters.maxLevelValue!,
       );
     } else {
       result = result.filter(
-        (sheet) => (
-          sheet.levelValue != null
-          && sheet.levelValue <= filters.maxLevelValue!
-        ),
+        (sheet) =>
+          sheet.levelValue != null &&
+          sheet.levelValue <= filters.maxLevelValue!,
       );
     }
   }
-  if (typeof filters.minBPM === 'number') {
+  if (typeof filters.minBPM === "number") {
     result = result.filter(
-      (sheet) => (
-        sheet.bpm != null
-        && sheet.bpm >= filters.minBPM!
-      ),
+      (sheet) => sheet.bpm != null && sheet.bpm >= filters.minBPM!,
     );
   }
-  if (typeof filters.maxBPM === 'number') {
+  if (typeof filters.maxBPM === "number") {
     result = result.filter(
-      (sheet) => (
-        sheet.bpm != null
-        && sheet.bpm <= filters.maxBPM!
-      ),
+      (sheet) => sheet.bpm != null && sheet.bpm <= filters.maxBPM!,
     );
   }
   if (filters.artist != null) {
     if (filters.matchExactArtist) {
-      result = result.filter(
-        (sheet) => (sheet.artist === filters.artist),
-      );
+      result = result.filter((sheet) => sheet.artist === filters.artist);
     } else {
       const normalizedArtist = filters.artist.toLowerCase();
       result = result.filter(
-        (sheet) => (
-          sheet.artist != null
-          && sheet.artist.toLowerCase().includes(normalizedArtist)
-        ),
+        (sheet) =>
+          sheet.artist != null &&
+          sheet.artist.toLowerCase().includes(normalizedArtist),
       );
     }
   }
   if (filters.noteDesigners.length !== 0) {
     const noteDesignerSet = new Set(filters.noteDesigners);
-    result = result.filter(
-      (sheet) => (
-        noteDesignerSet.has(sheet.noteDesigner!)
-      ),
-    );
+    result = result.filter((sheet) => noteDesignerSet.has(sheet.noteDesigner!));
   }
   if (filters.superFilter != null) {
     try {
       const superFilter = parseSuperFilter(filters.superFilter);
 
-      if (typeof superFilter !== 'function') throw new TypeError('Invalid super filter');
+      if (typeof superFilter !== "function")
+        throw new TypeError("Invalid super filter");
 
       try {
         result = result.filter(superFilter);
@@ -388,8 +393,8 @@ export function loadFiltersFromQuery(query: Record<string, string>): Filters {
     boolean: (str: string) => parseBoolean(str) ?? null,
     string: (str: string) => String(str),
     number: (str: string) => Number(str),
-    'string[]': (str: string) => str.split('|').map(QueryReader.string),
-    'number[]': (str: string) => str.split('|').map(QueryReader.number),
+    "string[]": (str: string) => str.split("|").map(QueryReader.string),
+    "number[]": (str: string) => str.split("|").map(QueryReader.number),
   } as Record<string, (str: string) => any>;
 
   const filters = buildEmptyFilters() as Record<string, any>;
@@ -411,8 +416,8 @@ export function saveFiltersAsQuery(filters: Filters): Record<string, string> {
     boolean: (value: boolean) => String(Boolean(value)),
     string: (value: string) => String(String(value)),
     number: (value: number) => String(Number(value)),
-    'string[]': (values: string[]) => values.map(QueryWriter.string).join('|'),
-    'number[]': (values: number[]) => values.map(QueryWriter.number).join('|'),
+    "string[]": (values: string[]) => values.map(QueryWriter.string).join("|"),
+    "number[]": (values: number[]) => values.map(QueryWriter.number).join("|"),
   } as Record<string, (value: any) => string>;
 
   const query = Object.create(null) as Record<string, string>;

@@ -1,6 +1,10 @@
-import { $canonicalSheet, computeSheetExpr, validateNoteCounts } from '@/lib/utils/sheet';
-import { resolveUrl } from '@/lib/utils/url';
-import type { Data } from '@/types';
+import {
+  $canonicalSheet,
+  computeSheetExpr,
+  validateNoteCounts,
+} from "@/lib/utils/sheet";
+import { resolveUrl } from "@/lib/utils/url";
+import type { Data } from "@/types";
 
 export function buildEmptyData(): Data {
   return {
@@ -17,19 +21,28 @@ export function buildEmptyData(): Data {
     regions: [],
 
     // mark the data as empty
-    updateTime: '0000-00-00',
+    updateTime: "0000-00-00",
   };
 }
 
-export function preprocessData(data: Data, dataSourceUrl: string, gameCode: string) {
-  function computeNotePercentages(noteCounts: Record<string, number | null> | undefined) {
-    return noteCounts != null ? Object.fromEntries(
-      Object.entries(noteCounts)
-        .map(([key, value]) => [
-          key,
-          value != null && noteCounts.total != null ? Number(value) / noteCounts.total : null,
-        ]),
-    ) : noteCounts;
+export function preprocessData(
+  data: Data,
+  dataSourceUrl: string,
+  gameCode: string,
+) {
+  function computeNotePercentages(
+    noteCounts: Record<string, number | null> | undefined,
+  ) {
+    return noteCounts != null
+      ? Object.fromEntries(
+          Object.entries(noteCounts).map(([key, value]) => [
+            key,
+            value != null && noteCounts.total != null
+              ? Number(value) / noteCounts.total
+              : null,
+          ]),
+        )
+      : noteCounts;
   }
 
   let lastSongNo = 0;
@@ -37,21 +50,30 @@ export function preprocessData(data: Data, dataSourceUrl: string, gameCode: stri
     lastSongNo += 1;
     song.songNo = lastSongNo;
     song.imageUrl = resolveUrl(song.imageName, `${dataSourceUrl}/img/cover/`);
-    song.imageUrlM = resolveUrl(song.imageName, `${dataSourceUrl}/img/cover-m/`);
+    song.imageUrlM = resolveUrl(
+      song.imageName,
+      `${dataSourceUrl}/img/cover-m/`,
+    );
 
     for (const sheet of song.sheets) {
       Object.setPrototypeOf(sheet, song);
 
       sheet[$canonicalSheet] = sheet;
 
-      sheet.imageUrl = resolveUrl(sheet.imageName, `${dataSourceUrl}/img/cover/`);
-      sheet.imageUrlM = resolveUrl(sheet.imageName, `${dataSourceUrl}/img/cover-m/`);
+      sheet.imageUrl = resolveUrl(
+        sheet.imageName,
+        `${dataSourceUrl}/img/cover/`,
+      );
+      sheet.imageUrlM = resolveUrl(
+        sheet.imageName,
+        `${dataSourceUrl}/img/cover-m/`,
+      );
 
       sheet.sheetExpr = computeSheetExpr(sheet);
       sheet.notePercents = computeNotePercentages(sheet.noteCounts);
 
       if (!validateNoteCounts(sheet, gameCode)) {
-        console.warn('Invalid note counts:', sheet.sheetExpr, sheet.noteCounts);
+        console.warn("Invalid note counts:", sheet.sheetExpr, sheet.noteCounts);
       }
 
       for (const regionOverride of Object.values(sheet.regionOverrides ?? {})) {
@@ -88,7 +110,10 @@ export function preprocessData(data: Data, dataSourceUrl: string, gameCode: stri
     Object.freeze(type);
   }
   for (const difficulty of data.difficulties) {
-    difficulty.iconUrl = resolveUrl(difficulty.iconUrl!, `${dataSourceUrl}/img/`);
+    difficulty.iconUrl = resolveUrl(
+      difficulty.iconUrl!,
+      `${dataSourceUrl}/img/`,
+    );
     Object.freeze(difficulty);
   }
   for (const region of data.regions) {

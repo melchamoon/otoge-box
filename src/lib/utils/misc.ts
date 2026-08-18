@@ -12,26 +12,28 @@ export function isEmptyArray(arg: unknown): boolean {
 }
 
 export function parseBoolean(str: string): boolean | undefined {
-  if (str === 'true') return true;
-  if (str === 'false') return false;
+  if (str === "true") return true;
+  if (str === "false") return false;
   return undefined;
 }
 
-export function selectFiles(options: Partial<HTMLInputElement> = {}): Promise<FileList | null> {
+export function selectFiles(
+  options: Partial<HTMLInputElement> = {},
+): Promise<FileList | null> {
   return new Promise((resolve) => {
-    const input = document.createElement('input');
+    const input = document.createElement("input");
 
     Object.assign(input, {
-      type: 'file',
+      type: "file",
       ...options,
     });
 
-    input.addEventListener('change', () => {
+    input.addEventListener("change", () => {
       resolve(input.files);
     });
 
     setTimeout(() => {
-      input.dispatchEvent(new MouseEvent('click'));
+      input.dispatchEvent(new MouseEvent("click"));
     }, 0);
   });
 }

@@ -1,28 +1,225 @@
-'use client';
+"use client";
 
-import { Suspense, useEffect, useMemo, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useTheme } from 'next-themes';
-import { useTranslations } from 'next-intl';
-import YAML from 'yaml';
-import { useGameContext } from '@/contexts/GameContext';
-import { useCurrentData, useGameDataQuery } from '@/hooks/useGameDataQuery';
-import { buildGallery, isValidUrl, selectFiles } from '@/lib/utils';
-import { SheetTile } from '@/components/SheetTile';
-import { LoadingOverlay } from '@/components/LoadingOverlay';
-import { Select } from '@/components/ui/select';
-import { Alert } from '@/components/ui/alert';
-import type { Gallery, RawGallery } from '@/types';
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
+import YAML from "yaml";
+import { useGameContext } from "@/contexts/GameContext";
+import { useCurrentData, useGameDataQuery } from "@/hooks/useGameDataQuery";
+import { buildGallery, isValidUrl, selectFiles } from "@/lib/utils";
+import { SheetTile } from "@/components/SheetTile";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
+import { Select } from "@/components/ui/select";
+import { Alert } from "@/components/ui/alert";
+import type { Gallery, RawGallery } from "@/types";
 
 function GalleryContent() {
-  const t = useTranslations(); const params = useSearchParams(); const router = useRouter(); const pathname = usePathname(); const { resolvedTheme } = useTheme(); const { dataSourceUrl } = useGameContext(); const data = useCurrentData(); const query = useGameDataQuery(); const [gallery, setGallery] = useState<Gallery>([]); const [provider, setProvider] = useState(''); const [externalUrl, setExternalUrl] = useState(''); const [currentListKey, setCurrentListKey] = useState(''); const [loading, setLoading] = useState(false); const [error, setError] = useState(''); const visibleLists = useMemo(() => gallery.filter((list) => !list.isHidden || resolvedTheme === 'dark'), [gallery, resolvedTheme]); const currentList = visibleLists.find((list) => (list.id ?? list.title) === currentListKey) ?? visibleLists[0];
-  const load = async (source: string, url?: string, file?: File) => { setLoading(true); setError(''); try { const raw = file ? await file.text() : await (await fetch(url ?? `${dataSourceUrl}/gallery.yaml`)).text(); const built = buildGallery(YAML.parse(raw) as RawGallery, data.sheets); setGallery(built); setProvider(source); if (url) setExternalUrl(url); setCurrentListKey(built.find((list) => list.id === params.get('id') || list.title === params.get('title'))?.id ?? built.find((list) => list.id === params.get('id') || list.title === params.get('title'))?.title ?? built[0]?.id ?? built[0]?.title ?? ''); } catch (err) { setError(String(err)); } finally { setLoading(false); } };
-  useEffect(() => { if (query.isSuccess) { const external = params.get('url'); void load(external ? 'url' : 'default', external ?? undefined); } // the loaded data is the dependency that makes local gallery resolution safe
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const t = useTranslations();
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { resolvedTheme } = useTheme();
+  const { dataSourceUrl } = useGameContext();
+  const data = useCurrentData();
+  const query = useGameDataQuery();
+  const [gallery, setGallery] = useState<Gallery>([]);
+  const [provider, setProvider] = useState("");
+  const [externalUrl, setExternalUrl] = useState("");
+  const [currentListKey, setCurrentListKey] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const visibleLists = useMemo(
+    () => gallery.filter((list) => !list.isHidden || resolvedTheme === "dark"),
+    [gallery, resolvedTheme],
+  );
+  const currentList =
+    visibleLists.find((list) => (list.id ?? list.title) === currentListKey) ??
+    visibleLists[0];
+  const load = async (source: string, url?: string, file?: File) => {
+    setLoading(true);
+    setError("");
+    try {
+      const raw = file
+        ? await file.text()
+        : await (await fetch(url ?? `${dataSourceUrl}/gallery.yaml`)).text();
+      const built = buildGallery(YAML.parse(raw) as RawGallery, data.sheets);
+      setGallery(built);
+      setProvider(source);
+      if (url) setExternalUrl(url);
+      setCurrentListKey(
+        built.find(
+          (list) =>
+            list.id === params.get("id") || list.title === params.get("title"),
+        )?.id ??
+          built.find(
+            (list) =>
+              list.id === params.get("id") ||
+              list.title === params.get("title"),
+          )?.title ??
+          built[0]?.id ??
+          built[0]?.title ??
+          "",
+      );
+    } catch (err) {
+      setError(String(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (query.isSuccess) {
+      const external = params.get("url");
+      void load(external ? "url" : "default", external ?? undefined);
+    } // the loaded data is the dependency that makes local gallery resolution safe
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.isSuccess, data.sheets, dataSourceUrl]);
-  useEffect(() => { if (!currentList) return; const next = new URLSearchParams(); if (currentList.id) next.set('id', currentList.id); else next.set('title', currentList.title); if (provider === 'url' && externalUrl) next.set('url', externalUrl); router.push(`${pathname}?${next.toString()}`); }, [currentList, externalUrl, pathname, provider, router]);
-  const changeProvider = async (value: string) => { if (value === 'default') { await load('default'); return; } if (value === 'url') { const url = window.prompt('Please enter a gallery data URL:'); if (!url) return; if (!isValidUrl(url)) { window.alert('Please enter a valid URL.'); return; } if (!window.confirm(t('page.gallery.loadExternalGalleryConfirmation', { srcType: t('page.gallery.thisUrl'), src: url }))) return; await load('url', url); } if (value === 'file') { const files = await selectFiles({ accept: '.yaml', multiple: false }); if (files?.[0] && window.confirm(t('page.gallery.loadExternalGalleryConfirmation', { srcType: t('page.gallery.thisFile'), src: files[0].name }))) await load('file', undefined, files[0]); } if (value === 'example') window.open('/maimai/gallery/?url=https%3A%2F%2Fgist.githubusercontent.com%2Fzetaraku%2Fc8a28b5bbd17cd421278ec45f4e4e953%2Fraw%2F', '_blank'); };
-  return <div className="mx-auto max-w-screen-xl px-4 py-6 text-center sm:px-8">{loading && <LoadingOverlay />}<div className="mb-8 flex gap-2"><Select value={currentList ? (currentList.id ?? currentList.title) : ''} onChange={(event) => setCurrentListKey(event.target.value)} className="flex-1 text-left"><option value="">{t('page.gallery.selectList')}</option>{visibleLists.map((list) => <option key={list.id ?? list.title} value={list.id ?? list.title}>{list.title}</option>)}</Select><Select aria-label="Gallery source" value="" onChange={(event) => { void changeProvider(event.target.value); }} className="w-12"><option value="">☷</option><option value="default">Default</option><option value="url">URL</option><option value="file">File</option><option value="example">Example</option></Select></div>{error && <Alert className="mb-6 border-red-500 text-left text-red-600">{error}</Alert>}{provider === 'url' && externalUrl && <Alert className="mb-6 text-left whitespace-pre-line">{t('page.gallery.externalGalleryDisclaimer', { source: `👉 ${externalUrl}`, br: '\n' })}</Alert>}{provider === 'file' && <Alert className="mb-6 text-left whitespace-pre-line">{t('page.gallery.externalGalleryDisclaimer', { source: t('page.gallery.yourLocalFile'), br: '\n' })}</Alert>}{currentList ? <><h1 className="mb-8 whitespace-pre-wrap text-3xl font-semibold">{currentList.title}</h1>{currentList.description && <p className="mb-10 whitespace-pre-wrap">{currentList.description}</p>}{currentList.sections.map((section, index) => <section key={`${section.title}-${index}`} className="mb-8"><h2 className="mb-3 whitespace-pre-wrap text-2xl font-semibold">{section.title}</h2>{section.description && <p className="mb-4 whitespace-pre-wrap">{section.description}</p>}<div className="flex flex-wrap justify-center gap-2">{section.sheets?.map((sheet, sheetIndex) => <div key={`${sheet.sheetExpr ?? sheet.songNo}-${sheetIndex}`}><SheetTile sheet={sheet} /><p className="max-w-32 whitespace-pre-wrap text-sm opacity-80">{section.sheetDescriptions?.[sheetIndex]}</p></div>)}</div></section>)}</> : !query.isPending && <p className="py-10 opacity-70">No gallery data.</p>}</div>;
+  useEffect(() => {
+    if (!currentList) return;
+    const next = new URLSearchParams();
+    if (currentList.id) next.set("id", currentList.id);
+    else next.set("title", currentList.title);
+    if (provider === "url" && externalUrl) next.set("url", externalUrl);
+    router.push(`${pathname}?${next.toString()}`);
+  }, [currentList, externalUrl, pathname, provider, router]);
+  const changeProvider = async (value: string) => {
+    if (value === "default") {
+      await load("default");
+      return;
+    }
+    if (value === "url") {
+      const url = window.prompt("Please enter a gallery data URL:");
+      if (!url) return;
+      if (!isValidUrl(url)) {
+        window.alert("Please enter a valid URL.");
+        return;
+      }
+      if (
+        !window.confirm(
+          t("page.gallery.loadExternalGalleryConfirmation", {
+            srcType: t("page.gallery.thisUrl"),
+            src: url,
+          }),
+        )
+      )
+        return;
+      await load("url", url);
+    }
+    if (value === "file") {
+      const files = await selectFiles({ accept: ".yaml", multiple: false });
+      if (
+        files?.[0] &&
+        window.confirm(
+          t("page.gallery.loadExternalGalleryConfirmation", {
+            srcType: t("page.gallery.thisFile"),
+            src: files[0].name,
+          }),
+        )
+      )
+        await load("file", undefined, files[0]);
+    }
+    if (value === "example")
+      window.open(
+        "/maimai/gallery/?url=https%3A%2F%2Fgist.githubusercontent.com%2Fzetaraku%2Fc8a28b5bbd17cd421278ec45f4e4e953%2Fraw%2F",
+        "_blank",
+      );
+  };
+  return (
+    <div className="mx-auto max-w-screen-xl px-4 py-6 text-center sm:px-8">
+      {loading && <LoadingOverlay />}
+      <div className="mb-8 flex gap-2">
+        <Select
+          value={currentList ? (currentList.id ?? currentList.title) : ""}
+          onChange={(event) => setCurrentListKey(event.target.value)}
+          className="flex-1 text-left"
+        >
+          <option value="">{t("page.gallery.selectList")}</option>
+          {visibleLists.map((list) => (
+            <option key={list.id ?? list.title} value={list.id ?? list.title}>
+              {list.title}
+            </option>
+          ))}
+        </Select>
+        <Select
+          aria-label="Gallery source"
+          value=""
+          onChange={(event) => {
+            void changeProvider(event.target.value);
+          }}
+          className="w-12"
+        >
+          <option value="">☷</option>
+          <option value="default">Default</option>
+          <option value="url">URL</option>
+          <option value="file">File</option>
+          <option value="example">Example</option>
+        </Select>
+      </div>
+      {error && (
+        <Alert className="mb-6 border-red-500 text-left text-red-600">
+          {error}
+        </Alert>
+      )}
+      {provider === "url" && externalUrl && (
+        <Alert className="mb-6 text-left whitespace-pre-line">
+          {t("page.gallery.externalGalleryDisclaimer", {
+            source: `👉 ${externalUrl}`,
+            br: "\n",
+          })}
+        </Alert>
+      )}
+      {provider === "file" && (
+        <Alert className="mb-6 text-left whitespace-pre-line">
+          {t("page.gallery.externalGalleryDisclaimer", {
+            source: t("page.gallery.yourLocalFile"),
+            br: "\n",
+          })}
+        </Alert>
+      )}
+      {currentList ? (
+        <>
+          <h1 className="mb-8 whitespace-pre-wrap text-3xl font-semibold">
+            {currentList.title}
+          </h1>
+          {currentList.description && (
+            <p className="mb-10 whitespace-pre-wrap">
+              {currentList.description}
+            </p>
+          )}
+          {currentList.sections.map((section, index) => (
+            <section key={`${section.title}-${index}`} className="mb-8">
+              <h2 className="mb-3 whitespace-pre-wrap text-2xl font-semibold">
+                {section.title}
+              </h2>
+              {section.description && (
+                <p className="mb-4 whitespace-pre-wrap">
+                  {section.description}
+                </p>
+              )}
+              <div className="flex flex-wrap justify-center gap-2">
+                {section.sheets?.map((sheet, sheetIndex) => (
+                  <div key={`${sheet.sheetExpr ?? sheet.songNo}-${sheetIndex}`}>
+                    <SheetTile sheet={sheet} />
+                    <p className="max-w-32 whitespace-pre-wrap text-sm opacity-80">
+                      {section.sheetDescriptions?.[sheetIndex]}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </>
+      ) : (
+        !query.isPending && <p className="py-10 opacity-70">No gallery data.</p>
+      )}
+    </div>
+  );
 }
 
-export default function GalleryPage() { return <Suspense fallback={<div className="p-10 text-center">Loading…</div>}><GalleryContent /></Suspense>; }
+export default function GalleryPage() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Loading…</div>}>
+      <GalleryContent />
+    </Suspense>
+  );
+}

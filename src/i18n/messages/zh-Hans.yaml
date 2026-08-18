@@ -58,7 +58,7 @@ description:
   loading: 正在加载数据…
   newSong: 新歌曲！
   unlockNeeded: 需要解禁的歌曲
-  unavailableInRegion: '{region} 未收录'
+  unavailableInRegion: "{region} 未收录"
   copied: 已复制到剪贴板！
   invalidNoteCounts: 无效的 NOTE 数量
   filterResultEmpty: 找不到符合当前筛选条件的谱面。
@@ -92,7 +92,7 @@ page:
     dataSource: 数据源
     songInfo: 乐曲信息
     sheetInfo: 谱面信息
-    sheetInfoOf: '{region} 谱面信息'
+    sheetInfoOf: "{region} 谱面信息"
     sheetInfoDescription: 在此特别感谢所有贡献谱面信息的玩家们！
     openSource: 项目源代码
     openSourceDescription: |
@@ -112,7 +112,7 @@ page:
 # Components
 sfc:
   DataInfoBar:
-    updateTime: '数据更新日期：{time}'
+    updateTime: "数据更新日期：{time}"
     loadFailed: 数据加载失败。
   SheetFilter:
     exactMatch: 完全匹配
@@ -129,13 +129,13 @@ sfc:
     exportMyList: 汇出我的歌单到文件
     myListEmptyWarn: "「我的歌单」是空的！\n没有可以汇出的项目。"
     importMyList: 从文件汇入我的歌单
-    sheetsLoaded: '成功汇入 {n} 谱面。'
+    sheetsLoaded: "成功汇入 {n} 谱面。"
   SheetDrawerPanel:
     drawRandomSheet: 随机抽取谱面！
     drawRandomSheetCombo: 随机抽取组曲！
   FilterInfoBar:
-    sheetsCount: '{n} 谱面'
-    songsCount: '{n} 乐曲'
+    sheetsCount: "{n} 谱面"
+    songsCount: "{n} 乐曲"
   SheetDialog:
     searchOnYouTube: 在 YouTube 上搜索
     tryAgain: 再抽一次
