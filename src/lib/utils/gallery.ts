@@ -1,7 +1,6 @@
 import { makeDummySheet } from '@/lib/utils/sheet';
 import type { RawGallery, Gallery, Sheet } from '@/types';
 
-// eslint-disable-next-line import/prefer-default-export
 export function buildGallery(data: RawGallery, sheets: Sheet[]): Gallery {
   const lists = data;
 

@@ -6,7 +6,6 @@ import sites from '@/data/sites.json';
  * When `localDataBaseUrl` is set, the local data copy under `public/local-data/`
  * is used instead of the remote data source.
  */
-// eslint-disable-next-line import/prefer-default-export
 export function resolveDataSourceUrl(gameCode: string, localDataBaseUrl?: string) {
   const siteInfo = sites.find((site) => site.gameCode === gameCode);
   if (siteInfo === undefined) return undefined;

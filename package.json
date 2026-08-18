@@ -8,7 +8,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "knip": "knip",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings=0 --report-unused-disable-directives",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"

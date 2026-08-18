@@ -211,7 +211,6 @@ export function buildFilterOptions(data: Data, translate: Translate): FilterOpti
 }
 
 export function parseSuperFilter(superFilterText: string) {
-  // eslint-disable-next-line no-new-func
   return (new Function(superFilterText))();
 }
 
@@ -372,7 +371,6 @@ export function filterSheets(sheets: Sheet[], filters: Filters) {
       try {
         result = result.filter(superFilter);
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.warn(err);
       }
     } catch {
@@ -421,7 +419,6 @@ export function saveFiltersAsQuery(filters: Filters): Record<string, string> {
 
   for (const [key, name] of Object.entries(filterTypes)) {
     const value = filters[key as keyof Filters];
-    // eslint-disable-next-line no-continue
     if (value == null || isEmptyArray(value)) continue;
     query[key] = QueryWriter[name](value);
   }
