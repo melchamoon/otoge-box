@@ -214,7 +214,7 @@ const updates = [
   {
     title: "2023/02/15 － v3.5 Update",
     variant: "update",
-    items: ["feature: (Filter) add \"Internal Level\" filter", "misc!: (Data) now <code>levelValue</code> reflects the lower bound of its internal level (e.g. <code>levelValue</code> of level 12+ is <i>12.5</i> in CHUNITHM but <i>12.7</i> in maimai, オンゲキ and WACCA)", "misc!: (Data) unknown <code>internalLevelValue</code> is now inferred as the lowest possible value from its level (see above)", "misc: (Site) add sitemap", "misc: (Site) add Sentry app monitoring service"],
+    items: ["feature: (Filter) add \"Internal Level\" filter", "misc!: (Data) now <code>levelValue</code> reflects the lower bound of its internal level (e.g. <code>levelValue</code> of level 12+ is <i>12.5</i> in CHUNITHM but <i>12.7</i> in maimai, オンゲキ and WACCA)", "misc!: (Data) unknown <code>internalLevelValue</code> is now inferred as the lowest possible value from its level (see above)", "misc: (Site) add sitemap"],
   },
   {
     title: "2022/11/17 － v3.4 Update",
@@ -454,7 +454,7 @@ const updates = [
   {
     title: "2020/09/18 － v1.1 Update",
     variant: "update",
-    items: ["feature: (List View) add \"Open Sheet Dialog\" button", "feature: (Sheet Dialog) add \"Search on YouTube\" button", "misc: (Site) add site counter"],
+    items: ["feature: (List View) add \"Open Sheet Dialog\" button", "feature: (Sheet Dialog) add \"Search on YouTube\" button"],
   },
   {
     title: "2020/08/16 － v1.0 Release",

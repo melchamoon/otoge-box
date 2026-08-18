@@ -2,7 +2,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
-import { withSentryConfig } from '@sentry/nextjs';
 import withSerwistInit from '@serwist/next';
 import sites from './src/data/sites.json';
 
@@ -31,9 +30,6 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_SOURCE_CODE_URL: process.env.NEXT_PUBLIC_SOURCE_CODE_URL ?? process.env.SOURCE_CODE_URL ?? 'https://github.com/melchamoon/otoge-box',
     NEXT_PUBLIC_SITE_DESCRIPTION_EN: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_EN ?? process.env.SITE_DESCRIPTION_EN ?? 'A utility site that provides a searching interface for ______ songs and sheets.',
     NEXT_PUBLIC_SITE_DESCRIPTION_JP: process.env.NEXT_PUBLIC_SITE_DESCRIPTION_JP ?? process.env.SITE_DESCRIPTION_JP ?? '______譜面情報検索webツール',
-    NEXT_PUBLIC_INDEX_ACCESS_COUNTER_URL: process.env.NEXT_PUBLIC_INDEX_ACCESS_COUNTER_URL ?? process.env.INDEX_ACCESS_COUNTER_URL ?? '',
-    NEXT_PUBLIC_GTAG_TRACK_ID: process.env.NEXT_PUBLIC_GTAG_TRACK_ID ?? process.env.GTAG_TRACK_ID ?? '',
-    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN ?? process.env.SENTRY_DSN ?? '',
   },
 };
 
@@ -46,7 +42,4 @@ const withSerwist = withSerwistInit({
   cacheOnNavigation: true,
 });
 
-export default withSentryConfig(withSerwist(withNextIntl(nextConfig)), {
-  silent: true,
-  sourcemaps: { disable: true },
-});
+export default withSerwist(withNextIntl(nextConfig));

@@ -50,8 +50,7 @@ ln -s /path/to/local-data public/local-data
 
 ## 環境変数
 
-公開環境の URL、報告先、GA4 測定 ID、Sentry DSN は `NEXT_PUBLIC_*` 変数で設定します。
-GA4 と Sentry は値が空なら無効です。新しいプロジェクトの値だけを設定し、派生元の計測 ID や DSN は流用しないでください。
+公開環境の URL と報告先は `NEXT_PUBLIC_*` 変数で設定します。
 
 ## 開発・検証
 

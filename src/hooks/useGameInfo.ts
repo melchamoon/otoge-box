@@ -10,6 +10,5 @@ export function useGameInfo() {
     themeColor: game?.themeColor ?? '#424242',
     coverImageSize: game?.coverImageSize ?? { width: 100, height: 100 },
     dataSourceUrl: game?.dataSourceUrl,
-    accessCounterUrl: game?.accessCounterUrl,
   };
 }

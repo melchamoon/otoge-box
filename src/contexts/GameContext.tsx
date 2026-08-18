@@ -4,7 +4,7 @@ import { createContext, useContext, useMemo } from 'react';
 import { resolveDataSourceUrl } from '@/lib/utils/dataSource';
 import sites from '@/data/sites.json';
 
-export type SiteInfo = (typeof sites)[number] & { accessCounterUrl?: string };
+export type SiteInfo = (typeof sites)[number];
 export type GameContextValue = {
   gameCode: string;
   siteInfo: SiteInfo;
@@ -12,7 +12,6 @@ export type GameContextValue = {
   dataSourceUrl: string;
   coverImageSize: { width: number; height: number };
   themeColor: string;
-  accessCounterUrl?: string;
 };
 
 const GameContext = createContext<GameContextValue | null>(null);
@@ -28,7 +27,6 @@ export function GameProvider({ gameCode, children }: { gameCode: string; childre
     dataSourceUrl: resolveDataSourceUrl(gameCode, process.env.NEXT_PUBLIC_LOCAL_DATA_BASE_URL || undefined) ?? typedSiteInfo.dataSourceUrl,
     coverImageSize: typedSiteInfo.coverImageSize ?? { width: 100, height: 100 },
     themeColor: typedSiteInfo.themeColor ?? '#424242',
-    accessCounterUrl: typedSiteInfo.accessCounterUrl ?? process.env.NEXT_PUBLIC_INDEX_ACCESS_COUNTER_URL,
   }), [gameCode, typedSiteInfo]);
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }

@@ -3,7 +3,6 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { AppBar } from '@/components/layout/AppBar';
 import { Footer } from '@/components/layout/Footer';
 import { NavDrawer } from '@/components/layout/NavDrawer';
-import { Analytics } from '@/components/Analytics';
 import { Providers } from './providers';
 import './globals.css';
 
@@ -34,7 +33,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang={locale} suppressHydrationWarning>
       <body>
         <Providers locale={locale} messages={messages}>
-          <Analytics />
           <AppBar />
           <NavDrawer />
           <main className="min-h-[calc(100vh-7rem)] pt-16 pb-12">{children}</main>

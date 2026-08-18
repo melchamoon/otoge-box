@@ -9,13 +9,11 @@ import { mdiArrowRight, mdiMusicBoxMultiple } from '@mdi/js';
 import sites from '@/data/sites.json';
 import { Icon } from '@/components/Icon';
 import { RICK_SHEET } from '@/lib/utils/sheet';
-import { useGtagEvent } from '@/hooks/useGtagEvent';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 export default function HomePage() {
   const t = useTranslations();
   const { resolvedTheme, setTheme } = useTheme();
-  const sendEvent = useGtagEvent();
   const timer = useRef<number | null>(null);
   const completed = useRef(false);
   const [secretOpen, setSecretOpen] = useState(false);
@@ -33,7 +31,6 @@ export default function HomePage() {
         window.setTimeout(() => {
           setSecretOpen(true);
           confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 }, zIndex: 999 });
-          sendEvent('SecretFound', { no: 1 });
         }, 1000);
       }
     }, 5000);
