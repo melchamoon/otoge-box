@@ -1,6 +1,7 @@
 import { computed } from '@nuxtjs/composition-api';
 import { useDataStore } from '~/stores/data';
 import useGameInfo from '~/composables/useGameInfo';
+import { resolveUrl } from '~/utils';
 import type { Sheet } from '~/types';
 
 export default function useGameData() {
@@ -10,7 +11,7 @@ export default function useGameData() {
 
   // Lock icon
   function getLockedIconUrl() {
-    return new URL('locked.png', `${dataSourceUrl.value}/img/`).toString();
+    return resolveUrl('locked.png', `${dataSourceUrl.value}/img/`);
   }
   function getLockedIconHeight() {
     return 40;

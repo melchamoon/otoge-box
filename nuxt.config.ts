@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import type { NuxtConfig } from '@nuxt/types';
 import locales from './locales';
 import sites from './data/sites.json';
@@ -12,7 +14,46 @@ declare module '@nuxt/types/config/runtime' {
     siteDescriptionEn?: string;
     siteDescriptionJp?: string;
     indexAccessCounterUrl?: string;
+    localDataBaseUrl?: string;
   }
+}
+
+const LOCAL_DATA_DIR = 'static/local-data';
+
+function getLocalDataPath(gameCode: string) {
+  return path.resolve(__dirname, LOCAL_DATA_DIR, gameCode, 'data.json');
+}
+
+/**
+ * Where the songs data is loaded from.
+ *
+ * `LOCAL_DATA_BASE_URL` takes precedence; set it to an empty string to force the
+ * remote data source. Otherwise the local data copy under `static/local-data/` is
+ * used automatically while developing, as long as every game is present there.
+ */
+const localDataBaseUrl = (() => {
+  if (process.env.LOCAL_DATA_BASE_URL !== undefined) {
+    return process.env.LOCAL_DATA_BASE_URL || undefined;
+  }
+
+  const isLocalDataReady = sites.every((site) => fs.existsSync(getLocalDataPath(site.gameCode)));
+
+  return process.env.NODE_ENV === 'development' && isLocalDataReady ? '/local-data' : undefined;
+})();
+
+// The local data copy is read from the file system here, since a site-absolute
+// path cannot be fetched while building.
+async function loadSiteData(site: (typeof sites)[number]) {
+  const localDataPath = getLocalDataPath(site.gameCode);
+
+  if (localDataBaseUrl !== undefined && fs.existsSync(localDataPath)) {
+    return JSON.parse(fs.readFileSync(localDataPath, 'utf8')) as Data;
+  }
+
+  const response = await fetch(`${site.dataSourceUrl}/data.json`);
+  const data = await response.json() as Data;
+
+  return data;
 }
 
 const nuxtConfig: NuxtConfig = {
@@ -32,6 +73,7 @@ const nuxtConfig: NuxtConfig = {
     siteDescriptionEn: process.env.SITE_DESCRIPTION_EN,
     siteDescriptionJp: process.env.SITE_DESCRIPTION_JP,
     indexAccessCounterUrl: process.env.INDEX_ACCESS_COUNTER_URL,
+    localDataBaseUrl,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -101,8 +143,7 @@ const nuxtConfig: NuxtConfig = {
     sitemaps: sites.filter((site) => !site.isHidden).map((site) => ({
       path: `/sitemap-${site.gameCode}.xml`,
       async routes() {
-        const response = await fetch(`${site.dataSourceUrl}/data.json`);
-        const data = await response.json() as Data;
+        const data = await loadSiteData(site);
 
         return [
           `/${site.gameCode}/`,

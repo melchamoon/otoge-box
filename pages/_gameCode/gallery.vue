@@ -14,7 +14,6 @@ import useGlobalComponents from '~/composables/useGlobalComponents';
 import LoadingOverlay from '~/components/LoadingOverlay.vue';
 import SheetTile from '~/components/SheetTile.vue';
 import LoadingStatus from '~/enums/LoadingStatus';
-import sites from '~/data/sites.json';
 import { buildGallery, isValidUrl, selectFiles } from '~/utils';
 import type { Gallery, GalleryList } from '~/types';
 
@@ -25,7 +24,7 @@ const route = useRoute();
 const router = useRouter();
 const dataStore = useDataStore();
 const { isDarkMode } = useDarkMode();
-const { gameCode } = useGameInfo();
+const { gameCode, dataSourceUrl } = useGameInfo();
 const { viewSheet } = useSheetDialog();
 // re-export the shadowed <i18n /> component as <i18n-t />
 const { i18n: I18nT } = useGlobalComponents();
@@ -50,9 +49,7 @@ const currentList: Ref<GalleryList | null> = ref(null);
 async function loadDefaultGallery() {
   currentLoadingStatus.value = LoadingStatus.LOADING;
   try {
-    const { dataSourceUrl } = sites.find((site) => site.gameCode === gameCode.value)!;
-
-    const response = await fetch(`${dataSourceUrl}/gallery.yaml`);
+    const response = await fetch(`${dataSourceUrl.value}/gallery.yaml`);
     const data = YAML.parse(await response.text());
 
     await until(() => dataStore.currentLoadingStatus).toBe(LoadingStatus.LOADED);

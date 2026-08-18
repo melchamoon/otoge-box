@@ -1,4 +1,5 @@
 import { $canonicalSheet, computeSheetExpr, validateNoteCounts } from '~/utils/sheet';
+import { resolveUrl } from '~/utils/url';
 import type { Data } from '~/types';
 
 export function buildEmptyData(): Data {
@@ -21,9 +22,6 @@ export function buildEmptyData(): Data {
 }
 
 export function preprocessData(data: Data, dataSourceUrl: string, gameCode: string) {
-  function resolveUrl(filePath: string | undefined, baseUrl: string) {
-    return filePath != null ? new URL(filePath, baseUrl).toString() : filePath;
-  }
   function computeNotePercentages(noteCounts: Record<string, number | null> | undefined) {
     return noteCounts != null ? Object.fromEntries(
       Object.entries(noteCounts)

@@ -1,9 +1,9 @@
 import { ref, computed, watch } from '@nuxtjs/composition-api';
 import { defineStore } from 'pinia';
 import useSentry from '~/composables/useSentry';
+import useVM from '~/composables/useVM';
 import LoadingStatus from '~/enums/LoadingStatus';
-import sites from '~/data/sites.json';
-import { buildEmptyData, preprocessData } from '~/utils';
+import { buildEmptyData, preprocessData, resolveDataSourceUrl } from '~/utils';
 import type { Data, Sheet } from '~/types';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -39,9 +39,10 @@ export const useDataStore = defineStore('data', () => {
   });
 
   const sentry = useSentry();
+  const config = useVM()!.$config;
 
   async function loadData(gameCode: string) {
-    const dataSourceUrl = sites.find((site) => site.gameCode === gameCode)?.dataSourceUrl;
+    const dataSourceUrl = resolveDataSourceUrl(gameCode, config.localDataBaseUrl);
 
     if (dataSourceUrl === undefined) {
       // eslint-disable-next-line no-console

@@ -18,6 +18,29 @@ yarn install
 
 - Make a copy of the `.env.example` file as `.env` and fill out the required fields.
 
+## Local development data
+
+While developing, the songs data is read from the local copy under `static/local-data/`
+instead of the remote data source, so that no request is made to the CDN.
+
+That directory is git-ignored and has to be filled in once. It mirrors the layout of
+the remote data source, whose URL is listed per game in `data/sites.json`:
+
+```
+static/local-data/<gameCode>/data.json
+static/local-data/<gameCode>/gallery.yaml       # only some games have one
+static/local-data/<gameCode>/img/cover/<imageName>
+static/local-data/<gameCode>/img/cover-m/<imageName>
+static/local-data/<gameCode>/img/<iconUrl>      # type / difficulty icons, locked.png
+```
+
+- `<imageName>` is listed in `data.json` for every song and sheet. Note that the
+  `any` game refers to the images of the other games by a relative path, so it has
+  no images of its own.
+- The remote data source is used instead whenever `data.json` is missing for any of
+  the games, so the site still works before the copy is made.
+- `LOCAL_DATA_BASE_URL` in `.env` overrides all of the above.
+
 ## Development
 
 ```sh
