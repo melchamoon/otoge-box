@@ -5,7 +5,6 @@ import confetti from 'canvas-confetti';
 import sleep from 'sleep-promise';
 import { useDataStore } from '~/stores/data';
 import useI18n from '~/composables/useI18n';
-import useGtag from '~/composables/useGtag';
 import useDarkMode from '~/composables/useDarkMode';
 import useGameInfo from '~/composables/useGameInfo';
 import useSelectedSheets from '~/composables/useSelectedSheets';
@@ -20,12 +19,11 @@ import { buildEmptyFilters, buildFilterOptions, loadFiltersFromQuery, filterShee
 
 const context = useContext();
 const i18n = useI18n();
-const gtag = useGtag();
 const route = useRoute();
 const router = useRouter();
 const dataStore = useDataStore();
 const { isDarkMode } = useDarkMode();
-const { gameCode, gameTitle } = useGameInfo();
+const { gameTitle } = useGameInfo();
 const { selectedSheets } = useSelectedSheets();
 const { viewSheet } = useSheetDialog();
 
@@ -72,8 +70,6 @@ function pickFromFilter() {
 
   const selectedSheet = pickItem(unselectedSheets.value);
   selectedSheets.value = [...selectedSheets.value, selectedSheet];
-
-  gtag('event', 'RandomSheetPicked', { gameCode: gameCode.value, eventSource: 'GameIndexPage' });
 }
 
 const isRitualReady = computed(() => (
@@ -89,7 +85,6 @@ async function clearMyList() {
     await sleep(1500);
     viewSheet(HYBRID_SHEET);
     confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 }, zIndex: 999 });
-    gtag('event', 'SecretFound', { gameCode: gameCode.value, eventSource: 'GameIndexPage', no: 3 });
 
     selectedSheets.value = [HYBRID_SHEET];
 
@@ -100,16 +95,10 @@ async function clearMyList() {
 }
 
 onMounted(() => {
-  const rawQuery = window.location.search.substring(1);
-
   filters.value = loadFiltersFromQuery(route.value.query as Record<string, string>);
 
   // clear the query params
   router.replace({ query: {} })
-    .then(() => {
-      // Some filters are loaded from link if some query params are cleared
-      gtag('event', 'FilterLinkLoaded', { gameCode: gameCode.value, eventSource: 'GameIndexPage', query: rawQuery });
-    })
     .catch((err) => {
       // Ignore the error regarding navigating to the page they are already on.
       if (err.name !== 'NavigationDuplicated') throw err;

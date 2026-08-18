@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch, inject, Ref } from '@nuxtjs/composition-api';
-import useGtag from '~/composables/useGtag';
-import useGameInfo from '~/composables/useGameInfo';
 import useSheetDialog from '~/composables/useSheetDialog';
 import SuperFilterDialog from '~/components/dialogs/SuperFilterDialog.vue';
 import { parseSuperFilter, makeShyCatSheet } from '~/utils';
@@ -10,8 +8,6 @@ import type { Filters, FilterOptions } from '~/types';
 const filters: Ref<Filters> = inject('filters')!;
 const filterOptions: Ref<FilterOptions> = inject('filterOptions')!;
 
-const gtag = useGtag();
-const { gameCode } = useGameInfo();
 const { viewSheet } = useSheetDialog();
 
 const isSuperFilterDialogOpened = ref(false);
@@ -29,7 +25,6 @@ function validateSuperFilter(superFilterText: string): boolean | string {
     if (typeof superFilter !== 'function') {
       if (typeof superFilter !== 'undefined') {
         viewSheet(makeShyCatSheet(superFilter, 'INVALID SUPER FILTER'));
-        gtag('event', 'InvalidSuperFilterReturned', { gameCode: gameCode.value, eventSource: 'SheetFilter' });
       }
 
       throw new TypeError('You should return a predicate function.');
@@ -127,10 +122,7 @@ watch(() => filters.value.syncBPM, () => {
               <v-btn
                 icon
                 :color="!filters.matchExactTitle ? null : 'accent'"
-                @click="
-                  filters.matchExactTitle = !filters.matchExactTitle || null;
-                  $gtag('event', 'MatchExactTitleToggled', { gameCode, eventSource: 'SheetFilter' });
-                "
+                @click="filters.matchExactTitle = !filters.matchExactTitle || null"
                 v-on="on"
               >
                 <v-icon size="2.0em">
@@ -190,10 +182,7 @@ watch(() => filters.value.syncBPM, () => {
           <v-btn
             icon
             :color="!filters.syncLevelValue ? null : 'accent'"
-            @click="
-              filters.syncLevelValue = !filters.syncLevelValue || null;
-              $gtag('event', 'LevelFilterSyncToggled', { gameCode, eventSource: 'SheetFilter' });
-            "
+            @click="filters.syncLevelValue = !filters.syncLevelValue || null"
           >
             <v-icon size="2.0em">
               {{ !filters.syncLevelValue ? 'mdi-link-off' : 'mdi-link' }}
@@ -219,11 +208,7 @@ watch(() => filters.value.syncBPM, () => {
               <v-btn
                 icon
                 :color="!filters.useInternalLevel ? null : 'accent'"
-                @click="
-                  filters.useInternalLevel = !filters.useInternalLevel || null;
-                  // eslint-disable-next-line max-len
-                  $gtag('event', 'InternalLevelFilterToggled', { gameCode, eventSource: 'SheetFilter' });
-                "
+                @click="filters.useInternalLevel = !filters.useInternalLevel || null"
                 v-on="on"
               >
                 <v-icon size="2.4em">
@@ -300,10 +285,7 @@ watch(() => filters.value.syncBPM, () => {
               <v-btn
                 icon
                 :color="!filters.matchExactArtist ? null : 'accent'"
-                @click="
-                  filters.matchExactArtist = !filters.matchExactArtist || null;
-                  $gtag('event', 'MatchExactArtistToggled', { gameCode, eventSource: 'SheetFilter' });
-                "
+                @click="filters.matchExactArtist = !filters.matchExactArtist || null"
                 v-on="on"
               >
                 <v-icon size="2.0em">
@@ -360,10 +342,7 @@ watch(() => filters.value.syncBPM, () => {
                 icon
                 :color="!filters.useRegionOverride ? null : 'accent'"
                 :disabled="filters.region == null || filters.region.startsWith('!')"
-                @click="
-                  filters.useRegionOverride = !filters.useRegionOverride || null;
-                  $gtag('event', 'RegionOverrideToggled', { gameCode, eventSource: 'SheetFilter' });
-                "
+                @click="filters.useRegionOverride = !filters.useRegionOverride || null"
                 v-on="on"
               >
                 <v-icon size="2.0em">
@@ -398,10 +377,7 @@ watch(() => filters.value.syncBPM, () => {
           <v-btn
             icon
             :color="!filters.syncBPM ? null : 'accent'"
-            @click="
-              filters.syncBPM = !filters.syncBPM || null;
-              $gtag('event', 'BPMFilterSyncToggled', { gameCode, eventSource: 'SheetFilter' });
-            "
+            @click="filters.syncBPM = !filters.syncBPM || null"
           >
             <v-icon size="2.0em">
               {{ !filters.syncBPM ? 'mdi-link-off' : 'mdi-link' }}

@@ -3,17 +3,13 @@
 import { ref, useMeta as useHead, useContext } from '@nuxtjs/composition-api';
 import confetti from 'canvas-confetti';
 import sleep from 'sleep-promise';
-import useGtag from '~/composables/useGtag';
 import useDarkMode from '~/composables/useDarkMode';
-import useGameInfo from '~/composables/useGameInfo';
 import useSheetDialog from '~/composables/useSheetDialog';
 import sites from '~/data/sites.json';
 import { RICK_SHEET } from '~/utils';
 
 const context = useContext();
-const gtag = useGtag();
 const { isDarkMode } = useDarkMode();
-const { gameCode } = useGameInfo();
 const { viewSheet } = useSheetDialog();
 
 const toggleDuration = 5000;
@@ -35,7 +31,6 @@ async function toggleLightSwitch(buttonPressed: boolean) {
       await sleep(1000);
       viewSheet(RICK_SHEET);
       confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 }, zIndex: 999 });
-      gtag('event', 'SecretFound', { gameCode: gameCode.value, eventSource: 'IndexPage', no: 1 });
     }
   }, toggleDuration);
 }

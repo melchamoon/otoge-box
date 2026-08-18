@@ -3,7 +3,6 @@ import { ref, watch, inject, ComputedRef } from '@nuxtjs/composition-api';
 import confetti from 'canvas-confetti';
 import sleep from 'sleep-promise';
 import useI18n from '~/composables/useI18n';
-import useGtag from '~/composables/useGtag';
 import useDarkMode from '~/composables/useDarkMode';
 import useGameInfo from '~/composables/useGameInfo';
 import useSheetDialog from '~/composables/useSheetDialog';
@@ -14,9 +13,8 @@ import type { Sheet } from '~/types';
 const drawingPool: ComputedRef<Sheet[]> = inject('drawingPool')!;
 
 const i18n = useI18n();
-const gtag = useGtag();
 const { isDarkMode } = useDarkMode();
-const { gameCode, themeColor } = useGameInfo();
+const { themeColor } = useGameInfo();
 const {
   drawingPool: sheetDrawingPool,
   startDrawingSheet,
@@ -24,7 +22,6 @@ const {
 } = useSheetDialog();
 const {
   drawingPool: sheetComboDrawingPool,
-  drawSize,
   startDrawingSheetCombo,
 } = useSheetComboDialog();
 
@@ -40,9 +37,7 @@ async function drawSheet() {
   }
 
   sheetDrawingPool.value = drawingPool.value;
-  await startDrawingSheet(() => {
-    gtag('event', 'RandomSheetDrawn', { gameCode: gameCode.value, eventSource: 'SheetDrawerPanel' });
-  });
+  await startDrawingSheet();
 }
 async function drawSheetCombo() {
   if (drawingPool.value.length === 0) {
@@ -52,9 +47,7 @@ async function drawSheetCombo() {
   }
 
   sheetComboDrawingPool.value = drawingPool.value;
-  await startDrawingSheetCombo(() => {
-    gtag('event', 'RandomSheetComboDrawn', { gameCode: gameCode.value, eventSource: 'SheetDrawerPanel', drawSize: drawSize.value });
-  });
+  await startDrawingSheetCombo();
 }
 
 function getInitialLight() {
@@ -85,7 +78,6 @@ async function toggleLights(index: number) {
     await sleep(1000);
     viewSheet(INDI_SHEET);
     confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 }, zIndex: 999 });
-    gtag('event', 'SecretFound', { gameCode: gameCode.value, eventSource: 'SheetDrawerPanel', no: 2 });
   }
 }
 

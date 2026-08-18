@@ -2,8 +2,6 @@
 import { computed } from '@nuxtjs/composition-api';
 import YAML from 'yaml';
 import FileSaver from 'file-saver';
-import useGtag from '~/composables/useGtag';
-import useSentry from '~/composables/useSentry';
 import useDarkMode from '~/composables/useDarkMode';
 import useGameInfo from '~/composables/useGameInfo';
 import useSelectedSheets from '~/composables/useSelectedSheets';
@@ -17,8 +15,6 @@ defineEmits<{
   (event: 'input', value: boolean): void;
 }>();
 
-const gtag = useGtag();
-const sentry = useSentry();
 const { isDarkMode } = useDarkMode();
 const { gameCode } = useGameInfo();
 const { selectedSheets } = useSelectedSheets();
@@ -37,11 +33,7 @@ async function exportSelectedSheets() {
       new Blob([selectedSheetsYaml.value], { type: 'application/yaml; charset=utf-8;' }),
       `${gameCode.value}-mylist-${toLocalISODateString(new Date()).replaceAll('-', '')}.yaml`,
     );
-
-    gtag('event', 'MyListExported', { gameCode: gameCode.value, eventSource: 'MyListExportDialog' });
   } catch (err) {
-    sentry.captureException(err);
-
     // eslint-disable-next-line no-alert
     window.alert(`An error occurred while saving MY LIST:\n${err}`);
   }

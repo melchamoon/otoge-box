@@ -5,9 +5,6 @@ import QueryString from 'query-string';
 import copyToClipboard from 'copy-to-clipboard';
 import { useDataStore } from '~/stores/data';
 import useI18n from '~/composables/useI18n';
-import useGtag from '~/composables/useGtag';
-import useSentry from '~/composables/useSentry';
-import useGameInfo from '~/composables/useGameInfo';
 import useSelectedSheets from '~/composables/useSelectedSheets';
 import MyListExportDialog from '~/components/dialogs/MyListExportDialog.vue';
 import { saveFiltersAsQuery, selectFiles, makeDummySheet } from '~/utils';
@@ -18,10 +15,7 @@ const filterMode: Ref<string> = inject('filterMode')!;
 const filters: Ref<Filters> = inject('filters')!;
 
 const i18n = useI18n();
-const gtag = useGtag();
-const sentry = useSentry();
 const dataStore = useDataStore();
-const { gameCode } = useGameInfo();
 const { selectedSheets } = useSelectedSheets();
 
 const isMyListExportDialogOpened = ref(false);
@@ -35,21 +29,15 @@ function copyFilterLink() {
     return;
   }
 
-  const rawQuery = QueryString.stringify(query);
-
   const url = QueryString.stringifyUrl({ url: window.location.href, query });
   copyToClipboard(url, { format: 'text/plain' });
 
   // eslint-disable-next-line no-alert
   window.alert(`${url}\n${i18n.t('description.copied')}`);
-
-  gtag('event', 'FilterLinkCopied', { gameCode: gameCode.value, eventSource: 'ModeSelector', query: rawQuery });
 }
 function toggleSuperFilter() {
   if (filters.value.superFilter === null) {
     filters.value.superFilter = '';
-
-    gtag('event', 'SuperFilterShown', { gameCode: gameCode.value, eventSource: 'ModeSelector' });
   } else {
     filters.value.superFilter = null;
   }
@@ -62,8 +50,6 @@ async function showMyListExportDialog() {
   }
 
   isMyListExportDialogOpened.value = true;
-
-  gtag('event', 'MyListExportDialogShown', { gameCode: gameCode.value, eventSource: 'ModeSelector' });
 }
 async function importSelectedSheets() {
   const files = await selectFiles({ accept: '.yaml', multiple: false });
@@ -83,11 +69,7 @@ async function importSelectedSheets() {
 
     // eslint-disable-next-line no-alert
     window.alert(i18n.t('sfc.ModeSelector.sheetsLoaded', { n: loadedSheets.length }));
-
-    gtag('event', 'MyListImported', { gameCode: gameCode.value, eventSource: 'ModeSelector' });
   } catch (err) {
-    sentry.captureException(err);
-
     // eslint-disable-next-line no-alert
     window.alert(`An error occurred while loading '${files[0].name}':\n\n${err}`);
   }
@@ -105,13 +87,6 @@ async function importSelectedSheets() {
         <v-radio-group
           v-model="displayMode"
           row
-          @change="
-            $gtag('event', 'DisplayModeChanged', {
-              gameCode,
-              eventSource: 'ModeSelector',
-              displayMode: $event,
-            });
-          "
         >
           <v-radio value="grid">
             <template #label>
@@ -148,13 +123,6 @@ async function importSelectedSheets() {
         <v-radio-group
           v-model="filterMode"
           row
-          @change="
-            $gtag('event', 'FilterModeChanged', {
-              gameCode,
-              eventSource: 'ModeSelector',
-              filterMode: $event,
-            });
-          "
         >
           <v-radio value="filter">
             <template #label>
