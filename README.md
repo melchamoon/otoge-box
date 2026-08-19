@@ -69,6 +69,10 @@ pnpm build
 pnpm start
 ```
 
+### 開発中の service worker
+
+本番ビルドで生成される `public/sw.js` は `next dev` でも配信されるため、`pnpm start` などで一度登録した service worker が開発中も本番ビルドのチャンクを返し続け、ページが「データを読み込んでいます…」のまま止まることがあります。開発時は `/sw.js` を `src/app/dev-sw-kill/route.ts` へ rewrite し、キャッシュを全削除して自身を unregister する service worker を返しています（リロード 1 回で解消します）。
+
 本番ビルドでは Serwist が service worker を生成します。`public/local-data` が外部ディレクトリを指す symlink の場合、Turbopack の制約によりビルド時だけ一時的に外して、未設定の `LOCAL_DATA_BASE_URL` でリモートデータへ切り替えてください。
 
 ## データソース
