@@ -88,7 +88,6 @@ jobs:
   aggregate:
     name: Build aggregate data
     needs: [prepare, game]
-    if: ${{ always() && needs.prepare.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       R2_DATA_ENDPOINT: ${{ secrets.R2_DATA_ENDPOINT }}
