@@ -6,6 +6,10 @@ const logger = log4js.getLogger("any/gen-json");
 logger.level = log4js.levels.INFO;
 
 const DIST_PATH = "dist/any";
+const RELEASE_ASSET_PREFIX = "__release__/";
+const releasePrefixes = process.env.ANY_RELEASE_PREFIXES
+  ? (JSON.parse(process.env.ANY_RELEASE_PREFIXES) as Record<string, string>)
+  : {};
 
 const difficulties = [
   { difficulty: "maimai", name: "maimai", color: "#1976d2" },
@@ -61,7 +65,10 @@ export default async function run() {
           isSpecial: song.sheets[0]?.isSpecial ?? false,
         },
       ];
-      song.imageName = `../../../${gameCode}/img/cover-m/${song.imageName}`;
+      const releasePrefix = releasePrefixes[gameCode];
+      song.imageName = releasePrefix
+        ? `${RELEASE_ASSET_PREFIX}${releasePrefix}/img/cover-m/${song.imageName}`
+        : `../../../${gameCode}/img/cover-m/${song.imageName}`;
     }
 
     songsArray.push(songsOfGame.slice().reverse());

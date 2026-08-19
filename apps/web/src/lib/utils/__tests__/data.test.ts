@@ -23,4 +23,25 @@ describe("preprocessData", () => {
     expect(data.songs[0].songId).toBe("song-c");
     expect(data.songs[2].songNo).toBe(1);
   });
+
+  it("resolves aggregate release assets for remote and local data", () => {
+    const remoteData = JSON.parse(JSON.stringify(fixture)) as Data;
+    remoteData.songs[0].imageName =
+      "__release__/maimai/releases/20260819000000-test/img/cover-m/alpha.png";
+    preprocessData(
+      remoteData,
+      "https://cdn.example/any/releases/20260819000000-any",
+      "any",
+    );
+    expect(remoteData.songs[0].imageUrlM).toBe(
+      "https://cdn.example/maimai/releases/20260819000000-test/img/cover-m/alpha.png",
+    );
+
+    const localData = JSON.parse(JSON.stringify(fixture)) as Data;
+    localData.songs[0].imageName = remoteData.songs[0].imageName;
+    preprocessData(localData, "/local-data/any", "any");
+    expect(localData.songs[0].imageUrlM).toBe(
+      "/local-data/maimai/img/cover-m/alpha.png",
+    );
+  });
 });

@@ -38,6 +38,11 @@ export async function aggregate() {
       path.resolve("dist", gameCode),
     );
   }
+  process.env.ANY_RELEASE_PREFIXES = JSON.stringify(
+    Object.fromEntries(
+      releases.map(({ gameCode, manifest }) => [gameCode, manifest.prefix]),
+    ),
+  );
   await runCommand("pnpm", ["run", "any:gen-json"]);
   await runCommand("pnpm", ["run", "any:upload-data"]);
 }

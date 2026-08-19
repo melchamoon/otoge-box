@@ -6,6 +6,41 @@ import {
 import { resolveUrl } from "@/lib/utils/url";
 import type { Data } from "@/types";
 
+const AGGREGATE_ASSET_PREFIX = "__release__/";
+
+function resolveAggregateAssetUrl(
+  filePath: string | undefined,
+  dataSourceUrl: string,
+) {
+  if (filePath == null || !filePath.startsWith(AGGREGATE_ASSET_PREFIX)) {
+    return undefined;
+  }
+  const assetPath = filePath.slice(AGGREGATE_ASSET_PREFIX.length);
+  const match =
+    /^([a-z0-9-]+)\/releases\/[a-z0-9][a-z0-9-]{7,63}\/img\/(cover|cover-m)\/(.+)$/.exec(
+      assetPath,
+    );
+  if (!match) {
+    throw new Error(`Invalid aggregate asset reference: ${filePath}`);
+  }
+  if (dataSourceUrl.startsWith("/")) {
+    const dataRoot = dataSourceUrl.replace(/\/any(?:\/releases\/[^/]+)?$/, "");
+    return `${dataRoot}/${match[1]}/img/${match[2]}/${match[3]}`;
+  }
+  return new URL(`/${assetPath}`, dataSourceUrl).toString();
+}
+
+function resolveImageUrl(
+  filePath: string | undefined,
+  dataSourceUrl: string,
+  directory: "cover" | "cover-m",
+) {
+  return (
+    resolveAggregateAssetUrl(filePath, dataSourceUrl) ??
+    resolveUrl(filePath, `${dataSourceUrl}/img/${directory}/`)
+  );
+}
+
 export function buildEmptyData(): Data {
   return {
     songs: [],
@@ -49,24 +84,23 @@ export function preprocessData(
   for (const song of data.songs) {
     lastSongNo += 1;
     song.songNo = lastSongNo;
-    song.imageUrl = resolveUrl(song.imageName, `${dataSourceUrl}/img/cover/`);
-    song.imageUrlM = resolveUrl(
-      song.imageName,
-      `${dataSourceUrl}/img/cover-m/`,
-    );
+    song.imageUrl = resolveImageUrl(song.imageName, dataSourceUrl, "cover");
+    song.imageUrlM = resolveImageUrl(song.imageName, dataSourceUrl, "cover-m");
 
     for (const sheet of song.sheets) {
       Object.setPrototypeOf(sheet, song);
 
       sheet[$canonicalSheet] = sheet;
 
-      sheet.imageUrl = resolveUrl(
+      sheet.imageUrl = resolveImageUrl(
         sheet.imageName,
-        `${dataSourceUrl}/img/cover/`,
+        dataSourceUrl,
+        "cover",
       );
-      sheet.imageUrlM = resolveUrl(
+      sheet.imageUrlM = resolveImageUrl(
         sheet.imageName,
-        `${dataSourceUrl}/img/cover-m/`,
+        dataSourceUrl,
+        "cover-m",
       );
 
       sheet.sheetExpr = computeSheetExpr(sheet);

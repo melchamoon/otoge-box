@@ -12,6 +12,7 @@ import {
 
 const RELEASE_ID_PATTERN = /^[a-z0-9][a-z0-9-]{7,63}$/;
 const DATA_FILE = "data.json";
+const AGGREGATE_ASSET_PREFIX = "__release__/";
 
 export type ReleaseFile = {
   path: string;
@@ -89,7 +90,12 @@ function assertAssetExists(directory: string, relativePath: string) {
 function validateAssets(directory: string, data: RawData, gameCode: string) {
   for (const song of data.songs) {
     if (song.imageName && !isExternalAsset(song.imageName)) {
-      if (gameCode === "any" && song.imageName.includes("..")) continue;
+      if (
+        gameCode === "any" &&
+        (song.imageName.includes("..") ||
+          song.imageName.startsWith(AGGREGATE_ASSET_PREFIX))
+      )
+        continue;
       assertAssetExists(directory, path.join("img", "cover", song.imageName));
       assertAssetExists(directory, path.join("img", "cover-m", song.imageName));
     }
