@@ -36,10 +36,7 @@ export default async function run(
   for (const [, song] of songs.entries()) {
     const imageNameM =
       song.imageName != null ? getCoverImageMName(song.imageName) : undefined;
-    if (
-      imageNameM &&
-      !fs.existsSync(`${coverImgWebpDir}/${imageNameM}`)
-    ) {
+    if (imageNameM && !fs.existsSync(`${coverImgWebpDir}/${imageNameM}`)) {
       // logger.info(`(${1 + index} / ${songs.length}) ${song.title}`);
       childProcess.execFileSync(cwebpBinPath, [
         `${coverImgDir}/${song.imageName}`,

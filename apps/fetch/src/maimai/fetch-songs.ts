@@ -161,9 +161,7 @@ export default async function run() {
 
   await sequelize.transaction(async (transaction) => {
     logger.info("Updating songs ...");
-    await Promise.all(
-      songs.map((song) => Song.upsert(song, { transaction })),
-    );
+    await Promise.all(songs.map((song) => Song.upsert(song, { transaction })));
 
     await replaceTable(
       SongOrder,

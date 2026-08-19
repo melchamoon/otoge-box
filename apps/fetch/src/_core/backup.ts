@@ -12,7 +12,10 @@ function requiredDatabaseUrl() {
 }
 
 export function createBackupId(now = new Date()) {
-  return now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
+  return now
+    .toISOString()
+    .replace(/[-:.TZ]/g, "")
+    .slice(0, 14);
 }
 
 function runCommand(command: string, args: string[]) {

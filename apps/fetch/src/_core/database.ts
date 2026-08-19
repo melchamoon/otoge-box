@@ -50,11 +50,7 @@ export function assertNonEmpty<T>(name: string, values: readonly T[]) {
 export async function replaceTable<
   T extends Model,
   A extends CreationAttributes<T> = CreationAttributes<T>,
->(
-  model: ModelStatic<T>,
-  values: readonly A[],
-  transaction?: Transaction,
-) {
+>(model: ModelStatic<T>, values: readonly A[], transaction?: Transaction) {
   assertNonEmpty(model.tableName, values);
   const sequelize = model.sequelize;
   if (!sequelize) throw new Error(`Model is not connected: ${model.tableName}`);
