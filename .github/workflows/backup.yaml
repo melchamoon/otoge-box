@@ -1,0 +1,38 @@
+name: PostgreSQL backup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 2 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-pipeline
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 22
+  PNPM_VERSION: 11.20.0
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DATABASE_SSL: "true"
+  R2_BACKUP_ENDPOINT: ${{ secrets.R2_BACKUP_ENDPOINT }}
+  R2_BACKUP_BUCKET: ${{ secrets.R2_BACKUP_BUCKET }}
+  R2_BACKUP_ACCESS_KEY_ID: ${{ secrets.R2_BACKUP_ACCESS_KEY_ID }}
+  R2_BACKUP_SECRET_ACCESS_KEY: ${{ secrets.R2_BACKUP_SECRET_ACCESS_KEY }}
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @otoge-box/fetch db:backup:all

@@ -1,0 +1,7 @@
+apps/fetch/data/**
+apps/fetch/dist/**
+apps/fetch/gsrsaovsslca2018.pem
+apps/web/public/**
+node_modules/**
+.next/**
+coverage/**

@@ -1,0 +1,16 @@
+{
+  "sourceRepository": "https://github.com/zetaraku/arcade-songs-fetch",
+  "sourceCommit": "9464e269a1d9f3660623087758194e83d9683461",
+  "targetPath": "apps/fetch",
+  "sourcePathSpec": ".env.example LICENSE README.md data db dist gsrsaovsslca2018.pem package.json src tsconfig.json",
+  "sourceTrackedFileCount": 320,
+  "importedTrackedFileCount": 316,
+  "excludedTrackedPaths": [
+    ".eslintrc.js",
+    ".gitignore",
+    ".vscode/tasks.json",
+    "package-lock.json"
+  ],
+  "untrackedSourcePathsIgnored": ["docs/"],
+  "notes": "data/ and dist/ are tracked snapshot inputs; runtime output is validated before publication."
+}

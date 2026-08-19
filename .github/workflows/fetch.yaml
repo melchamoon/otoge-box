@@ -1,0 +1,107 @@
+name: Fetch and publish data
+
+on:
+  workflow_dispatch:
+    inputs:
+      allow_large_decrease:
+        description: Allow a manually approved large song-count decrease
+        required: true
+        default: false
+        type: boolean
+  schedule:
+    - cron: "17 18 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-pipeline
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 22
+  PNPM_VERSION: 11.20.0
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DATABASE_SSL: "true"
+
+jobs:
+  prepare:
+    name: Prepare PostgreSQL schemas and migrations
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.games.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - id: games
+        run: node -e 'const fs=require("node:fs"); const games=JSON.parse(fs.readFileSync("apps/fetch/config/games.json","utf8")); fs.appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({game:games.map(({code})=>({code}))})}\n`);'
+      - run: pnpm --filter @otoge-box/fetch db:prepare
+
+  game:
+    name: Fetch ${{ matrix.game.code }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    env:
+      ALLOW_LARGE_DECREASE: ${{ inputs.allow_large_decrease == true && 'true' || 'false' }}
+      R2_DATA_ENDPOINT: ${{ secrets.R2_DATA_ENDPOINT }}
+      R2_DATA_BUCKET: ${{ secrets.R2_DATA_BUCKET }}
+      R2_DATA_ACCESS_KEY_ID: ${{ secrets.R2_DATA_ACCESS_KEY_ID }}
+      R2_DATA_SECRET_ACCESS_KEY: ${{ secrets.R2_DATA_SECRET_ACCESS_KEY }}
+      MAIMAI_JP_SEGA_ID: ${{ secrets.MAIMAI_JP_SEGA_ID }}
+      MAIMAI_JP_SEGA_PASSWORD: ${{ secrets.MAIMAI_JP_SEGA_PASSWORD }}
+      DIVA_JP_SEGA_ID: ${{ secrets.DIVA_JP_SEGA_ID }}
+      DIVA_JP_SEGA_PASSWORD: ${{ secrets.DIVA_JP_SEGA_PASSWORD }}
+      POPN_JP_KONAMI_SESSION_TOKEN: ${{ secrets.POPN_JP_KONAMI_SESSION_TOKEN }}
+      NOSTALGIA_JP_KONAMI_SESSION_TOKEN: ${{ secrets.NOSTALGIA_JP_KONAMI_SESSION_TOKEN }}
+      DDR_JP_KONAMI_SESSION_TOKEN: ${{ secrets.DDR_JP_KONAMI_SESSION_TOKEN }}
+      GITADORA_JP_KONAMI_SESSION_TOKEN: ${{ secrets.GITADORA_JP_KONAMI_SESSION_TOKEN }}
+      MAIMAI_INTL_SEGA_ID: ${{ secrets.MAIMAI_INTL_SEGA_ID }}
+      MAIMAI_INTL_SEGA_PASSWORD: ${{ secrets.MAIMAI_INTL_SEGA_PASSWORD }}
+      CHUNITHM_INTL_SEGA_ID: ${{ secrets.CHUNITHM_INTL_SEGA_ID }}
+      CHUNITHM_INTL_SEGA_PASSWORD: ${{ secrets.CHUNITHM_INTL_SEGA_PASSWORD }}
+      CHUNITHM_CHUNIREC_ACCESS_TOKEN: ${{ secrets.CHUNITHM_CHUNIREC_ACCESS_TOKEN }}
+      ONGEKI_SCORE_USER_AGENT: ${{ secrets.ONGEKI_SCORE_USER_AGENT }}
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      USER_AGENT: ${{ secrets.USER_AGENT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @otoge-box/fetch run:game -- ${{ matrix.game.code }}
+
+  aggregate:
+    name: Build aggregate data
+    needs: [prepare, game]
+    runs-on: ubuntu-latest
+    env:
+      R2_DATA_ENDPOINT: ${{ secrets.R2_DATA_ENDPOINT }}
+      R2_DATA_BUCKET: ${{ secrets.R2_DATA_BUCKET }}
+      R2_DATA_ACCESS_KEY_ID: ${{ secrets.R2_DATA_ACCESS_KEY_ID }}
+      R2_DATA_SECRET_ACCESS_KEY: ${{ secrets.R2_DATA_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @otoge-box/fetch aggregate

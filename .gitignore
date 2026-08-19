@@ -104,3 +104,16 @@ tmp/
 # Local development data (see README)
 /public/local-data
 /public/local-data/
+
+# Monorepo app-local generated assets and the imported fetch snapshot.
+/apps/web/public/sw.js
+/apps/web/public/sw.js.map
+/apps/web/public/swe-worker-*.js
+/apps/web/public/swe-worker-*.js.map
+/apps/web/public/local-data
+/apps/web/public/local-data/
+!apps/fetch/
+!apps/fetch/data/
+!apps/fetch/data/**
+!apps/fetch/dist/
+!apps/fetch/dist/**

@@ -1,8 +1,22 @@
+packages:
+  - apps/*
+
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - "@swc/core"
+  - cwebp-bin
+  - esbuild
+  - puppeteer
+  - unrs-resolver
+
 allowBuilds:
   "@parcel/watcher": true
   "@swc/core": true
+  cwebp-bin: true
   esbuild: true
+  puppeteer: true
   unrs-resolver: true
+
 minimumReleaseAgeExclude:
   - jscpd-darwin-arm64@5.0.16
   - jscpd-darwin-x64@5.0.16

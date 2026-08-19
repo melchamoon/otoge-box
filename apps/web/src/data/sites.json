@@ -1,0 +1,55 @@
+[
+  { "gameCode": "maimai", "gameTitle": "maimai", "themeColor": "#1976d2" },
+  { "gameCode": "chunithm", "gameTitle": "CHUNITHM", "themeColor": "#f3a607" },
+  { "gameCode": "sdvx", "gameTitle": "SOUND VOLTEX", "themeColor": "#404040" },
+  { "gameCode": "jubeat", "gameTitle": "jubeat", "themeColor": "#134c43" },
+  { "gameCode": "wacca", "gameTitle": "WACCA", "themeColor": "#e50065" },
+  { "gameCode": "taiko", "gameTitle": "太鼓の達人", "themeColor": "#f50000" },
+  { "gameCode": "ongeki", "gameTitle": "オンゲキ", "themeColor": "#32b9cc" },
+  {
+    "gameCode": "polarischord",
+    "gameTitle": "ポラリスコード",
+    "themeColor": "#695ca7"
+  },
+  {
+    "gameCode": "ddr",
+    "gameTitle": "DanceDanceRevolution",
+    "themeColor": "#2484c5"
+  },
+  {
+    "gameCode": "drs",
+    "gameTitle": "DANCERUSH STARDOM",
+    "themeColor": "#06a6fb"
+  },
+  { "gameCode": "gitadora", "gameTitle": "GITADORA", "themeColor": "#21008d" },
+  { "gameCode": "gc", "gameTitle": "GROOVE COASTER", "themeColor": "#22125b" },
+  {
+    "gameCode": "popn",
+    "gameTitle": "pop'n music",
+    "themeColor": "#00009d",
+    "coverImageSize": { "width": 244, "height": 58 }
+  },
+  {
+    "gameCode": "nostalgia",
+    "gameTitle": "ノスタルジア",
+    "themeColor": "#633300"
+  },
+  {
+    "gameCode": "diva",
+    "gameTitle": "Project DIVA Arcade",
+    "themeColor": "#6d8c8d"
+  },
+  { "gameCode": "rb", "gameTitle": "REFLEC BEAT", "themeColor": "#52369d" },
+  { "gameCode": "museca", "gameTitle": "MÚSECA", "themeColor": "#b60033" },
+  {
+    "gameCode": "crossbeats",
+    "gameTitle": "crossbeats REV.",
+    "themeColor": "#d0c334"
+  },
+  {
+    "isHidden": true,
+    "gameCode": "any",
+    "gameTitle": "🌈",
+    "themeColor": "#000000"
+  }
+]

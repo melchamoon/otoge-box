@@ -1,0 +1,632 @@
+- title: ニジイロVer. 段位道場2025 本編
+  id: nijiiro-dan-2025
+  sections:
+    - title: 【五級】
+      description: "魂：92%以上/95%以上\n叩：642以上/664以上"
+      sheets:
+        - はいよろこんで|std|normal
+        - シカ色デイズ|std|normal
+        - ライラック|std|normal
+    - title: 【四級】
+      description: "魂：94%以上/97%以上\n叩：827以上/854以上\n不可：82未満/41未満"
+      sheets:
+        - Help me, ERINNNNNN!!|std|normal
+        - ココドコ？多分ドッカ島！|std|normal
+        - Bling-Bang-Bang-Born|std|normal
+    - title: 【三級】
+      description: "魂：96%以上/99%以上\n叩：909以上/938以上\n不可：75未満/37未満"
+      sheets:
+        - 最高到達点|std|hard
+        - 空想打破|std|hard
+        - ファタール|std|hard
+    - title: 【二級】
+      description: "魂：97%以上/100%以上\n叩：1409以上/1454以上\n不可：82未満/41未満"
+      sheets:
+        - 強風オールバック(feat.歌愛ユキ)|std|hard
+        - なんどでも笑おう|std|hard
+        - who are you? who are you?|std|hard
+    - title: 【一級】
+      description: "魂：98%以上/100%以上\n叩：1257以上/1296以上\n不可：48未満/24未満"
+      sheets:
+        - 唱|std|hard
+        - 輝きを求めて|std|hard
+        - 轟け！太鼓の達人|std|hard
+    - title: 【初段】
+      description: "魂：98%以上/100%以上\n良：825以上/874以上\n不可：37未満/18未満\n連打：169以上/188以上"
+      sheets:
+        - ハロー！どんちゃん|std|oni
+        - さよならワーリャ|std|hard
+        - 願いはエスペラント|std|oni
+    - title: 【二段】
+      description: "魂：98%以上/100%以上\n良：1132以上/1192以上\n不可：39未満/19未満\n連打：155以上/174以上"
+      sheets:
+        - 蝶戀|std|oni
+        - うちゅうひこうし冒険譚|std|hard
+        - アイドル狂戦士(feat.佐藤貴文)|std|oni
+    - title: 【三段】
+      description: "魂：99%以上/100%以上\n良：1252以上/1312以上\n不可：33未満/16未満\n連打：225以上/252以上"
+      sheets:
+        - 恋の処方箋|std|oni
+        - オフ♨ロック|std|oni
+        - Connected World|std|oni
+    - title: 【四段】
+      description: "魂：99%以上/100%以上\n良：1487以上/1550以上\n不可：30未満/15未満\n連打：376以上/419以上"
+      sheets:
+        - シューガク トラベラーズ|std|oni
+        - トータル・エクリプス 2035|std|oni
+        - 転生〈TENSEI〉-喜与志が待つ強者-|std|oni
+    - title: 【五段】
+      description: "魂：99%以上/100%以上\n良：1482以上/1537以上\n不可：23未満/11未満\n連打：369以上/413以上"
+      sheets:
+        - 大多羅捌伍伍壱|std|oni
+        - ネテモネテモ|std|oni
+        - 螺旋周回軌道|std|oni
+    - title: 【六段】
+      description: "魂：100%以上/100%以上\n可：295未満/246未満\n不可：17未満/8未満"
+      sheets:
+        - 花漾|ura|ura_oni
+        - 共奏鼓祭|std|oni
+        - SORA‐Ⅵ 火ノ鳥|std|oni
+      sheetDescriptions:
+        - 連打：58以上/68以上
+        - 連打：105以上/125以上
+        - 連打：122以上/147以上
+    - title: 【七段】
+      description: "魂：100%以上/100%以上\n可：283未満/230未満\n不可：16未満/8未満"
+      sheets:
+        - 指先からはじまる物語|std|oni
+        - ヘ調の協奏曲 第3楽章|std|oni
+        - The Carnivorous Carnival|std|oni
+      sheetDescriptions:
+        - 連打：124以上/147以上
+        - 連打：153以上/173以上
+        - 連打：90以上/108以上
+    - title: 【八段】
+      description: "魂：100%以上/100%以上\n可：210未満/164未満\n不可：12未満/6未満"
+      sheets:
+        - My Muscle Heart|std|oni
+        - Crystal Hail|std|oni
+        - 仮想現実のテレスコープ|std|oni
+      sheetDescriptions:
+        - 連打：119以上/138以上
+        - 連打：134以上/146以上
+        - 連打：257以上/272以上
+    - title: 【九段】
+      description: "魂：100%以上/100%以上\n可：107未満/68未満\n不可：7未満/4未満"
+      sheets:
+        - GO GET’EM！|ura|ura_oni
+        - RIDGE RACER STEPS ‐ GMT remix ‐|std|oni
+        - よーいドン！|std|oni
+      sheetDescriptions:
+        - 連打：0以上/0以上
+        - 連打：77以上/89以上
+        - 連打：24以上/28以上
+    - title: 【十段】
+      description: "魂：100%以上/100%以上\n不可：7未満/4未満"
+      sheets:
+        - 天狗囃子|std|oni
+        - Spectral Rider|std|oni
+        - SoulStone -闇喰イサァカス団-|std|oni
+      sheetDescriptions:
+        - "可：20未満/15未満\n連打：26以上/31以上"
+        - "可：25未満/20未満\n連打：213以上/247以上"
+        - "可：30未満/23未満\n連打：23以上/27以上"
+    - title: 【玄人】
+      description: "魂：100%以上/100%以上\n可：50未満/35未満\n不可：6未満/3未満"
+      sheets:
+        - Doppelgängers|ura|ura_oni
+        - ex寅 Trap!!|std|oni
+        - 案山子姫 -Princess Scarecrow-|ura|ura_oni
+      sheetDescriptions:
+        - 連打：44以上/48以上
+        - 連打：29以上/38以上
+        - 連打：35以上/43以上
+    - title: 【名人】
+      description: "魂：100%以上/100%以上\n可：30未満/19未満\n不可：5未満/3未満"
+      sheets:
+        - 電脳幻夜の星言詠|std|oni
+        - 弧|std|oni
+        - ピッチフェイダ|ura|ura_oni
+      sheetDescriptions:
+        - 連打：21以上/25以上
+        - 連打：10以上/11以上
+        - 連打：107以上/113以上
+    - title: 【超人】
+      description: "魂：100%以上/100%以上\n可：15未満/6未満\n不可：4未満/2未満"
+      sheets:
+        - LECIEL GLISSANDO|std|oni
+        - プチポチ|std|oni
+        - Lightning Boys|ura|ura_oni
+      sheetDescriptions:
+        - 連打：86以上/106以上
+        - 連打：41以上/49以上
+        - 連打：134以上/146以上
+    - title: 【達人】
+      description: "魂：100%以上/100%以上\n可：8未満/1未満\n不可：3未満/1未満"
+      sheets:
+        - POLARiSNAUT|std|oni
+        - Emma|ura|ura_oni
+        - vs.VIGVANGS|ura|ura_oni
+      sheetDescriptions:
+        - 連打：79以上/99以上
+        - 連打：161以上/187以上
+        - 連打：82以上/99以上
+- title: ニジイロVer. 段位道場2024 本編
+  id: nijiiro-dan-2024
+  sections:
+    - title: 【五級】
+      description: "魂：92%以上/95%以上\n叩：724以上/748以上"
+      sheets:
+        - 強風オールバック(feat.歌愛ユキ)|std|normal
+        - アイドル|std|normal
+        - 絆ノ奇跡|std|hard
+    - title: 【四級】
+      description: "魂：94%以上/97%以上\n叩：1122以上/1159以上\n不可：112未満/56未満"
+      sheets:
+        - ラビットホール|std|normal
+        - トッカータとフーガとロック|std|normal
+        - 私は最強|std|hard
+    - title: 【三級】
+      description: "魂：96%以上/99%以上\n叩：1247以上/1287以上\n不可：96未満/48未満"
+      sheets:
+        - 1・2・さんしのでドンドカッカッ！|std|hard
+        - ちゅ、多様性。|std|hard
+        - オドループ|std|hard
+    - title: 【二級】
+      description: "魂：97%以上/100%以上\n叩：1512以上/1560以上\n不可：91未満/45未満"
+      sheets:
+        - コットンキャンディえいえいおー！|std|hard
+        - 酔いどれ知らず|std|hard
+        - 六本の薔薇と采の歌|std|oni
+    - title: 【一級】
+      description: "魂：98%以上/100%以上\n叩：1589以上/1639以上\n不可：59未満/29未満"
+      sheets:
+        - RHYTHM CONNECT|std|hard
+        - 乙女解剖|std|oni
+        - パステル ドリーム|std|hard
+    - title: 【初段】
+      description: "魂：98%以上/100%以上\n良：866以上/917以上\n不可：28未満/14未満\n連打：293以上/327以上"
+      sheets:
+        - 虹色・夢色・太鼓色|std|oni
+        - タイムトラベラー|std|oni
+        - フリフリ♪ノリノリ♪|std|oni
+    - title: 【二段】
+      description: "魂：98%以上/100%以上\n良：965以上/1017以上\n不可：26未満/13未満\n連打：210以上/235以上"
+      sheets:
+        - ツバサグラビティ|std|oni
+        - 未来への鍵|std|oni
+        - 駄々っ子モンスター|std|oni
+    - title: 【三段】
+      description: "魂：99%以上/100%以上\n良：1086以上/1138以上\n不可：24未満/12未満\n連打：344以上/386以上"
+      sheets:
+        - Aloft in the wind|std|oni
+        - サタデー太鼓フィーバー|std|oni
+        - 駆け抜けてゆく|std|oni
+    - title: 【四段】
+      description: "魂：99%以上/100%以上\n良：1484以上/1548以上\n不可：28未満/14未満\n連打：143以上/161以上"
+      sheets:
+        - コナモノ☆|std|oni
+        - 曙光|ura|ura_oni
+        - ドドンガド～ン|std|oni
+    - title: 【五段】
+      description: "魂：99%以上/100%以上\n良：1708以上/1771以上\n不可：26未満/13未満\n連打：117以上/132以上"
+      sheets:
+        - 美しく忙しきドナウ|std|oni
+        - ドン・エンガスの笛吹き|std|oni
+        - 電子ドラムの達人|std|oni
+    - title: 【六段】
+      description: "魂：100%以上/100%以上\n良：1613以上/1664以上\n不可：18未満/9未満"
+      sheets:
+        - 白鳥の湖|std|oni
+        - ラブユー☆どんちゃん|ura|ura_oni
+        - Shining Lights (feat. PSYQUI)|std|oni
+      sheetDescriptions:
+        - 連打：21以上/25以上
+        - 連打：62以上/74以上
+        - 連打：158以上/185以上
+    - title: 【七段】
+      description: "魂：100%以上/100%以上\n良：1720以上/1765以上\n不可：15未満/8未満"
+      sheets:
+        - はやさいたま2000|std|oni
+        - 令・和太鼓|std|oni
+        - Solitude Star|std|oni
+      sheetDescriptions:
+        - 連打：81以上/88以上
+        - 連打：90以上/105以上
+        - 連打：257以上/293以上
+    - title: 【八段】
+      description: "魂：100%以上/100%以上\n良：2051以上/2094以上\n不可：13未満/7未満"
+      sheets:
+        - ガンスリンガーシンデレラ|std|oni
+        - 亜空間遊泳ac12.5|std|oni
+        - 幻想のサテライト|std|oni
+      sheetDescriptions:
+        - 連打：149以上/174以上
+        - 連打：68以上/72以上
+        - 連打：150以上/180以上
+    - title: 【九段】
+      description: "魂：100%以上/100%以上\n良：2067以上/2099以上\n不可：8未満/4未満"
+      sheets:
+        - Princess of Donder|std|oni
+        - Agent Hustle & Dr. Hassle|ura|ura_oni
+        - 零の交響曲|ura|ura_oni
+      sheetDescriptions:
+        - 連打：45以上/52以上
+        - 連打：32以上/35以上
+        - 連打：200以上/240以上
+    - title: 【十段】
+      description: "魂：100%以上/100%以上\n可：75未満/50未満\n不可：8未満/4未満"
+      sheets:
+        - ノるどん2000|std|oni
+        - パラレルロリポップ|std|oni
+        - GIGALODOON|ura|ura_oni
+      sheetDescriptions:
+        - 連打：174以上/208以上
+        - 連打：64以上/69以上
+        - 連打：56以上/62以上
+    - title: 【玄人】
+      description: "魂：100%以上/100%以上\n可：50未満/30未満\n不可：6未満/3未満"
+      sheets:
+        - 月読命|std|oni
+        - カラ鞠の花|std|oni
+        - for Q|ura|ura_oni
+      sheetDescriptions:
+        - 連打：50以上/60以上
+        - 連打：68以上/74以上
+        - 連打：11以上/12以上
+    - title: 【名人】
+      description: "魂：100%以上/100%以上\n可：30未満/15未満\n不可：5未満/2未満"
+      sheets:
+        - 郢曲／暁闇|std|oni
+        - メカデス。|ura|ura_oni
+        - Irregular Clock|ura|ura_oni
+      sheetDescriptions:
+        - 連打：39以上/48以上
+        - 連打：78以上/96以上
+        - 連打：81以上/95以上
+    - title: 【超人】
+      description: "魂：100%以上/100%以上\n可：15未満/6未満\n不可：4未満/2未満"
+      sheets:
+        - Don’t Stop the Game|std|oni
+        - 其方、激昂|std|oni
+        - オペレート・ミー|ura|ura_oni
+      sheetDescriptions:
+        - 連打：69以上/80以上
+        - 連打：123以上/133以上
+        - 連打：95以上/104以上
+    - title: 【達人】
+      description: "魂：100%以上/100%以上\n可：8未満/1未満\n不可：3未満/1未満"
+      sheets:
+        - Challengers|std|oni
+        - The Future of the 太鼓ドラム|ura|ura_oni
+        - 第六天魔王|ura|ura_oni
+      sheetDescriptions:
+        - 連打：125以上/157以上
+        - 連打：113以上/133以上
+        - 連打：140以上/148以上
+- title: ニジイロVer. 段位道場2023 本編
+  id: nijiiro-dan-2023
+  sections:
+    - title: 【五級】
+      description: "魂：92%以上/95%以上\n叩：852以上/902以上"
+      sheets:
+        - 新時代|std|normal
+        - チューリングラブ feat.Sou / ナナヲアカリ|std|normal
+        - カルメン 組曲一番終曲|std|normal
+    - title: 【四級】
+      description: "魂：94%以上/97%以上\n叩：1043以上/1101以上\n不可：51未満/26未満"
+      sheets:
+        - アスノヨゾラ哨戒班|std|normal
+        - ミックスナッツ|std|hard
+        - Dragon Night|std|hard
+    - title: 【三級】
+      description: "魂：95%以上/99%以上\n叩：1276以上/1330以上\n不可：54未満/28未満"
+      sheets:
+        - 名探偵コナン メイン・テーマ|std|hard
+        - スカーレット警察のゲットーパトロール24時|std|hard
+        - まいにちがドンダフル|std|hard
+    - title: 【二級】
+      description: "魂：96%以上/100%以上\n叩：1300以上/1341以上\n不可：58未満/29未満"
+      sheets:
+        - 残酷な天使のテーゼ|std|hard
+        - グッバイ宣言|std|hard
+        - スキに理由はいらないじゃん！|std|hard
+    - title: 【一級】
+      description: "魂：97%以上/100%以上\n叩：1316以上/1357以上\n不可：36未満/18未満"
+      sheets:
+        - 星屑ストラック|std|hard
+        - ウィーアー！|std|oni
+        - 天体観測|std|oni
+    - title: 【初段】
+      description: "魂：98%以上/100%以上\n良：933以上/991以上\n不可：31未満/15未満\n連打：218以上/245以上"
+      sheets:
+        - シャイニングスター|std|oni
+        - 魔法をかけて！|std|oni
+        - Re：End of a Dream|std|oni
+    - title: 【二段】
+      description: "魂：98%以上/100%以上\n良：1073以上/1133以上\n不可：30未満/15未満\n連打：230以上/258以上"
+      sheets:
+        - Highschool love！|std|oni
+        - 黒神クロニクル|std|oni
+        - 忍者は最高|std|oni
+    - title: 【三段】
+      description: "魂：99%以上/100%以上\n良：1238以上/1301以上\n不可：29未満/14未満\n連打：246以上/275以上"
+      sheets:
+        - RESTART|std|oni
+        - via lactea|std|oni
+        - ほうかご☆マジシャン|std|oni
+    - title: 【四段】
+      description: "魂：99%以上/100%以上\n良：1530以上/1599以上\n不可：29未満/14未満\n連打：261以上/292以上"
+      sheets:
+        - 「ルスランとリュドミラ」序曲|std|oni
+        - 戦え！ T3防衛隊 ～GDI mix～|std|oni
+        - 大好きな太鼓の音|std|oni
+    - title: 【五段】
+      description: "魂：99%以上/100%以上\n良：1556以上/1617以上\n不可：30未満/15未満\n連打：92以上/103以上"
+      sheets:
+        - 恋はドント・ダウト|std|oni
+        - Amanda|std|oni
+        - Brain Power|std|oni
+    - title: 【六段】
+      description: "魂：100%以上/100%以上\n良：1642以上/1698以上\n不可：19未満/9未満"
+      sheets:
+        - てんびん座急行 夜を行く|std|oni
+        - Donder Time|std|oni
+        - Hyper Bass (feat. Yunomi)|std|oni
+      sheetDescriptions:
+        - 連打：14以上/15以上
+        - 連打：71以上/78以上
+        - 連打：11以上/12以上
+    - title: 【七段】
+      description: "魂：100%以上/100%以上\n良：2141以上/2203以上\n不可：17未満/8未満"
+      sheets:
+        - チェインクロニクル 通常バトルメドレー|ura|ura_oni
+        - サンバ アレグリーア|ura|ura_oni
+        - Wasabi Body Blow|std|oni
+      sheetDescriptions:
+        - 連打：62以上/67以上
+        - 連打：44以上/47以上
+        - 連打：0以上/0以上
+    - title: 【八段】
+      description: "魂：100%以上/100%以上\n良：2097以上/2146以上\n不可：12未満/6未満"
+      sheets:
+        - いっそこのままで|std|oni
+        - しょうゆ de Show you!|std|oni
+        - 練習曲Op.10-4|std|oni
+      sheetDescriptions:
+        - 連打：21以上/23以上
+        - 連打：12以上/23以上
+        - 連打：14以上/15以上
+    - title: 【九段】
+      description: "魂：100%以上/100%以上\n良：1963以上/1998以上\n不可：10未満/5未満"
+      sheets:
+        - IN THE ZONE|std|oni
+        - マジカル・パフェ|std|oni
+        - 須佐之男|std|oni
+      sheetDescriptions:
+        - 連打：44以上/48以上
+        - 連打：17以上/18以上
+        - 連打：6以上/7以上
+    - title: 【十段】
+      description: "魂：100%以上/100%以上\n不可：7未満/3未満"
+      sheets:
+        - Amber Light|std|oni
+        - またさいたま2000|std|oni
+        - Re：End of a Dream|ura|ura_oni
+      sheetDescriptions:
+        - "可：20未満/10未満\n連打：59以上/63以上"
+        - "可：30未満/15未満\n連打：132以上/141以上"
+        - "可：30未満/15未満\n連打：17以上/20以上"
+    - title: 【玄人】
+      description: "魂：100%以上/100%以上\n可：50未満/23未満\n不可：6未満/3未満"
+      sheets:
+        - 超絶技巧系少女|std|oni
+        - wonderful ROUTINE|std|oni
+        - GORI × GORI × SafaRI|ura|ura_oni
+      sheetDescriptions:
+        - 連打：104以上/127以上
+        - 連打：9以上/11以上
+        - 連打：41以上/44以上
+    - title: 【名人】
+      description: "魂：100%以上/100%以上\n可：30未満/15未満\n不可：5未満/2未満"
+      sheets:
+        - クラポルポルスカ|std|oni
+        - D絶対！SAMURAIインザレイン|ura|ura_oni
+        - Nosferatu|ura|ura_oni
+      sheetDescriptions:
+        - 連打：137以上/160以上
+        - 連打：67以上/82以上
+        - 連打：70以上/84以上
+    - title: 【超人】
+      description: "魂：100%以上/100%以上\n可：15未満/6未満\n不可：4未満/2未満"
+      sheets:
+        - メタナイトの逆襲メドレー|ura|ura_oni
+        - 幕末維新譚|std|oni
+        - CUT! into the FUTURE|ura|ura_oni
+      sheetDescriptions:
+        - 連打：183以上/205以上
+        - 連打：208以上/234以上
+        - 連打：93以上/115以上
+    - title: 【達人】
+      description: "魂：100%以上/100%以上\n可：8未満/1未満\n不可：3未満/1未満"
+      sheets:
+        - わら得る2000|std|oni
+        - 疾風怒濤|ura|ura_oni
+        - 23時54分、陽の旅路へのプレリュード|ura|ura_oni
+      sheetDescriptions:
+        - 連打：220以上/272以上
+        - 連打：151以上/192以上
+        - 連打：136以上/146以上
+- title: ニジイロVer. 段位道場2022 本編
+  id: nijiiro-dan-2022
+  sections:
+    - title: 【五級】
+      description: "魂：92%以上/95%以上\n叩：884以上/936以上"
+      sheets:
+        - 月に叢雲華に風|std|normal
+        - MEGALOVANIA|std|normal
+        - テルミービート|std|normal
+    - title: 【四級】
+      description: "魂：94%以上/97%以上\n叩：1171以上/1235以上\n不可：92未満/78未満"
+      sheets:
+        - ロキ|std|hard
+        - 乙女解剖|std|hard
+        - カゲロウデイズ|std|hard
+    - title: 【三級】
+      description: "魂：95%以上/99%以上\n叩：1521以上/1586以上\n不可：70未満/47未満"
+      sheets:
+        - 女々しくて|std|hard
+        - マツヨイナイトバグ|std|hard
+        - GO ON ～未来へ～|std|hard
+    - title: 【二級】
+      description: "魂：96%以上/100%以上\n叩：1287以上/1328以上\n不可：47未満/23未満"
+      sheets:
+        - カルメン 組曲一番終曲|std|hard
+        - やわらか戦車|std|hard
+        - ヒバナ|std|hard
+    - title: 【一級】
+      description: "魂：96%以上/100%以上\n叩：1365以上/1408以上\n不可：37未満/31未満"
+      sheets:
+        - TOKIMEKI♡ですとろいやー！！|std|hard
+        - 愛にできることはまだあるかい|std|oni
+        - キミと響くハーモニー|std|oni
+    - title: 【初段】
+      description: "魂：97%以上/100%以上\n良：934以上/980以上\n不可：30未満/15未満"
+      sheets:
+        - RPG|std|oni
+        - 季曲|std|oni
+        - Kill My Fortune|std|oni
+      sheetDescriptions:
+        - 連打：58以上/65以上
+        - 連打：75以上/84以上
+        - 連打：29以上/33以上
+    - title: 【二段】
+      description: "魂：98%以上/100%以上\n良：976以上/1021以上\n不可：26未満/14未満"
+      sheets:
+        - うさぎのしっぽ|std|oni
+        - ねぇ教えて|std|oni
+        - 平等院鳳凰ドン vs 鳥獣戯カッ|std|oni
+      sheetDescriptions:
+        - 連打：63以上/71以上
+        - 連打：80以上/90以上
+        - 連打：139以上/157以上
+    - title: 【三段】
+      description: "魂：99%以上/100%以上\n良：1254以上/1308以上\n不可：28未満/14未満"
+      sheets:
+        - PONPOKO RHYTHM|std|oni
+        - RAGE v.self|std|oni
+        - テイルズ オブ ジ アビス|std|oni
+      sheetDescriptions:
+        - 連打：29以上/33以上
+        - 連打：26以上/30以上
+        - 連打：132以上/148以上
+    - title: 【四段】
+      description: "魂：99%以上/100%以上\n良：1371以上/1427以上\n不可：25未満/12未満"
+      sheets:
+        - ねがいごと☆ぱずる|std|oni
+        - 月影SASURAI|std|oni
+        - ファミレスウォーズ|std|oni
+      sheetDescriptions:
+        - 連打：0以上/0以上
+        - 連打：11以上/13以上
+        - 連打：106以上/119以上
+    - title: 【五段】
+      description: "魂：99%以上/100%以上\n良：1276以上/1325以上\n不可：19未満/9未満"
+      sheets:
+        - タベテモタベテモ|std|oni
+        - Mani Mani(Prod. TAKU INOUE)|std|oni
+        - 化物月夜|std|oni
+      sheetDescriptions:
+        - 連打：126以上/141以上
+        - 連打：199以上/222以上
+        - 連打：28以上/32以上
+    - title: 【六段】
+      description: "魂：100%以上/100%以上\n良：1745以上/1809以上\n不可：21未満/10未満"
+      sheets:
+        - イイコ進化論（feat. O-LuHA）|std|oni
+        - エリンギのエクボ|std|oni
+        - めたるぽりす|ura|ura_oni
+      sheetDescriptions:
+        - 連打：154以上/165以上
+        - 連打：28以上/30以上
+        - 連打：0以上/0以上
+    - title: 【七段】
+      description: "魂：100%以上/100%以上\n良：1764以上/1826以上\n不可：16未満/8未満"
+      sheets:
+        - 愛なんだぜ|std|oni
+        - オレサマパイレーツ|std|oni
+        - Honey Heartbeat ～10 Stars Mix～|std|oni
+      sheetDescriptions:
+        - 連打：135以上/148以上
+        - 連打：68以上/74以上
+        - 連打：288以上/317以上
+    - title: 【八段】
+      description: "魂：100%以上/100%以上\n良：1892以上/1955以上\n不可：12未満/6未満"
+      sheets:
+        - FooFooカセット|std|oni
+        - Got more raves？|std|oni
+        - ゆらめ|std|oni
+      sheetDescriptions:
+        - 連打：85以上/92以上
+        - 連打：72以上/76以上
+        - 連打：115以上/123以上
+    - title: 【九段】
+      description: "魂：100%以上/100%以上\n良：2045以上/2100以上\n不可：10未満/5未満"
+      sheets:
+        - 私立高天原学園高校・校歌|std|oni
+        - DIMENSIONS|std|oni
+        - Turquoise Tachometer|std|oni
+      sheetDescriptions:
+        - 連打：107以上/114以上
+        - 連打：74以上/79以上
+        - 連打：54以上/59以上
+    - title: 【十段】
+      description: "魂：100%以上/100%以上\n不可：7未満/3未満"
+      sheets:
+        - 女帝 ～インバラトゥーラ～|std|oni
+        - Angel Halo|std|oni
+        - Aragami|std|oni
+      sheetDescriptions:
+        - "可：20未満/11未満\n連打：127以上/137以上"
+        - "可：25未満/13未満\n連打：16以上/17以上"
+        - "可：30未満/16未満\n連打：45以上/49以上"
+    - title: 【玄人】
+      description: "魂：100%以上/100%以上\n可：50未満/25未満\n不可：6未満/4未満"
+      sheets:
+        - ハンロック|std|oni
+        - Central Dogma Pt.1|std|oni
+        - SUPERNOVA|ura|ura_oni
+      sheetDescriptions:
+        - 連打：155以上/171以上
+        - 連打：54以上/62以上
+        - 連打：70以上/72以上
+    - title: 【名人】
+      description: "魂：100%以上/100%以上\n可：30未満/15未満\n不可：5未満/2未満"
+      sheets:
+        - 人のお金で焼肉を食したい！|ura|ura_oni
+        - Behemoth|std|oni
+        - そして勇者は眠りにつく|ura|ura_oni
+      sheetDescriptions:
+        - 連打：139以上/163以上
+        - 連打：58以上/69以上
+        - 連打：132以上/139以上
+    - title: 【超人】
+      description: "魂：100%以上/100%以上\n可：15未満/6未満\n不可：4未満/2未満"
+      sheets:
+        - ひよこ鑑定士さん|std|oni
+        - 赤と白薔薇の魔女|std|oni
+        - 狂瀾怒濤|ura|ura_oni
+      sheetDescriptions:
+        - 連打：86以上/96以上
+        - 連打：0以上/0以上
+        - 連打：232以上/273以上
+    - title: 【達人】
+      description: "魂：100%以上/100%以上\n可：8未満/1未満\n不可：3未満/1未満"
+      sheets:
+        - ≠MM|std|oni
+        - ダンガンノーツ|ura|ura_oni
+        - 神竜 ～Shinryu～|ura|ura_oni
+      sheetDescriptions:
+        - 連打：34以上/35以上
+        - 連打：17以上/22以上
+        - 連打：40以上/50以上
