@@ -33,15 +33,19 @@ describe("preprocessData", () => {
       "https://cdn.example/any/releases/20260819000000-any",
       "any",
     );
-    expect(remoteData.songs[0].imageUrlM).toBe(
+    expect(
+      remoteData.songs.find((song) => song.songId === "song-a")?.imageUrlM,
+    ).toBe(
       "https://cdn.example/maimai/releases/20260819000000-test/img/cover-m/alpha.png",
     );
 
     const localData = JSON.parse(JSON.stringify(fixture)) as Data;
-    localData.songs[0].imageName = remoteData.songs[0].imageName;
+    localData.songs[0].imageName = remoteData.songs.find(
+      (song) => song.songId === "song-a",
+    )?.imageName;
     preprocessData(localData, "/local-data/any", "any");
-    expect(localData.songs[0].imageUrlM).toBe(
-      "/local-data/maimai/img/cover-m/alpha.png",
-    );
+    expect(
+      localData.songs.find((song) => song.songId === "song-a")?.imageUrlM,
+    ).toBe("/local-data/maimai/img/cover-m/alpha.png");
   });
 });

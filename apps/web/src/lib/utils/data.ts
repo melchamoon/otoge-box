@@ -106,11 +106,7 @@ export function preprocessData(
 
       sheet[$canonicalSheet] = sheet;
 
-      sheet.imageUrl = resolveImageUrl(
-        sheet.imageName,
-        dataSourceUrl,
-        "cover",
-      );
+      sheet.imageUrl = resolveImageUrl(sheet.imageName, dataSourceUrl, "cover");
       sheet.imageUrlM = resolveImageUrl(
         getCoverImageMName(sheet.imageName),
         dataSourceUrl,
