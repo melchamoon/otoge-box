@@ -10,14 +10,20 @@ export function Providers({
   children,
   locale,
   messages,
+  timeZone,
 }: {
   children: React.ReactNode;
   locale: string;
   messages: AbstractIntlMessages;
+  timeZone: string;
 }) {
   const [queryClient] = useState(() => new QueryClient());
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider
+      locale={locale}
+      messages={messages}
+      timeZone={timeZone}
+    >
       <ThemeProvider
         attribute="class"
         defaultTheme="light"

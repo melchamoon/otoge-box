@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale, getMessages, getTimeZone } from "next-intl/server";
 import { AppBar } from "@/components/layout/AppBar";
 import { Footer } from "@/components/layout/Footer";
 import { NavDrawer } from "@/components/layout/NavDrawer";
@@ -58,10 +58,11 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const timeZone = await getTimeZone();
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} timeZone={timeZone}>
           <AppBar />
           <NavDrawer />
           <main className="min-h-[calc(100vh-7rem)] pt-16 pb-12">
