@@ -240,9 +240,14 @@ async function fetchSongs(
                 : undefined,
         },
       });
+      const hasCoverAssets =
+        songInfo.imageName != null &&
+        fs.existsSync(`${coverImgDir}/${songInfo.imageName}`) &&
+        fs.existsSync(`${coverImgWebpDir}/${songInfo.imageName}`);
 
       // skip if the song and "some" sheets already exist in database
-      if (existSong != null && existSheets.length > 0) continue;
+      if (existSong != null && existSheets.length > 0 && hasCoverAssets)
+        continue;
     }
 
     logger.info(
