@@ -25,7 +25,7 @@ function defineConfigs(gameCode) {
         timestamps: false,
         schema: gameCode,
       },
-      dialectOptions: ssl ? { ssl: { rejectUnauthorized: false } } : undefined,
+      dialectOptions: ssl ? { ssl: { rejectUnauthorized: true } } : undefined,
       pool: DEFAULT_POOL,
       migrationStorage: "sequelize",
       migrationStorageTableName: "SequelizeMeta",
