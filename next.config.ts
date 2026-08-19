@@ -27,6 +27,17 @@ const localDataBaseUrl = (() => {
 const nextConfig: NextConfig = {
   trailingSlash: true,
   allowedDevOrigins: ["127.0.0.1"],
+  // `public/sw.js` left over from a production build is served by `next dev`
+  // as well, so a service worker registered before keeps serving the precached
+  // production assets. Hand out the kill switch worker instead while developing.
+  async rewrites() {
+    if (process.env.NODE_ENV !== "development") return [];
+    return {
+      beforeFiles: [{ source: "/sw.js", destination: "/dev-sw-kill/" }],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   env: {
     NEXT_PUBLIC_LOCAL_DATA_BASE_URL: localDataBaseUrl ?? "",
     NEXT_PUBLIC_SITE_TITLE:
