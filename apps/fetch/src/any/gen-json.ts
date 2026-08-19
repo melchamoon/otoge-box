@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import log4js from "log4js";
 import { makeOutput } from "@/_core/utils";
+import { getCoverImageMName } from "@/_core/assets";
 
 const logger = log4js.getLogger("any/gen-json");
 logger.level = log4js.levels.INFO;
@@ -67,7 +68,7 @@ export default async function run() {
       ];
       const releasePrefix = releasePrefixes[gameCode];
       song.imageName = releasePrefix
-        ? `${RELEASE_ASSET_PREFIX}${releasePrefix}/img/cover-m/${song.imageName}`
+        ? `${RELEASE_ASSET_PREFIX}${releasePrefix}/img/cover-m/${getCoverImageMName(song.imageName)}`
         : `../../../${gameCode}/img/cover-m/${song.imageName}`;
     }
 

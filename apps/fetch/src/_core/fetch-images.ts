@@ -4,6 +4,7 @@ import childProcess from "node:child_process";
 import download from "download";
 import sleep from "sleep-promise";
 import log4js from "log4js";
+import { getCoverImageMName } from "./assets";
 
 export default async function run(
   gameCode: string,
@@ -33,15 +34,17 @@ export default async function run(
   logger.info("* Converting images into .webp format ...");
   fs.mkdirSync(coverImgWebpDir, { recursive: true });
   for (const [, song] of songs.entries()) {
+    const imageNameM =
+      song.imageName != null ? getCoverImageMName(song.imageName) : undefined;
     if (
-      song.imageName &&
-      !fs.existsSync(`${coverImgWebpDir}/${song.imageName}`)
+      imageNameM &&
+      !fs.existsSync(`${coverImgWebpDir}/${imageNameM}`)
     ) {
       // logger.info(`(${1 + index} / ${songs.length}) ${song.title}`);
       childProcess.execFileSync(cwebpBinPath, [
         `${coverImgDir}/${song.imageName}`,
         "-o",
-        `${coverImgWebpDir}/${song.imageName}`,
+        `${coverImgWebpDir}/${imageNameM}`,
         "-quiet",
       ]);
     }

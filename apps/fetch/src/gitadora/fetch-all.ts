@@ -10,6 +10,7 @@ import sleep from "sleep-promise";
 import log4js from "log4js";
 import * as cheerio from "cheerio";
 import { assertNonEmpty } from "@/_core/database";
+import { getCoverImageMName } from "@/_core/assets";
 import { hashed, ensureNoDuplicateEntry } from "@/_core/utils";
 import { Song, Sheet } from "@@/db/gitadora/models";
 import "dotenv/config";
@@ -223,6 +224,10 @@ async function fetchSongs(
   fs.mkdirSync(coverImgWebpDir, { recursive: true });
 
   for (const [index, songInfo] of songInfos.entries()) {
+    const imageNameM =
+      songInfo.imageName != null
+        ? getCoverImageMName(songInfo.imageName)
+        : undefined;
     if (!forceRefetch) {
       const existSong = await Song.findOne({
         where: {
@@ -243,7 +248,8 @@ async function fetchSongs(
       const hasCoverAssets =
         songInfo.imageName != null &&
         fs.existsSync(`${coverImgDir}/${songInfo.imageName}`) &&
-        fs.existsSync(`${coverImgWebpDir}/${songInfo.imageName}`);
+        imageNameM != null &&
+        fs.existsSync(`${coverImgWebpDir}/${imageNameM}`);
 
       // skip if the song and "some" sheets already exist in database
       if (existSong != null && existSheets.length > 0 && hasCoverAssets)
@@ -267,12 +273,13 @@ async function fetchSongs(
     }
     if (
       song.imageName &&
-      !fs.existsSync(`${coverImgWebpDir}/${song.imageName}`)
+      imageNameM &&
+      !fs.existsSync(`${coverImgWebpDir}/${imageNameM}`)
     ) {
       childProcess.execFileSync(cwebpBinPath, [
         `${coverImgDir}/${song.imageName}`,
         "-o",
-        `${coverImgWebpDir}/${song.imageName}`,
+        `${coverImgWebpDir}/${imageNameM}`,
         "-quiet",
       ]);
     }

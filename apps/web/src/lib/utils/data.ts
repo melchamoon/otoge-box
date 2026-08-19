@@ -41,6 +41,16 @@ function resolveImageUrl(
   );
 }
 
+function getCoverImageMName(filePath: string | undefined) {
+  if (
+    filePath == null ||
+    filePath === "default-cover.png" ||
+    filePath.startsWith(AGGREGATE_ASSET_PREFIX)
+  )
+    return filePath;
+  return filePath.replace(/\.[^/.]+$/, ".webp");
+}
+
 export function buildEmptyData(): Data {
   return {
     songs: [],
@@ -85,7 +95,11 @@ export function preprocessData(
     lastSongNo += 1;
     song.songNo = lastSongNo;
     song.imageUrl = resolveImageUrl(song.imageName, dataSourceUrl, "cover");
-    song.imageUrlM = resolveImageUrl(song.imageName, dataSourceUrl, "cover-m");
+    song.imageUrlM = resolveImageUrl(
+      getCoverImageMName(song.imageName),
+      dataSourceUrl,
+      "cover-m",
+    );
 
     for (const sheet of song.sheets) {
       Object.setPrototypeOf(sheet, song);
@@ -98,7 +112,7 @@ export function preprocessData(
         "cover",
       );
       sheet.imageUrlM = resolveImageUrl(
-        sheet.imageName,
+        getCoverImageMName(sheet.imageName),
         dataSourceUrl,
         "cover-m",
       );

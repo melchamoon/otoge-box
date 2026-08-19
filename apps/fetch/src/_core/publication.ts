@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { getCoverImageMName } from "./assets";
 import { rawDataSchema, type RawData } from "./utils/schemas";
 import {
   getR2ObjectBytes,
@@ -97,7 +98,10 @@ function validateAssets(directory: string, data: RawData, gameCode: string) {
       )
         continue;
       assertAssetExists(directory, path.join("img", "cover", song.imageName));
-      assertAssetExists(directory, path.join("img", "cover-m", song.imageName));
+      assertAssetExists(
+        directory,
+        path.join("img", "cover-m", getCoverImageMName(song.imageName)),
+      );
     }
   }
   for (const icon of [
