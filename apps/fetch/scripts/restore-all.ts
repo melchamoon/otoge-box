@@ -19,6 +19,8 @@ function run() {
       gameCode,
       "--clean",
       "--if-exists",
+      "--single-transaction",
+      "--exit-on-error",
       backupPath,
     ],
     { stdio: "inherit" },
