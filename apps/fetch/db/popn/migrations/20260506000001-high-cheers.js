@@ -5,7 +5,7 @@ const { QueryTypes } = require("sequelize");
  */
 
 async function up(/** @type {QueryInterface} */ queryInterface) {
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "Songs"
     SET
       "version" = CASE "version"
@@ -40,20 +40,20 @@ async function up(/** @type {QueryInterface} */ queryInterface) {
         ELSE "version"
       END
   `);
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "Songs"
     SET
       "songId" = replace("songId", '(UPPER) ', '') || '(UPPER)',
       "title" = "title" || '(UPPER)'
     WHERE "songId" LIKE '(UPPER) %'
   `);
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "Sheets"
     SET
       "songId" = replace("songId", '(UPPER) ', '') || '(UPPER)'
     WHERE "songId" LIKE '(UPPER) %'
   `);
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "JpSheets"
     SET
       "songId" = replace("songId", '(UPPER) ', '') || '(UPPER)'
@@ -72,7 +72,7 @@ async function up(/** @type {QueryInterface} */ queryInterface) {
 }
 
 async function down(/** @type {QueryInterface} */ queryInterface) {
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "Songs"
     SET
       "version" = CASE "version"
@@ -107,20 +107,20 @@ async function down(/** @type {QueryInterface} */ queryInterface) {
         ELSE "version"
       END
   `);
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "Songs"
     SET
       "songId" = '(UPPER) ' || replace("songId", '(UPPER)', ''),
       "title" = replace("title", '(UPPER)', '')
     WHERE "songId" LIKE '%(UPPER)'
   `);
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "Sheets"
     SET
       "songId" = '(UPPER) ' || replace("songId", '(UPPER)', '')
     WHERE "songId" LIKE '%(UPPER)'
   `);
-  queryInterface.sequelize.query(/* sql */ `
+  await queryInterface.sequelize.query(/* sql */ `
     UPDATE "JpSheets"
     SET
       "songId" = '(UPPER) ' || replace("songId", '(UPPER)', '')
