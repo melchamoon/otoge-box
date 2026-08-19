@@ -11,6 +11,10 @@ function requiredDatabaseUrl() {
   return value;
 }
 
+export function createBackupId(now = new Date()) {
+  return now.toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
+}
+
 function runCommand(command: string, args: string[]) {
   return new Promise<void>((resolve, reject) => {
     const child = spawn(command, args, { stdio: "inherit" });
@@ -29,10 +33,7 @@ function runCommand(command: string, args: string[]) {
 export async function backupGameSchema(
   gameCode: string,
   store: R2Store,
-  backupId = new Date()
-    .toISOString()
-    .replace(/[-:.TZ]/g, "")
-    .slice(0, 14),
+  backupId = createBackupId(),
 ) {
   const temporaryDirectory = await fs.mkdtemp(
     path.join(os.tmpdir(), "otoge-backup-"),
@@ -63,8 +64,9 @@ export async function backupGameSchema(
 
 export async function backupAll(store: R2Store) {
   const keys: string[] = [];
+  const backupId = createBackupId();
   for (const gameCode of FETCH_GAME_CODES) {
-    keys.push(await backupGameSchema(gameCode, store));
+    keys.push(await backupGameSchema(gameCode, store, backupId));
   }
   return keys;
 }
