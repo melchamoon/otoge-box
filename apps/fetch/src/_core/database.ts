@@ -50,17 +50,26 @@ export function assertNonEmpty<T>(name: string, values: readonly T[]) {
 export async function replaceTable<
   T extends Model,
   A extends CreationAttributes<T> = CreationAttributes<T>,
->(model: ModelStatic<T>, values: readonly A[]) {
+>(
+  model: ModelStatic<T>,
+  values: readonly A[],
+  transaction?: Transaction,
+) {
   assertNonEmpty(model.tableName, values);
   const sequelize = model.sequelize;
   if (!sequelize) throw new Error(`Model is not connected: ${model.tableName}`);
-  await sequelize.transaction(async (transaction) => {
+  const replace = async (currentTransaction: Transaction) => {
     await model.destroy({
       where: {},
-      transaction,
+      transaction: currentTransaction,
     });
-    await model.bulkCreate([...values], { transaction });
-  });
+    await model.bulkCreate([...values], { transaction: currentTransaction });
+  };
+  if (transaction) {
+    await replace(transaction);
+  } else {
+    await sequelize.transaction(replace);
+  }
 }
 
 export async function closeSequelize(sequelize: Sequelize) {

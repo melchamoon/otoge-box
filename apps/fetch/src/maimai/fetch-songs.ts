@@ -156,20 +156,29 @@ export default async function run() {
   const sheets = rawSongs.flatMap((rawSong) => extractSheets(rawSong));
   assertNonEmpty("maimai songs", songs);
   assertNonEmpty("maimai sheets", sheets);
+  const sequelize = Song.sequelize;
+  if (!sequelize) throw new Error("maimai models are not connected.");
 
-  logger.info("Updating songs ...");
-  await Promise.all(songs.map((song) => Song.upsert(song)));
+  await sequelize.transaction(async (transaction) => {
+    logger.info("Updating songs ...");
+    await Promise.all(
+      songs.map((song) => Song.upsert(song, { transaction })),
+    );
 
-  await replaceTable(
-    SongOrder,
-    songs.map(({ songId, sortOrder }) => ({ songId, sortOrder })),
-  );
+    await replaceTable(
+      SongOrder,
+      songs.map(({ songId, sortOrder }) => ({ songId, sortOrder })),
+      transaction,
+    );
 
-  logger.info("Updating sheets ...");
-  await Promise.all(sheets.map((sheet) => Sheet.upsert(sheet)));
+    logger.info("Updating sheets ...");
+    await Promise.all(
+      sheets.map((sheet) => Sheet.upsert(sheet, { transaction })),
+    );
 
-  logger.info("Truncating and Inserting jpSheets ...");
-  await replaceTable(JpSheet, sheets);
+    logger.info("Truncating and Inserting jpSheets ...");
+    await replaceTable(JpSheet, sheets, transaction);
+  });
 
   logger.info("Done!");
 }
